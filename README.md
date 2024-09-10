@@ -1,3 +1,3 @@
 # All-Data-Analytics-code
 
-# [Subscribe my Channel](www.youtube.com/@debatewithrishav)
+# [Subscribe my Channel](https://www.youtube.com/@debatewithrishav)
