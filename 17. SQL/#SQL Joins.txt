@@ -1,0 +1,85 @@
+SQL Joins:-
+===========
+Join (there are many types of join);
+	1. inner join
+	2. left join
+	3. right join
+	4. full join
+	--other join:--
+	   natural join
+	   cross join
+	   self join
+>Syntax of join
+>phle 2 table bana lete hai. (SBI and PNB)
+	#create table pnb(pnb_acn int,pnb_bal float,pnb_name varchar(10),pnb_adhar int);-------pnb bank table
+	#create table sbi(sbi_acn int,sbi_bal float,sbi_name varchar(10),sbi_adhar int);-------sbi bank table
+	#create table hdfc(acn int,bal float, name varchar(10),adhar int);---------------------hdfc bank table
+
+>kuch record insert kr lete hai dono bank me;
+	#select * from pnb;
+	#select * from sbi;
+
+>1.inner join ke syntax;-----2 table me kisi column ke base per jo value match ho rhi use fetch krna. 
+	# select * from pnb inner join sbi on pnb.pnb_adhar=sbi.sbi_adhar;-------------is me jo common result honge wo aa jayege like-----pnb_adhar and sbi_adhar ke base pe.
+	without * ke
+	#select pnb.pnb_adhar as adhar,pnb.pnb_name as name,pnb.pnb_bal,pnb.pnb_acn,sbi.sbi_bal,sbi.sbi_acn from pnb inner join sbi on pnb.pnb_adhar=sbi.sbi_adhar;
+
+	coustomer ke bank balance ko plus krna;
+	# select pnb.pnb_bal+sbi.sbi_bal as total_bal,pnb.pnb_adhar from pnb inner join sbi on pnb.pnb_adhar=sbi.sbi_adhar;------is qurey se dono bank a/c ka bal plus mil jayega.
+
+	table ke column ke name ko short kr likhne me;---jaise pnb as p----------sbi as s.----------ye permanant nhi hote-----ye sirf query dekhne ke liye hota hai.
+	#select p.pnb_adhar as adhar,p.pnb_name as name,p.pnb_bal,p.pnb_acn,s.sbi_bal,s.sbi_acn from pnb as p inner join sbi as s on p.pnb_adhar=s.sbi_adhar;
+
+	HDFC BANK
+	# insert into hdfc values(1001,4000,'a',124),(1002,4000,'b',321),(1003,5000,'a',221),(1001,4000,'a',221);
+
+	>inner join ko 3 table me compare krne per.---------pnb,sbi,hdfc
+	#select * from pnb inner join sbi on pnb.pnb_adhar=sbi.sbi_adhar inner join hdfc on hdfc.adhar=pnb.pnb_adhar;----3 table se fetch krne per bhi result aata hai.
+	#select * from pnb inner join sbi on pnb.pnb_adhar=sbi.sbi_adhar inner join hdfc on hdfc.adhar=sbi.sbi_adhar;----sbi/pnb se result same aata hai.
+
+>2. left join ke syntax;-----jo left ke taraf hai uske sare record aate hai.---------aur right ki taraf NULL value aati hai.
+	#select * from pnb left join sbi on pnb.pnb_adhar=sbi.sbi_adhar;---------HERE-----pnb(left side)---pnb ke sare record aate hai.--- and--- sbi(right side)---right me NULL aati hai.
+
+>3. right join ke syntax;----jo right ke taraf hai uske sare record aate hai.--------aur jo left ki taraf NULL value aati hai.
+	#select * from pnb right join sbi on pnb.pnb_adhar=sbi.sbi_adhar;------HERE----pnb(left side)---pnb me jo fetch nhi huye unme NULL value aati hai.----sbi(right side)----all record.
+
+>4. full join;------full join MYSQL me direct nhi chalta hai.-------------------iske ek ulternate concept hai.
+    UNION kr ke ho skta hai------pnb table ka left join-------aur sbi table ka right join--------ko dono ka union kr ke result laya ja skta hai.
+	#select * from pnb left join sbi on pnb.pnb_adhar=sbi.sbi_adhar
+	 union
+         select * from pnb right join sbi on pnb.pnb_adhar=sbi.sbi_adhar;
+
+pnb_acn | pnb_bal | pnb_name | pnb_adhar | sbi_acn | sbi_bal | sbi_name | sbi_adhar
+-----------------------------------------------------------------------------------
+      1 |    5000 | a        |       123 |    NULL |    NULL | NULL     |      NULL	UNION ka concept use kr ke full join laya ja skta hai.
+      2 |    4000 | b        |       124 |     102 |    4000 | b        |       124     ------------------------------------------------------
+      3 |    6000 | c        |       125 |     103 |    6000 | c        |       125
+   NULL |    NULL | NULL     |      NULL |     101 |    5000 | a        |       226
+-----------------------------------------------------------------------------------
+
+OTHER JOIN:
+===========
+1. Natural join as inner join--------natural join me jo table ke column ke name hai wo same to same hone chaiye. ----jaise pnb_adhar=sbi_adhar---------ye sirf adhar=adhar hone chaiye.
+	#select * from pnb inner join sbi on pnb.adhar=sbi.adhar;-----------inner join ke tarike se
+	# select * from pnb natural join sbi;-------ydi column ke name same hai to-----quick tarike se result laya ja skta hai.
+
+2. Cross join(Shirt ka exaple)-----3 person----3 shirt-----3 teeno person 3 teeno shirt pahnge bari bari se----so total 9 bari shirt pahne jayege.
+	#select * from pnb cross join sbi;-----is me total 9 record aayege.
+
+3. Self join;-------ye har RDBMS me support nhi krta hai.
+	#select * from emp as e1 self join emp as e2 on e1.empsal=e2.empsal;------------error------------? (Pending)
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+

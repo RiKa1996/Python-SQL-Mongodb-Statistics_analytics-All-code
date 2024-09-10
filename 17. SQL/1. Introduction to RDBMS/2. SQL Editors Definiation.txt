@@ -1,0 +1,6 @@
+SQL Editors:
+------------
+are generally RDBMS specific
+in case of MySQL Server we have 2 editors
+	>MySQL Command line client
+	>MySQL workbench

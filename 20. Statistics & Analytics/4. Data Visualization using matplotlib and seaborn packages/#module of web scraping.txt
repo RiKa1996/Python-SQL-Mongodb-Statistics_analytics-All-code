@@ -1,0 +1,8 @@
+WEB SCRAPING MODULE YA LIBRARY----ydi hum anaconda ke sath jupyter chala rhe hai to ye dono library phle se hume de di jati hai.
+==============================
+1. requests module-----requests module ka kam hota hai data ko collect krna
+		       requests module provides facility to collect data and bs4 module porvides facility to parse data.
+
+2. bs4 module------jo data requests module se aa gai hai use meaningfull banane ke liye bs4 module ka use krte hai.
+
+	

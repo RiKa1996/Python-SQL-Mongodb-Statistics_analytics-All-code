@@ -1,0 +1,31 @@
+SQL View:-----view me koi table ki lambi query ko hum view-myview bana ke usme hum short kr skte hai. aur kabhi us query ki jarurat padegi to hum use kr skte hai.
+=========
+view-virtual table ----------view koi extra memory waste nhi krta hai. virtual- kalpnic hai.------view is like pointer-------view copy nhi banata hai.----jo record humne mange hai.view sirf 			     whi record deta hai.-----view sirf usi record pe work bhi krta hai.
+	>Syntax of Sql view;
+===creating view======
+
+	#create view myview as
+    	 select * from pnb left join sbi on pnb.adhar=sbi.sbi_adhar
+    	 union
+    	 select * from pnb right join sbi on pnb.adhar=sbi.sbi_adhar;
+	
+	>hume ye same query likhni ho to hum direct myview jo humne banaya hai. use use kr skte hai.
+	#select * from myview;
+
+===fetching data from view======
+
+	>condition bhi laga skte hai.
+	#select pnb_bal,sbi_bal,adhar from myview;
+	#create view myview2 as select * from emp where empsal>=30000;
+	#select * from myview2;
+	#select * from myview2 where empdept='hr';
+	#select * from myview2 where empdept='accounts';
+
+===updating view=============
+
+	#delete from myview2 where eid=501;-----------ydi myview2 table jo humne as view banaya hai, ydi myview2 me koi record delete kre to wo emp table se bhi delete ho jata hai.
+
+	#insert into emp values(1004,'rohit',60000,'hr');-----ydi hum emp table me record insert kre to humne jo myview2 banaya hai usme bhi changes ho jata hai.
+	# select * from myview2;
+
+NOTE:-------View sirf is liye banaya jata hai query jo badi hoti hai use short(chota) banane ke liye.

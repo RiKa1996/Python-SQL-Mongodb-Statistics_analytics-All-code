@@ -1,0 +1,192 @@
+NOTE;-----mongodb me har ek record() ke liye ek standard schema follow kiya jata hai.
+
+DIFFERENCE BETWEEN SQL BASED/ NOSQL BASED DATABASE:
+===================================================
+1. SQL BASED;
+	- RDBMS
+	- Standard Schema
+	- Memory otimization is poor
+	- Exp:--MySQL,Oracle,SQLite,MS-SQLServer,DB2
+	- Query based
+
+2. NoSQL BASED;
+	- Document based
+	- Schema less
+	- Memory otimization is good
+	- Exp:--MongoDB,HBASE,Cassendra,etc.
+	- Object based(Method for operations)
+
+===========================================================================================================================================================
+
+>MongoDB is server based cross-platform, document oriented database
+	- server based means------ek laptop se dusre laptop per connect kiya ja skta hai.---URL based
+	- cross-platform----------window ke alag mongodb------linux ke alag mongodb-------macbook ke liye alaga mongodb-------sbhi ke liye alag-alag mogodb aata hai.
+	- document oriented-------
+
+>It comes under NoSQL category of database.
+>It was created by MongoDB Inc(An American Company) in 2009
+>Latest version is 6.x
+
+Why?
+----
+>Schema less
+>no complex queries like joins
+>big data(like Adhar card Data)
+
+Terminology:
+------------
+Database:same as mysql
+Collection:same as table in mysql
+Document:one row in collection.
+
+A document is a set of key-value pairs. Documents have dynmic schema.
+Dynamic schema means that documents in the same collection do not need to have the same set of fields(column) of structure, and common fields in a collection's documents may hold different types of data.
+
+{'name':'sonu','roll':101,'mob':[123,234]}
+
+------------->Download mongodb server<-----------------
+==============================================================================================================================================================
+
+Compass---------compass is a editor like-----workbench/SQLiteDatabaseBrowserPortable
+
+MONGODB EDITORS:
+----------------
+	>mongo shell(mongosh)------->command based editor(in older version it was part of mongodb server but from 5.x it was removed and we need download it)
+	>Compass-------->gui editor(part of mongodb server)
+	>atlas---------->(gui editor with cloud support(need to download)
+	>etc.
+==============================================================================================================================================================
+
+Mongosh ko launch krne ka tarika;
+1. double click krke
+2. C:\Users\pappu kumar\Downloads\mongosh-1.9.1-win32-x64.zip\mongosh-1.9.1-win32-x64\bin ------cmd me ja ke wha type krege >mongosh
+
+==============================================================================================================================================================
+mysql-------------------------------mongodb
+-------------------------------------------
+Root user---------------------------_______
+database---------------------------database
+---table			   ----table-----------yha collection bolte hai.
+---table			   ----table
+
+row-record			   row-document			
+
+===================================================================================
+short me likhna
+---------------
+1. databases--------dbs-------------------->ye database ko dekhne ke liye hota hai.
+	>show database/show dbs
+
+2. clt+L------------se screen puri clear ho jati hai.
+3. db-------------ye database define krta hai short form me
+4. New database() create krne ke liye:
+	>use test
+	>use 11to1230
+		- use test(11to1230) se hum, ydi database nhi bana hai to ban jayega/    ydi ye phle se bana hua hai to hum is database me enter(ander) ho jayege.
+5. kisi database ko drop krna ho to;
+	test> use 10to1130----------------------1st ye krege then
+	switched to db 10to1130
+	10to1130> db.dropDatabase()-------------2nd ise drop krege-------db current database ko represent krta hai.
+	{ ok: 1, dropped: '10to1130' }
+	10to1130>
+
+6. collection (table) banane ke liye;
+	 db.createCollection("emp")
+
+7. collection me document(record/row) banane ke liye;
+	db.emp.insertOne({"eid":101,"ename":"rishav"})--------------{k:v}-----k is string/ v is value(any types)------JSON=(JAVA SCREAPT OBJECT NOTAION)
+	db.emp.insertOne({'empid':102,'ename':'arun'})
+	db.emp.insertOne({'empid':105,'ename':'raman','esal':20000})
+	
+	NOTE:(_id---------primary key)
+
+	>insertOne me ek mob no. insert krne per;
+		db.emp.insertOne({'empid':103,'ename':"monu",'esal':30000,"mob":7210673579})
+
+	>insertOne me ek se jyada mob no. insert krne per;
+		db.emp.insertOne({'empid':104,'ename':'rehan','esal':50000,'mob':[7210673579,8130616530]})---------------ek se jyada value likhne per use ek list me likha jata hai.
+
+8. ek se jyada document(row) banane ke liye hum (insertMany) method ka use krte hai.
+	db.emp.insertMany([{'empid':201,'empname':"ritu",'empsal':25000},{'empid':202,"empname":'neha','empsal':30000,'mob':9999955551},{'empid':203,'empname':'rinku','empsal':40000,'mob':	[9999111122,9595121236,7210673579]}])
+
+
+
+
+	
+
+9. jo document humne banaya hai use dekhne ke liye;
+	db.emp.find()
+
+ _id: ObjectId("65b34d6b4bda3f407d7b5abc"),
+    empid: 105,
+    ename: 'raman',
+    esal: 20000
+
+	>condition bana kr check krne per;
+		db.emp.find({'empname':'neha'})
+		db.emp.find({'empid':102})
+		
+>db.emp.findOne()-------------findOne ye record ka sbse phla record hume deta hai.
+>db.emp.find({'empsal':{$gt:20000}})-------------$greter then se show kiya jata hai mongodb me
+>db.emp.find({'empsal':{$gt:20000}})-------------$greter then equalto
+>db.emp.find({'empsal':{$lt:20000}})-------------$less then 
+>db.emp.find({'empsal':{$lte:20000}})------------$less then equalto	
+>db.emp.find({$or:[{'empsal':{$gte:20000}},{'esal':{$lte:500}}]})---------------------$or-------dono aane chiaye
+>db.emp.find().limit(3)-----------limit method find ke liye bhi work krta hai.
+>db.emp.find().sort({"esal":1})-------------accending
+>db.emp.find().sort({"esal":-1})------------decending
+
+
+10. limit method se hum jitne record lana chahte hai wo hume utne record la ke de skta hai.
+	>db.emp.find().limit(3)
+
+11. sort method (yha 1-decide krta hai-accending/ -1 decide krta hai decending)
+	>db.emp.find().sort({"esal":1})---------------(1 Accending)
+	>db.emp.find().sort({"esal":-1})--------------(-1 Decending)
+
+12 _id ka use kr ke document ko insert krna;
+	>db.emp.insertOne({'_id':501,'empname':'anil','esal':500000})----------kind of primary key jaise hoti hai _id---------dubara is id-501 se dusri koi aur document insert nhi ho skti.
+	>db.emp.find({"_id":501})
+
+13. Bina collection bananye hum koi collection/table bana skte hai first time me. jaise----humpe abhi tak student table nhi hai.
+	>db.student.insertOne({'_id':1,'Name':"rehan",'Roll NO.':32})-------is document ko humne first time kiya hai. aur ye collection banke aur collection me record bhi insert ho gai.
+	>db.student.find()
+
+14. Update krna;
+	>db.student.updateOne({'_id':1},{$set:{'_id':2}})-------->MongoServerError: Performing an update on the path '_id' would modify the immutable field '_id'
+	>db.student.updateOne({'_id':1},{$set:{'Name':'Reena'}})
+
+
+15. Replace krna;
+	> db.student.replaceOne({'_id':1},{'Name':'reena','marks':76.7,'Branch':'Badarpur'})
+
+
+16. document ko delete krna------deleteOne se;
+	>db.emp.deleteOne({'esal':50000})
+
+	>db.emp.deleteMany({'esal':{$gte:50000}})--------------deleteMany-------condition laga ke ek se jyada documents ko delete krna.
+
+
+17. collection ko rename krna------jaise student se------------Students krna;
+	>db.student.renameCollection("Students")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

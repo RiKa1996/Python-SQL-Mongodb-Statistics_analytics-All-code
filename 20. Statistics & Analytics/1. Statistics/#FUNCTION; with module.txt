@@ -1,0 +1,81 @@
+FUNCTION; with module
+=========
+1. random.smple(p,k)-------------->sample unique value lata hai.-----------------------------------Population,Sample,Observation
+2. random.choises(p,k)------------>choises se values dubara repeate ho skti hai.-----------------------Population,Sample,Observation
+3. statistics.mean([4,5])------------------statistics is a python library 
+4. statistics.geometic_mean([4,5])---------statistics is a python library--------product kr ke nikala jata hai. 
+5. statistics.harmonic_mean([4,5])---------statistics is a python library -------formula jaise---time/speed/km/
+6. statistics.mode(x)------------------>p2---------------unique value nikali jati hai.
+7. statistics.multimode(x)--------------------->['p1', 'p2']-------------same hone per dono unique values ko nikali jati hai.
+8. sorted(x)---------sorted function ek list ki values ko assending order me lata hai.
+9. statistics.quantiles(x)------------quantiles function se hume 25%,50%,75% values hume milti hai.
+
+10. random.randint(1,50)--------randint function randomly hume values de deta hai ye fixed nhi hote 
+11. statistics.stdev---------for sample unique ke liye
+12. statistics.pstdev--------for population μ
+13. statistics.correlation(distance,fule)--if result is towards +1,that means positive correlation-----noida to agra-->distance wala-->(200km-20ltrs), (400km-40ltrs), (150km-15ltrs).
+14. statistics.correlation(speed,hours)---if result is towards -1 , that means negative correlation---noida to agra-->fule consumption--->(80km/h-3hrs), (60km/h-3.5hrs), (100km/h-2.5hrs)
+
+
+FUNCTION; with numpy as np module
+===========================
+1. np.array([1,2,3])
+2. np.arange(50000)
+3. np.arange(1,20,0.5)       #start,end,step-----------default start is 0 ------default step is 1
+4. np.zeros(5)------ye return me hume 0 wali hi value deta hai
+5. np.ones(5)-------ye return me hume 1 wali hi value deta hai.
+6. np.full(5,50000.555)       #(size, intial_value)
+7. np.full((2,2), [10])
+8. np.linspace(1,10,6)       #low(first),high(last-inclusive),size-----------------default size ki value 50 hoti hai.
+	- [ 1.   2.8  4.6  6.4  8.2 10. ]
+9. np.random.randint(1,15,7)        #low,high,size(jitni value hume chaiye)
+
+10. np.square(a)-----------------ye ek numpy array [ 3 18 18 18  5  9 18 16 13 13  9 14 17 18 11]---------[  9 324 324 324  25  81 324 256 169 169  81 196 289 324 121]
+11. np.square(a)   #return sqr of each element as new array
+12. np.sqrt(b)          #by default float krta hai.
+13. np.log(c)     #return natural log(base e) of each element as new array
+14. np.sum(d)
+15. np.loadtxt("E:\\New folder (2)\\20. Statistics & Analytics\\2. numpy- numeric python\\TEXT.txt",delimiter=',',dtype='int16')
+16. np.sum(x)
+17. np.min(x)
+18. np.max(x)
+19. np.mean(x)
+20. #print(np.mode(x))            #module 'numpy' has no attribute 'mode'
+21. np.median(x)
+22. np.argmax(a)     #return index of max element  sbse badi value ka index batata hai  
+23. np.argmin(a)     #return index of min element  sbse choti value ka indes batata hai.
+24. np.where(a>=60000)          #where function index number batata hai.---------------jo values condition ke dwara nikali gai hai uske index ko batati hai.
+	- [63920 74658 76338 96386 78422 86534]
+	  (array([1, 3, 5, 6, 7, 9], dtype=int64),)
+
+25. np.eye(5,3)----------jiska main diagonal one hota hai.
+26. np.eye(5)-----------jiska main diagonal one hota hai.
+
+27. np.reshape(a,(4,3))--------ye exiting array me reshape kr skte hai 
+28. np.resize(x,(5,3))-------isme elements ko bada ya gata skte hai.---jb hum value badate hai tb fer se 0 index se value add hona suru ho jata hai.
+29. np.flatten(a)-------[5 3 4 8 5 5 5 2 2 3 8 8] 
+30. np.vstack((a,b))----------vstack -----------array concatenation--------ye hume 2d array bana ke wapas krta hai.
+31. np.hstack((a,b))----------hstack-----------array concatenation-------ye hume 1d array bana ke wapas krta hai.
+32. np.concatenate((a,b))-----concatenate------array concatenation-------ye hume 1d array bana ke wapas krta hai.
+33. np.concatenate((a,b),axis=0)    #concatenate me rows increase krta hai----#axis=0 krne per as like vstack jaisa bana deta hai.
+34. np.concatenate((a,b),axis=1)   #concatenate me ab ye column increase kr dega.------#axis=1 krne per as like hstack jaisa bana deta hai.
+35. np.append(a,500)-------append function se ek new array create hota hai.---------[  5   3   4   3   4   5   6   1   5 500]
+36. np.insert(g,2,1000)------kisi bhi array ke ander , kisi bhi perticular index pe apni value ko insert kr skte hai.
+37. np.delete(d,[3,4,5,7])----------delete function se kisi bhi exiting array me, kisi bhi perticular indexd ki value ko delete kr skte hai.
+38. np.vsplit(a,(3))------rows wise----------[array([[5, 3, 7, 1]]), array([[4, 1, 4, 5]]), array([[8, 1, 4, 2]])]
+39. np.hsplit(a,(3))------columns wise---ye jo vsplit me aai hai use horizontal wise kr dega.
+40.
+
+
+
+
+
+
+
+
+
+
+
+FUNCTION; with sys module
+=========================
+sys.getsizeof(x)

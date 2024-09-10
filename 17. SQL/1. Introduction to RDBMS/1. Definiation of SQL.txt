@@ -1,0 +1,65 @@
+SQL
+>Structured Query Language
+>it is a language for RDBMS
+----------------------------------------------------------------------------------------------------------------------
+(RDBMS-Relational Data Base Management System)
+>earlier name was SEQUEL
+RDBMS:
+------
+it is a software that manage data in structured manner.
+
+----------------------------------------------------------------------------------------------------------------------
+RDBMS Vendors:
+orgs that provide RDBMS softwares, like
+	Microsoft------>MS SQLServer
+	IBM------------>DB2 Server
+	Oracle--------->Oracle Database Server
+	MySQL AB/Sun/Oracle-->MySQL Server
+
+	etc.
+Note: sabhi RDBMS ka ek jaisa hi kam hota hai.
+	example: Application<----->SQL<----->RDBMS-1
+			              <----->RDBMS-2
+				      <----->RDBMS-3
+----------------------------------------------------------------------------------------------------------------------
+SQL- ye ek language hai.
+MySQL- ye ek server hai.
+
+SQL with MySQL
+SQL with SQLServer
+SQL with Oracle
+----------------------------------------------------------------------------------------------------------------------	
+	Programming Language--->to create applications/softwares
+	Query Lnaguage--------->to interact with RDBMS
+----------------------------------------------------------------------------------------------------------------------
+Application<----------SQL---------->RDBMS
+----------------------------------------------------------------------------------------------------------------------
+1. 1 row ko hum ek record kahte hai.
+2. 1 colum ko hum ek field kahte hai.
+----------------------------------------------------------------------------------------------------------------------
+=>ise download karne ke liye:
+	google: Download mysql for window
+		Developer Defauilt
+		Execute
+		Port:3306->ek port no. pe ek hi software download ho skta hai.
+----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

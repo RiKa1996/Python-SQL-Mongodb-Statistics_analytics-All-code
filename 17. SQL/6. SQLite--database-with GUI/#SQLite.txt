@@ -1,0 +1,68 @@
+SQLite------halke database-------lite base database--------lite weight RDBMS--------file base database----------mobile application ke liye--------local device ke liye
+======================================================================================================================================================================
+NOTE:zero configuration(insert,update,alter ye sb isme use nhi hota)
+     for low label project ke liye hota hai.
+     
+DEFINATION OF SQLite:
+=====================
+- It is light weight database and supports most of the concepts of RDBMS.
+
+- It is file based database that require zero configuration.
+
+STEPS:
+======
+import sqlite3-----------------ye phle se hi sql ko download ke time mil jata hai.
+
+file me table banana
+====================
+import sqlite3
+con=sqlite3.connect(database="E:/New folder (2)/17. SQL/6. SQLite--database/bank.sqlite")
+cur=con.cursor()
+cur.execute("create table pnb(pnb_acn int primary key,pnb_bal float,pnb_name text)")
+con.commit()
+con.close()
+print("table created")
+table created
+
+jo file me table banaya hai usme record insert krna
+=====================================================
+import sqlite3
+con=sqlite3.connect(database="E:/New folder (2)/17. SQL/6. SQLite--database/bank.sqlite")
+cur=con.cursor()
+acn=int(input("enter acn:"))
+bal=float(input("enter bal:"))
+name=input("enter name:")
+
+cur.execute("insert into pnb values(?,?,?)",(acn,bal,name))
+con.commit()
+con.close()
+print("acn open successfully")
+import sqlite3
+con=sqlite3.connect(database="E:/New folder (2)/17. SQL/6. SQLite--database/bank.sqlite")
+cur=con.cursor()
+acn=int(input("enter acn:"))
+bal=float(input("enter bal:"))
+name=input("enter name:")
+​
+cur.execute("insert into pnb values(?,?,?)",(acn,bal,name))
+con.commit()
+con.close()
+print("acn open successfully")
+enter acn: 3
+enter bal: 65456
+enter name: rehan
+acn open successfully
+
+select query chalana aur records ko dekhne ke liye
+====================================================
+import sqlite3
+con=sqlite3.connect(database="E:/New folder (2)/17. SQL/6. SQLite--database/bank.sqlite")
+cur=con.cursor()
+​
+cur.execute("select * from pnb")
+print(cur.fetchall())
+​
+​
+con.close()
+​
+[(1, 50000.0, 'rishav'), (2, 40000.0, 'karan'), (3, 65456.0, 'rehan')]

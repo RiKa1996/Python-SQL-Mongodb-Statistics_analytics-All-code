@@ -1,0 +1,443 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 11to1230;
+Database changed
+mysql> select * from emp;
++------+----------+--------+------------+
+| eid  | empname  | empsal | empdept    |
++------+----------+--------+------------+
+|  101 | rishav   |  16500 | hr         |
+|  102 | rahul    |  27500 | hr         |
+|  103 | abhishek |  22000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  200 | riya     |  16501 | accounts   |
+|  205 | rahul    |  25000 | accounts   |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1001 | arjun    |  20000 | hr         |
+| 1002 | surya    |  25000 | hr         |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding
+152 |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
++------+----------+--------+------------+
+54 rows in set (0.07 sec)
+
+mysql> select f1();
++------+
+| f1() |
++------+
+|   10 |
++------+
+1 row in set (0.04 sec)
+
+mysql> select f2(4,5);
++---------+
+| f2(4,5) |
++---------+
+|      20 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> select f3(1004;)
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+    -> select f3(1004);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+select f3(1004)' at line 1
+mysql> select f3(105);
++---------+
+| f3(105) |
++---------+
+|    NULL |
++---------+
+1 row in set (0.01 sec)
+
+mysql> delimiter $
+mysql> create procedure p1()
+    -> begin
+    -> select * from emp where empsal>=30000;
+    -> end
+    -> $
+Query OK, 0 rows affected (2.26 sec)
+
+mysql> call p1$
++------+---------+--------+------------+
+| eid  | empname | empsal | empdept    |
++------+---------+--------+------------+
+|  151 | dhoni   |  82500 | coding     |
+|  152 | pant    |  38500 | coding     |
+|  300 | ajay    |  50000 | coding     |
+|  301 | virat   |  44000 | accounts   |
+|  302 | karan   |  50000 | accounts   |
+|  502 | karan   |  30000 | hr         |
+|  503 | vijay   |  30000 | hr         |
+| 1000 | vijay   |  30000 | accounts   |
+| 1003 | arjun   |  45000 | hr         |
+| 1004 | rohit   |  60000 | hr         |
+|  151 | dhoni   |  82500 | coding
+152 |
+|  151 | dhoni   |  82500 | coding     |
+|  152 | pant    |  38500 | coding     |
+|  300 | ajay    |  50000 | coding     |
+|  301 | virat   |  44000 | accounts   |
+|  302 | karan   |  50000 | accounts   |
+|  502 | karan   |  30000 | hr         |
+|  503 | vijay   |  30000 | hr         |
+| 1000 | vijay   |  30000 | accounts   |
+| 1003 | arjun   |  45000 | hr         |
+| 1004 | rohit   |  60000 | hr         |
+|  302 | karan   |  50000 | accounts   |
+|  502 | karan   |  30000 | hr         |
+|  503 | vijay   |  30000 | hr         |
+| 1000 | vijay   |  30000 | accounts   |
+| 1003 | arjun   |  45000 | hr         |
+| 1004 | rohit   |  60000 | hr         |
+|  151 | dhoni   |  82500 | coding     |
+|  152 | pant    |  38500 | coding     |
+|  300 | ajay    |  50000 | coding     |
+|  301 | virat   |  44000 | accounts   |
+|  302 | karan   |  50000 | accounts   |
+|  502 | karan   |  30000 | hr         |
+|  503 | vijay   |  30000 | hr         |
+| 1000 | vijay   |  30000 | accounts   |
+| 1003 | arjun   |  45000 | hr         |
+| 1004 | rohit   |  60000 | hr         |
+|  151 | dhoni   |  82500 | coding     |
+|  152 | pant    |  38500 | coding     |
+|  300 | ajay    |  50000 | coding     |
+|  301 | virat   |  44000 | accounts   |
+|  302 | karan   |  50000 | accounts   |
+|  502 | karan   |  30000 | hr         |
+|  503 | vijay   |  30000 | hr         |
+| 1000 | vijay   |  30000 | accounts   |
+| 1003 | arjun   |  45000 | hr         |
+| 1004 | rohit   |  60000 | hr         |
++------+---------+--------+------------+
+47 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> create procedure p2()
+    -> begin
+    -> select empdept,count(empdept),sum(empsal),round(avg(empsal),2) from emp group by empdept;
+    -> end
+    -> $
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p2()$
++------------+----------------+-------------+----------------------+
+| empdept    | count(empdept) | sum(empsal) | round(avg(empsal),2) |
++------------+----------------+-------------+----------------------+
+| hr         |             25 |      936000 |                37440 |
+| coding     |             12 |      684000 |                57000 |
+| accounts   |             16 |      617501 |             38593.81 |
+| coding
+152 |              1 |       82500 |                82500 |
++------------+----------------+-------------+----------------------+
+4 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> delete from emp where eid>=1000;
+    -> $
+Query OK, 17 rows affected (0.01 sec)
+
+mysql> call p2()$
++------------+----------------+-------------+----------------------+
+| empdept    | count(empdept) | sum(empsal) | round(avg(empsal),2) |
++------------+----------------+-------------+----------------------+
+| hr         |             13 |      366000 |             28153.85 |
+| coding     |             12 |      684000 |                57000 |
+| accounts   |             11 |      467501 |             42500.09 |
+| coding
+152 |              1 |       82500 |                82500 |
++------------+----------------+-------------+----------------------+
+4 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create procedure p3()
+    -> begin
+    -> select now();
+    -> end
+    -> $
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p3()$
++---------------------+
+| now()               |
++---------------------+
+| 2024-01-19 12:52:09 |
++---------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select p3()$
+ERROR 1305 (42000): FUNCTION 11to1230.p3 does not exist
+mysql> select now()$
++---------------------+
+| now()               |
++---------------------+
+| 2024-01-19 12:54:13 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> create p4(in a int,in b int,out c int)
+    -> begin
+    -> set c=a*b;
+    -> end
+    -> $
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'p4(in a int,in b int,out c int)
+begin
+set c=a*b;
+end' at line 1
+mysql> create procedure p4(in a int,in b int,out c int)
+    -> begin
+    -> set c=a*b;
+    -> end
+    -> $
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p4(4,5,@res)$
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select @res$
++------+
+| @res |
++------+
+|   20 |
++------+
+1 row in set (0.00 sec)
+
+mysql> call p4(55,55,@mul)$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @mul as multiply$
++----------+
+| multiply |
++----------+
+|     3025 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> create procedure p5(in a int,in b int,out c int,out d int)
+    -> begin
+    -> set c=a*b;
+    -> set d=a+b;
+    -> end
+    -> $
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p5(22,33,@mul as multiply)$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as multiply)' at line 1
+mysql> call p5(23,23,@mul)$
+ERROR 1318 (42000): Incorrect number of arguments for PROCEDURE 11to1230.p5; expected 4, got 3
+mysql> call p5(23,23,@mul,@add)$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @mul as multiply$
++----------+
+| multiply |
++----------+
+|      529 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select @add as addition $
++----------+
+| addition |
++----------+
+|       46 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select @mul as res_mul , @add as res_add $
++---------+---------+
+| res_mul | res_add |
++---------+---------+
+|     529 |      46 |
++---------+---------+
+1 row in set (0.00 sec)
+
+mysql> create procedure p6(in dept varchar(10))
+    -> begin
+    -> select * from emp where empdept=dept;
+    -> end
+    -> $
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p6("hr")$
++-----+----------+--------+---------+
+| eid | empname  | empsal | empdept |
++-----+----------+--------+---------+
+| 101 | rishav   |  16500 | hr      |
+| 102 | rahul    |  27500 | hr      |
+| 103 | abhishek |  22000 | hr      |
+| 502 | karan    |  30000 | hr      |
+| 503 | vijay    |  30000 | hr      |
+| 502 | karan    |  30000 | hr      |
+| 503 | vijay    |  30000 | hr      |
+| 502 | karan    |  30000 | hr      |
+| 503 | vijay    |  30000 | hr      |
+| 502 | karan    |  30000 | hr      |
+| 503 | vijay    |  30000 | hr      |
+| 502 | karan    |  30000 | hr      |
+| 503 | vijay    |  30000 | hr      |
++-----+----------+--------+---------+
+13 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create p7(in birth_year int,out age int)
+    -> begin
+    -> set age=2023-birth_year
+    -> end
+    -> $
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'p7(in birth_year int,out age int)
+begin
+set age=2023-birth_year
+end' at line 1
+mysql> create procedure p7(in birth_year int,out age int)
+    -> begin
+    -> set age=2023-birth_year
+    -> end
+    -> $
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'end' at line 4
+mysql> create procedure p7(in birth_year int,out age int)
+    -> begin
+    -> set age=2023-birth_year;
+    -> end
+    -> $
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p7(1996)$
+ERROR 1318 (42000): Incorrect number of arguments for PROCEDURE 11to1230.p7; expected 2, got 1
+mysql> call p7(1996,@age)$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @age$
++------+
+| @age |
++------+
+|   27 |
++------+
+1 row in set (0.00 sec)
+
+mysql> creat procedure p8(inout year_age int)
+    -> begin
+    -> set year_age=2023-year_age;
+    -> end
+    -> $
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creat procedure p8(inout year_age int)
+begin
+set year_age=2023-year_age;
+end' at line 1
+mysql> create procedure p8(inout year_age int)
+    -> begin
+    -> set year_age=2023-year_age;
+    -> end
+    -> $
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> set @age=1996$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p8(@age)@
+    -> $
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '@' at line 1
+mysql> call p8(@age)$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @age $
++------+
+| @age |
++------+
+|   27 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select * from pnb$
++---------+---------+----------+-------+
+| pnb_acn | pnb_bal | pnb_name | adhar |
++---------+---------+----------+-------+
+|       1 |    5000 | a        |   123 |
+|       2 |    4000 | b        |   124 |
+|       3 |    6000 | c        |   125 |
++---------+---------+----------+-------+
+3 rows in set (0.01 sec)
+
+mysql> create procedure p9(inout adhar_bal int)
+    -> begin
+    -> select pnb_bal into adhar_bal from pnb where adhar=adhar_bal;
+    -> end
+    -> $
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> set @adharbal=125$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p9(@adharbal)$
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @adharbal$
++-----------+
+| @adharbal |
++-----------+
+|      6000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql>

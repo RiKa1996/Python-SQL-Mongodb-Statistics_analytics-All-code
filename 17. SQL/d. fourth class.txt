@@ -1,0 +1,614 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 11to1230;
+Database changed
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16500 | accounts |
+|  205 | rahul    |   NULL | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |   NULL | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.03 sec)
+
+mysql> select concat(empname,empdept);
+ERROR 1054 (42S22): Unknown column 'empname' in 'field list'
+mysql> select concat(empname,empdept) from emp;
++-------------------------+
+| concat(empname,empdept) |
++-------------------------+
+| rishavhr                |
+| rahulhr                 |
+| abhishekhr              |
+| dhonicoding             |
+| pantcoding              |
+| riyaaccounts            |
+| rahulaccounts           |
+| ajaycoding              |
+| virataccounts           |
+| karanaccounts           |
+| arjuncoding             |
+| karanhr                 |
+| vijayhr                 |
+| vijayaccounts           |
+| arjunhr                 |
+| suryahr                 |
+| arjunhr                 |
++-------------------------+
+17 rows in set (0.00 sec)
+
+mysql> select concat(empname,'_',empdept) as empname_empdept from emp;
++-----------------+
+| empname_empdept |
++-----------------+
+| rishav_hr       |
+| rahul_hr        |
+| abhishek_hr     |
+| dhoni_coding    |
+| pant_coding     |
+| riya_accounts   |
+| rahul_accounts  |
+| ajay_coding     |
+| virat_accounts  |
+| karan_accounts  |
+| arjun_coding    |
+| karan_hr        |
+| vijay_hr        |
+| vijay_accounts  |
+| arjun_hr        |
+| surya_hr        |
+| arjun_hr        |
++-----------------+
+17 rows in set (0.00 sec)
+
+mysql> select upper(empname) from emp;
++----------------+
+| upper(empname) |
++----------------+
+| RISHAV         |
+| RAHUL          |
+| ABHISHEK       |
+| DHONI          |
+| PANT           |
+| RIYA           |
+| RAHUL          |
+| AJAY           |
+| VIRAT          |
+| KARAN          |
+| ARJUN          |
+| KARAN          |
+| VIJAY          |
+| VIJAY          |
+| ARJUN          |
+| SURYA          |
+| ARJUN          |
++----------------+
+17 rows in set (0.00 sec)
+
+mysql> select lower(empname) from emp;
++----------------+
+| lower(empname) |
++----------------+
+| rishav         |
+| rahul          |
+| abhishek       |
+| dhoni          |
+| pant           |
+| riya           |
+| rahul          |
+| ajay           |
+| virat          |
+| karan          |
+| arjun          |
+| karan          |
+| vijay          |
+| vijay          |
+| arjun          |
+| surya          |
+| arjun          |
++----------------+
+17 rows in set (0.00 sec)
+
+mysql> select char_lenght(empsal) from emp;
+ERROR 1305 (42000): FUNCTION 11to1230.char_lenght does not exist
+mysql> select char_length(empname) from emp;
++----------------------+
+| char_length(empname) |
++----------------------+
+|                    6 |
+|                    5 |
+|                    8 |
+|                    5 |
+|                    4 |
+|                    4 |
+|                    5 |
+|                    4 |
+|                    5 |
+|                    5 |
+|                    5 |
+|                    5 |
+|                    5 |
+|                    5 |
+|                    5 |
+|                    5 |
+|                    5 |
++----------------------+
+17 rows in set (0.00 sec)
+
+mysql> select char_length(empname) as count from emp;
++-------+
+| count |
++-------+
+|     6 |
+|     5 |
+|     8 |
+|     5 |
+|     4 |
+|     4 |
+|     5 |
+|     4 |
+|     5 |
+|     5 |
+|     5 |
+|     5 |
+|     5 |
+|     5 |
+|     5 |
+|     5 |
+|     5 |
++-------+
+17 rows in set (0.00 sec)
+
+mysql> select * from emp where char_length=4;
+ERROR 1054 (42S22): Unknown column 'char_length' in 'where clause'
+mysql> select * from emp where eid like '____';
++------+---------+--------+----------+
+| eid  | empname | empsal | empdept  |
++------+---------+--------+----------+
+| 1000 | vijay   |  30000 | accounts |
+| 1001 | arjun   |  20000 | hr       |
+| 1002 | surya   |   NULL | hr       |
+| 1003 | arjun   |  45000 | hr       |
++------+---------+--------+----------+
+4 rows in set (0.01 sec)
+
+mysql> select * from emp where char_length(eid)=4;
++------+---------+--------+----------+
+| eid  | empname | empsal | empdept  |
++------+---------+--------+----------+
+| 1000 | vijay   |  30000 | accounts |
+| 1001 | arjun   |  20000 | hr       |
+| 1002 | surya   |   NULL | hr       |
+| 1003 | arjun   |  45000 | hr       |
++------+---------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16500 | accounts |
+|  205 | rahul    |   NULL | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |   NULL | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> select sum(empsal) from emp;
++-------------+
+| sum(empsal) |
++-------------+
+|      552500 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select distinct(empdept) from emp;
++----------+
+| empdept  |
++----------+
+| hr       |
+| coding   |
+| accounts |
++----------+
+3 rows in set (0.19 sec)
+
+mysql> select sum(empsal) from emp group by empdept;
++-------------+
+| sum(empsal) |
++-------------+
+|      191000 |
+|      221000 |
+|      140500 |
++-------------+
+3 rows in set (0.00 sec)
+
+mysql> select sum(empsal) from emp group by empname;
++-------------+
+| sum(empsal) |
++-------------+
+|       16500 |
+|       27500 |
+|       22000 |
+|       82500 |
+|       38500 |
+|       16500 |
+|       50000 |
+|       44000 |
+|       80000 |
+|      115000 |
+|       60000 |
+|        NULL |
++-------------+
+12 rows in set (0.00 sec)
+
+mysql> select empdept,sum(empsal) from emp group by empdept;
++----------+-------------+
+| empdept  | sum(empsal) |
++----------+-------------+
+| hr       |      191000 |
+| coding   |      221000 |
+| accounts |      140500 |
++----------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select count(eid) as eid,empdept,sum(empsal) from emp group by empdept;
++-----+----------+-------------+
+| eid | empdept  | sum(empsal) |
++-----+----------+-------------+
+|   8 | hr       |      191000 |
+|   4 | coding   |      221000 |
+|   5 | accounts |      140500 |
++-----+----------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select count(eid),empdept,sum(empsal) from emp group by empdept;
++------------+----------+-------------+
+| count(eid) | empdept  | sum(empsal) |
++------------+----------+-------------+
+|          8 | hr       |      191000 |
+|          4 | coding   |      221000 |
+|          5 | accounts |      140500 |
++------------+----------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select empdept,count(eid),sum(empsal),max(empsal),min(empsal) from emp group by empdept;
++----------+------------+-------------+-------------+-------------+
+| empdept  | count(eid) | sum(empsal) | max(empsal) | min(empsal) |
++----------+------------+-------------+-------------+-------------+
+| hr       |          8 |      191000 |       45000 |       16500 |
+| coding   |          4 |      221000 |       82500 |       38500 |
+| accounts |          5 |      140500 |       50000 |       16500 |
++----------+------------+-------------+-------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select empdept,count(eid),sum(empsal),max(empsal),min(empsal) from emp group by empdept having count(eid)>=5;
++----------+------------+-------------+-------------+-------------+
+| empdept  | count(eid) | sum(empsal) | max(empsal) | min(empsal) |
++----------+------------+-------------+-------------+-------------+
+| hr       |          8 |      191000 |       45000 |       16500 |
+| accounts |          5 |      140500 |       50000 |       16500 |
++----------+------------+-------------+-------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16500 | accounts |
+|  205 | rahul    |   NULL | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |   NULL | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.01 sec)
+
+mysql> select empdept,count(eid) count,max(empsal),min(empsal),sum(empsal)
+    -> from emp group by empdept having count(eid)>=5;
++----------+-------+-------------+-------------+-------------+
+| empdept  | count | max(empsal) | min(empsal) | sum(empsal) |
++----------+-------+-------------+-------------+-------------+
+| hr       |     8 |       45000 |       16500 |      191000 |
+| accounts |     5 |       50000 |       16500 |      140500 |
++----------+-------+-------------+-------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select empdept,count(eid) count,max(empsal),min(empsal),sum(empsal)
+    -> use 11to1230;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'use 11to1230' at line 2
+mysql> select empdept,count(eid) as count,max(empsal),min(empsal),sum(empsal)
+    -> from emp group by havin count>=5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'count>=5' at line 2
+mysql> select empdept,count(eid) as count,max(empsal),min(empsal),sum(empsal)
+    -> from emp group empdept by havin count>=5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'empdept by havin count>=5' at line 2
+mysql> select empdept,count(eid) as count,max(empsal),min(empsal),sum(empsal)
+    -> from emp group by empdept having count>=5;
++----------+-------+-------------+-------------+-------------+
+| empdept  | count | max(empsal) | min(empsal) | sum(empsal) |
++----------+-------+-------------+-------------+-------------+
+| hr       |     8 |       45000 |       16500 |      191000 |
+| accounts |     5 |       50000 |       16500 |      140500 |
++----------+-------+-------------+-------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select *,char_length(empname) from emp;
++------+----------+--------+----------+----------------------+
+| eid  | empname  | empsal | empdept  | char_length(empname) |
++------+----------+--------+----------+----------------------+
+|  101 | rishav   |  16500 | hr       |                    6 |
+|  102 | rahul    |  27500 | hr       |                    5 |
+|  103 | abhishek |  22000 | hr       |                    8 |
+|  151 | dhoni    |  82500 | coding   |                    5 |
+|  152 | pant     |  38500 | coding   |                    4 |
+|  200 | riya     |  16500 | accounts |                    4 |
+|  205 | rahul    |   NULL | accounts |                    5 |
+|  300 | ajay     |  50000 | coding   |                    4 |
+|  301 | virat    |  44000 | accounts |                    5 |
+|  302 | karan    |  50000 | accounts |                    5 |
+|  501 | arjun    |  50000 | coding   |                    5 |
+|  502 | karan    |  30000 | hr       |                    5 |
+|  503 | vijay    |  30000 | hr       |                    5 |
+| 1000 | vijay    |  30000 | accounts |                    5 |
+| 1001 | arjun    |  20000 | hr       |                    5 |
+| 1002 | surya    |   NULL | hr       |                    5 |
+| 1003 | arjun    |  45000 | hr       |                    5 |
++------+----------+--------+----------+----------------------+
+17 rows in set (0.00 sec)
+
+mysql> select *,sum(empsal) from emp;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column '11to1230.emp.eid'; this is incompatible with sql_mode=only_full_group_by
+mysql> select *,district(empdept) from emp;
+ERROR 1305 (42000): FUNCTION 11to1230.district does not exist
+mysql> select district(empdept) from emp;
+ERROR 1305 (42000): FUNCTION 11to1230.district does not exist
+mysql> select distinct(empdept) from emp;
++----------+
+| empdept  |
++----------+
+| hr       |
+| coding   |
+| accounts |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> select *,distinct(empdept) from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'distinct(empdept) from emp' at line 1
+mysql> update emp set empsal=25000 where empsal=NULL;
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16500 | accounts |
+|  205 | rahul    |   NULL | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |   NULL | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> update emp set empsal=25000 where empsal is NULL;
+Query OK, 2 rows affected (0.03 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16500 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> insert into emp(empname,empsal,empdept) values('chintu',5000,'accounts');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16500 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
+| 1004 | chintu   |   5000 | accounts |
++------+----------+--------+----------+
+18 rows in set (0.00 sec)
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| eid     | int         | NO   | PRI | NULL    | auto_increment |
+| empname | varchar(10) | YES  |     | NULL    |                |
+| empsal  | float       | YES  |     | 20000   |                |
+| empdept | varchar(10) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+4 rows in set (0.04 sec)
+
+mysql> alter table emp add check(empsal>=10000);
+ERROR 3819 (HY000): Check constraint 'emp_chk_1' is violated.
+mysql> delete from emp where eid=1004;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16500 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> alter table emp add check(empsal=10000);
+ERROR 3819 (HY000): Check constraint 'emp_chk_1' is violated.
+mysql> alter table emp add check(empsal>=10000);
+Query OK, 17 rows affected (0.04 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> insert into emp values(1004,'chintu',5000,'hr');
+ERROR 3819 (HY000): Check constraint 'emp_chk_1' is violated.
+mysql> create table clg_event(roll int,name varchar(10),activity varchar(10)),primary key(roll,activity));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',primary key(roll,activity))' at line 1
+mysql> create table clg_event(roll int,name varchar(10),activity varchar(10),primary key(roll,activity));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc clg_event;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| roll     | int         | NO   | PRI | NULL    |       |
+| name     | varchar(10) | YES  |     | NULL    |       |
+| activity | varchar(10) | NO   | PRI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into clg_event values(1,'Amit','Dance');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into clg_event values(1,'Amit','Mimcry');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into clg_event values(2,'Ben','Mimcry');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into clg_event values(1,'chintu','Dance');
+ERROR 1062 (23000): Duplicate entry '1-Dance' for key 'clg_event.PRIMARY'
+mysql> insert into clg_event values(4,'Chintu','Dance');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from clg_event;
++------+--------+----------+
+| roll | name   | activity |
++------+--------+----------+
+|    1 | Amit   | Dance    |
+|    1 | Amit   | Mimcry   |
+|    2 | Ben    | Mimcry   |
+|    4 | Chintu | Dance    |
++------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> creat table t1(c1 primary key,c2 int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creat table t1(c1 primary key,c2 int)' at line 1
+mysql> create table t1(c1 primary key,c2 int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key,c2 int)' at line 1
+mysql> create table t1(c1 int primary key,c2 int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table t2(c1 int primary key,c2 int primary key);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> create table t2(c1 int,c2 int,primary key(c1));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table t3(c1 int,c2 int,primary key(c1,c2));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table t4(c1 int )

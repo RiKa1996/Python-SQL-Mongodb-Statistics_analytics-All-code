@@ -1,0 +1,16 @@
+Difference between PD.CONCAT() AND DF.JOIN()
+============================================
+PD.CONCAT()
+-----------
+1. We have to pass axis=1
+2. we can pass more than 2 dataframe at a time
+3. function of pandas
+4. pd.concat([df1,df2,df3,..],axis=1)
+
+
+PD.JOIN()
+---------
+1. no need to pass (bydefault it joins columns)
+2. works with only 2 dfs at a time
+3. method of dataframe
+4. df1.join(df2)

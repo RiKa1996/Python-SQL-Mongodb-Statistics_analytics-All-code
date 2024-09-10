@@ -1,0 +1,51 @@
+COMMIT
+======
+SQL--------------COMMIT----------------->RDBMS
+
+DML:Insert,Update,Delete,etc.(Autocommit)
+
+Transaction:
+============
+logical unit of work(ye kitabi bhasa hai.)
+	-Set of logically related queries.
+
+FULL DEFINATION:- set of logically related queries that can be rolled back or commited.
+	-EXAMPLE
+	1. update account set bal=bal-1000 where acn=101;
+	2. update account set bal=bal+1000 where acn=102;
+
+		acn                bal
+-----------------------------------------------
+		101		  5000
+		102		  6000
+-----------------------------------------------
+
+TRANSACTION (4 Properties)--------ACID
+
+A--->Atomic--------------atomic(ya to hai ya nhi hai.------ya to dono hai ya dono nhi hai.) dono ko ek hi manni hai.
+c--->Consistency---------ek jaisa(lagatar ek jaisa)
+I--->Isolation-----------ek transaction dusri transaction se alag hota hai(internally locking system work krti hai.)
+D--->Durable-------------permanant (durasel bettry)
+
+Transaction ke sath hum apni queries ko chala skte hai.
+=======================================================
+
+Start command:-------kisi transaction ko start krna ho.(SAVEPOINT---------ROLLBACK)
+	>Syntax of Start command;
+	>phle start krege ya began;(mysql-start ya began dono chalta hai.)
+		#start transaction;-------------for savepoint and rollback
+		#savepoint s1;------------------humne s1 ek savepoint banaya-------------taki savepoint banane se phle ka table save rhe.
+		#delete from emp where eid=503;
+		#delete from emp where eid=1001;------after savepoint s1 banane ke bad humne kuch record ko delete kr diye.
+		#delete from emp where eid=1002;
+
+	>again ek savepoint s2; banaya
+		#savepoint s2;
+		#update emp set empsal=10000;------ye krne ke bad hume pata chala ki humne kuch lagti kr di hai. (ab hum wo table dubara chahte hai to hume savepoint ko rollback krna hai.)
+		
+	>rollback krna hai.
+		# rollback to s2;-------rollback krne ke bad humari table savepoint s2 jb banaya gaya tha usse phle ki table wapas aa jayegi.
+		# select * from emp;----savepoint s2
+	
+	>ye sb savepoint aur rollbach krne ke bad hum apne table ko commit krna chahte hai. aur after commit hume table me kuch bhi changes nhi kr skte.
+		#commit;------------durable ho jayegi.

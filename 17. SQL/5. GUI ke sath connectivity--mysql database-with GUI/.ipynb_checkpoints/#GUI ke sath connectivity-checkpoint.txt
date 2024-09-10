@@ -1,0 +1,68 @@
+GUI KE SATH CONNECTIVITY----------------------------------------------------cumpulsaries----python and mysql
+bg-back ground,-------bd-boader,--------fg-for ground(red color)
+========================
+1. ek window banane ke liye:
+------>	win=Tk()
+	win.geometry("500x400")
+	win.configure(bg="green")
+	win.mainloop()
+
+2. window pe label banane ke liye:---------jaise window pe ACN likhna hai.
+------>label=Label(win,text='ACN',font=('arial',20),bg="green")
+       label.place(x=50,y=50)
+
+3. window pe entry krna:-------------jaise koi box jaisa bana ---jaise calculator ka screen hota hai.
+-------->entry=Entry(win,font=('arial,20'),bd=5)
+	 entry.place(x=50,y=90)
+
+
+4. window pe button banana:-----------jaise koi search box---------------------
+--------->btn=Button(win,font=('arial',19),bd=5,text="search",)
+	  btn.place(x=250,y=140)
+
+5. button banane ke bad----us button ke chalane ke liye-----hum button me hi ek-------"command" function banate hai.
+--------->btn=Button(win,font=('arial',19),bd=5,text="search",command=checkacn)---------command=checkacn
+	  btn.place(x=250,y=140)
+
+--------->def checkacn:------------then---------import krte hai. driver----------import pymysql-------fucntion ka connection bnate hai.
+def checkacn():
+    acn=entry.get()
+    con=pymysql.connect(user='root',password='root',database="11to1230")
+    cur=con.cursor()
+    rowcount=cur.execute("select * from pnb where pnb_acn=%s",(acn,))
+    if (rowcount==0):
+        print("acn does not exist")
+    else:
+        row=cur.fetchone()
+        print(row)
+    con.close()
+
+5. label object create krna----------------window pe result dekhne ke liye.
+----->reslbl=Label(win,text="rishav",font=('arial',20),bg='green')------------->reslebel banane se jo label humne banaya hua hai uske result jupyter pe na aa ke bulki window pe hi aa jaye.
+      reslbl.place(x=50,y=200)
+--->if (rowcount==0):
+        reslbl.configure(text='acn does no exist',fg='red')
+    else:
+        row=cur.fetchone()
+        reslbl.configure(text=f'Name:{row[2]}\nBal:{row[1]}',fg='blue')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		

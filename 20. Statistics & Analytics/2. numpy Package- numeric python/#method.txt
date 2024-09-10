@@ -1,0 +1,30 @@
+DIFFERENCE WETBEEN RESIZE FUNCTION AND RESIZE METHOD:
+=====================================================
+
+RESIZE FUCNTION;
+-----------------
+1. np.resize(array,(row,column))
+2. returns new array
+3. use circullar fill for new elements.
+4. new size is bydefault allowed.
+
+RESIZE METHOD;
+--------------
+1. array.resize(row,column)
+2. change existing array
+3. use zero fill for new elements
+4. new size is not bydefault allowed. we have to use refcheck=False argument.
+
+==============================================================================================================================================================================================
+method:
+-------
+1. a.flatten()---------------[5 3 4 8 5 5 5 2 2 3 8 8]----------ye 1d array me convert kr deta hai. 
+
+==============================================================================================================================================================================================
+
+ARRAY 
+is array mutable?------iska bahot hi alag answer hai---bahot tricky bhi
+-----------------
+Values are mutable
+
+Size is immutable

@@ -1,0 +1,49 @@
+INDEX:-  (Indexing Expalin ki searching ko fast kr deta hai.)
+=======
+
+>Explain Select command ke sath chalta hai, Table ko explain karne ke liye.
+		#explain select * from emp where empsal=50000;
+--------------------------------------------------------------------------------------------------------------------
+id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra 
+ 1 | SIMPLE      | emp   | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   14 |    10.00 | Using where-------------->yha 14 rows me searchig ho rahi hai.
+--------------------------------------------------------------------------------------------------------------------
+
+#Indexing(fast searching)
+	>Syntax of index
+		CREATE INDEX index_name ON table_name (column1, column2, ....);
+		#create index sal_index on emp(empsal);
+		#explain select * from emp where empsal=50000;-------------index lagane ke bad------------searching fast ho jati hai.(efficencee)
+------------------------------------------------------------------------------------------------------------------------------------
+id | select_type | table | partitions | type | possible_keys | key       | key_len | ref   | rows | filtered | Extra
+ 1 | SIMPLE      | emp   | NULL       | ref  | sal_index     | sal_index | 5       | const |    3 |   100.00 | Using index condition-------yha sirf 3 rows me hi search kiya gaya hai.
+------------------------------------------------------------------------------------------------------------------------------------
+
+		# explain select * from emp where empsal=35000;
+------------------------------------------------------------------------------------------------------------------------------------
+id | select_type | table | partitions | type | possible_keys | key       | key_len | ref   | rows | filtered | Extra
+ 1 | SIMPLE      | emp   | NULL       | ref  | sal_index     | sal_index | 5       | const |    1 |   100.00 | Using index condition-----35000 sal search krne per sirf 1 row me hi dekha gya.
+------------------------------------------------------------------------------------------------------------------------------------
+
+NOTE:- jis column pe Primary key and unique key lag jata hai us per indexing autometic ho jati hai. mtlb primary key and unique key is part of index.
+
+			INDEX
+================================================
+1. Non Clustered(jo hum banate hai./ lagate hai.)
+	>jis column pe hum index lagate hai./ ye assending me hota hai. / aur jis column pe lagate hai unke recorde ke address kiye jate hai.
+	>separate table
+
+
+
+
+2. Clustered (jo sql ki taraf se milta hai./ ye autometic lag jata hai.)
+	>(Unique key column/ Primary key column only)
+	>same table
+	>hume authorized nhi kiya gaya hai./ ye sql engine kudh hi banata hai.
+
+
+
+
+
+	
+
+		ALTER TABLE table_name DROP INDEX index_name;

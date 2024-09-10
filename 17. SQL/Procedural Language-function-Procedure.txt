@@ -1,0 +1,254 @@
+SQL----Extension----->PL (Procedural Language)
+
+PROCEDURAL LANGUAGE:
+====================
+
+is me hum apna kudh ka function bana skte hai.
+if want to change (;)----terminater colon------>
+
+telimiter is techniqual word of ;(semi colon)
+	>Syntax of ;-colon for we want to change
+	
+		#delimiter $------------semi colon ; ko change kr diya gaya hai.------ye semi colon ; starting se chalta huwa aa rha hai.
+
+	>is me koi comment add krna chahte hai to wo bhi ho skta hai.
+		1. end of query comment
+
+		#select * from emp$ -- here $ is delimiter--------------(here $ is delimiter) is comment-------(-- ka use kr ke jo bhi likha jayega wo comment mana jata hai.)
+
+		2. between of query comment
+	
+		#select * froabcdm emp$-------------froabcdm is wrong comment----ydi hume ise comment banana hai to between of query comment ka use krege------
+		#select * fro/*abcd*/m emp$--------error of space ka (fro m)
+		#select * from /* this is comment*/ emp$
+============================================================================================================================================================================================
+
+======YDI HUM KOI FUNCTION CREATE KRNA CHAHTE HAI. PROCEDURAL LANGUAGE KE ANDER===========
+------------------------------------------------------------------------------------------
+
+>SYNTAX OF CREATE FUNCTION IN PROCEDURAL LANGUAGE------------aur ye permanant hote hai.----mtlb is code ko hume kal ho ke chalayege to bhi ye code run ho jayega.
+CREATE FUNCTION function_name (func_parameter1 datatype,func_parameter2 datatypes,...)
+	RETRURN datatype [characteristics] ---likes-DETERMINISTIC,NO SQL,READS SQL DATA
+	begin
+	stmts
+	return stmt
+	end
+
+characteristics
+	>DETERMINISTIC----------->fun can perform any operation
+	>NO SQL------------------>fun can not touch db
+	>READS SQL DATA---------->fun can not perform DML operations
+
+you can call fun from select query
+
+select fun_name();
+or
+select fun_name() as alias;
+
+	>Syntax of function create;------with DETERMINISTIC----------->fun can perform any operation
+		#create function f1() returns int
+    		-> DETERMINISTIC
+   	 	-> begin
+    		-> return 10;-------------------yha semi colon ; is ka mtlb hai ki ye function ka determination kr raha hai, na bulki pure query ka.
+    		-> end
+    		-> $----------------------------$ ye query ka determination kr rha hai.
+
+	>function ko call krne ke liye hume select command ka use krna padta hai.
+		#select fi()$
+		#select f1() as result$
+
+	>kisi 2 number ka multiply krna chahte hai function se;
+		#create function f2(a int,b int) returns int
+    		-> DETERMINISTIC
+    		-> begin
+    		-> return a*b;
+   		-> end
+    		-> $ 
+		
+		#select f2(555,444) as result$
+
+	>ydi hum function me kisi emplyee ki empid de to wo hume uski empsalry la ke hume dede.
+
+		#create function f3(id int) returns float
+    		-> DETERMINISTIC
+    		-> begin
+    		-> declare sal float;-------------------------------------ye empsal ko declare krta hai
+    		-> select empsal into sal from emp where eid=id;----------jo declare sal kiya gaya hai use eid me put kiya jaye
+    		-> return sal;--------------------------------------------kya hume return krna hai. to empsal hum chahte hai. to sal ko humne phle hi declare kr liya as empsal.
+    		-> end
+    		-> $
+
+		#select f3(1004)$-----------------ERROR 1172 (42000): Result consisted of more than one row-----kyoki ek id same 4 times hai.
+		#select f3(191)$---------ydi ko id jo humne likh di aur wo table me nhi hai to hume us id se NULL values mil jati hai.
+
+NOTE: function se yhi hume empid se uski empsal chaiye to ek id se ek hi values milegi-------------ydi ek 3 times same hai to error aa jati hai. abhi tak--------------------,,,,
+      function hume ek bari me ek hi value return krti hai.
+
+LIMITATIONS WITH FUNCTION;
+	>can not produce result set
+	>can not return multiple values ----------------------->solution--------------->Procedure
+
+============================================================================================================================================================================================
+
+=====================PROCEDURE=========================
+-------------------------------------------------------
+1. Procedure result set return krta hai.
+	>Syntax of procedure
+	>procedure ko create krna;
+		#create procedure p1()
+        	-> begin
+    		-> select * from emp where empsal>=30000;
+    		-> end
+    		-> $
+	>procedure ko call kaise kre;
+		#call p1()$----------------pa jo humne procedure ka name diya hai tha, procedure banate time.
+
+	>procedure se empdept ke dwara empsal ko hum nikalna chahte hai.
+		# create procedure p2()
+    		-> begin
+    		-> select empdept,count(empdept),sum(empsal),round(avg(empsal),2) from emp group by empdept;
+    		-> end
+    		-> $
+
+		#call p2()$------------kyoki hum select command se procedure me query likhi ja rhi hai.
+
+	>procedure p2 banane ke bad ydi hum emp table me koi query delete ya insert krte hai. aur fer se PL me procedure p2 ko call krte hai jo ye result hume update ho ke milta hai.
+		#delete from emp where eid>=1000$
+		#call p2()$--------------ye wala result hume phle result se change hua milega. after delete krne ke bad.
+
+2. Procedure se single ya multiple value result milta hai.
+	>Syntax of Procedure---------single value ke liye and multiple values ke liye.
+		#create procedure p3()
+     		-> begin
+    		-> select now();
+    		-> end
+    		-> $
+		
+		#call p3()$------------but by mysql ye single value nhi hai.----------ye ek result set hai.
+
+	>procedure humse do number le aur us 2 number ka multipication kre.
+----------------------------------------------------------------------------------------------
+NOTE:-----Parameter types-->in, out, inout
+	  Parameter data types-->int,float varchar,....
+
+single and double ya fer 3 ya 4,.. value ke result ke liye hum out parameter ka use krte hai.
+
+ydi hume pura result set chaiye do hum out parameter ka use nhi krte .
+
+out parameter se hum jb data dikhate hai, tab hume select command ka use krna padta hai.
+----------------------------------------------------------------------------------------------
+A. in type parameter----------------B. out type parameter
+
+		#create procedure p4(in a int,in b int,out c int)
+    		-> begin
+    		-> set c=a*b;----------------------set ek keyword hai.
+    		-> end
+    		-> $
+
+	>kyoki ab ye ek single value hume dega to hume call krne ke liye select command ka us krna padta hai.
+		#call p4(4,5,@res)$--------------------------Query OK, 0 rows affected (0.01 sec)-------------Then
+		#select @res$-------phle call krege then select command se ise dekh skte hai.
+		#call p4(55,55,@mul)$
+		# select @mul as multiply$
+
+	>procedure me multiple result ke liye;
+		#create procedure p5(in a int,in b int,out c int,out d int)
+    		-> begin
+    		-> set c=a*b;
+    		-> set d=a+b;
+   		-> end
+    		-> $
+
+		#call p5(23,23,@mul,@add)$
+		#select @mul as multiply$
+		#select @add as addition $----------------------------single bhi result la skte hai.
+		#select @mul as res_mul , @add as res_add $-----------isme hume dono result bhi la skte hai.
+
+	>Procedure se query chalana;----by empdept se pura result set chaiye---uski empid,empsal,empname pura ka pura result set chaiye.
+		# create procedure p6(in dept varchar(10))
+    		-> begin
+    		-> select * from emp where empdept=dept;
+    		-> end
+    		-> $
+
+		#call p6("hr")$----------yha pe hume derect call krne se result set mil chayega,  kyoki-----hume ek pura ka pura result set chaiye to,----humne ko out parameter ka use nhi 					 kiya.----------out parameter se hum jb data dikhate hai, tab hume select command ka use krna padta hai.
+
+	SOME QUESTION OF PROCEDUR;
+	--------------------------
+	1. Procedure se value kaise return hoti hai.---------------out parameter ke dwara hoti hai.
+	2. Jab procedure call karte hai, out parameter ke liye kya arqument pass hota hai.-------------------@ laga ke ek variable ka name pass ki jati hai like------@mul,@add
+	3. Procedure me kitne out parameter de skte hai----------to out parameter me kitne bhi out parameter diye ja skte hai.
+	4. Procedure se jo out parameter hai uski value kaise print karayege-----jo @ laga ke variable ka name diya hai usko hum select query chala ke print karwa skte hai.	 
+	5. Ek procedure se result set banaya ja skta hai. and is me kitne out parameter use honge---------Ha ek procedure se result set banaya ja skta hai.---but isme hum out parameter 													  wala concept use nhi karege. direct call karege aur result mil jayega.
+
+C. inout type parameter------mai hi in parameter hu aur mai hi out parameter hu.
+	>Syntax of inout parameter
+	>age leke uska birth year batayega.
+		# create procedure p7(in birth_year int,out age int)------------inout parameter jb work krta hai jb data type same ho jaise-----int-int,float-float, varchar--varchar
+    		-> begin
+    		-> set age=2023-birth_year;
+    		-> end
+    		-> $
+	
+		#call p7(1996,@age)$
+
+	>in out parameter ko ek hi sath me likhege inout parameter jaise.
+		#create procedure p8(inout year_age int)
+    		-> begin
+    		-> set year_age=2023-year_age;
+    		-> end
+    		-> $
+
+	>jb inout parameter call krte hai to iske call krne ka tarika toda alag hai phle-------hum kisi variable ko @ ka sing laga ke use set keyword me likhte hai. jaise:-
+		#set @age=1996$
+		then call krege
+
+		#call p8(@age)$------then select query lagayege
+		#select @age $
+
+	>ek procedure banayege usme ek adhar no. denge aur usse uska name,bal,...
+		#create procedure p9(inout adhar_bal int)
+    		-> begin
+    		-> select pnb_bal into adhar_bal from pnb where adhar=adhar_bal;
+    		-> end
+    		-> $
+
+		#set @adharbal=125$
+
+		#call p9(@adharbal)$
+		#select @adharbal$
+
+		+-----------+
+		| @adharbal |
+		+-----------+
+		|      6000 |
+		+-----------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

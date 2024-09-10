@@ -1,0 +1,94 @@
+Constraints:
+------------
+1. Unique key Constraint:---ye table ke field(colunm) pe lagaya jata hai---ye field me dublicate value ko aane nhi deta hai.
+			    ydi ek table ke ek field per koi constraint laga hai, to us same field per dusra constraint lag skta hai. 
+
+	>Syntax of Unique key constraint:
+		1. create table emp3 (empid int unique key,empname varchar(10), empsal float);
+		2. create table emp4 (empid int,empname varchar(10), empsal float,uniqe key(empid,....,....,etc));
+
+2. Not Null Constraint:
+	>Syntax of Not null constraint:
+		#create table emp5(empid int unique key not null,empname varchar(10), empsal float);
+
+3. Primary key Constraint---(Unique key constraint + Not null constraint) ye dono constraints lag jate hai primary key constraint me.
+	>Syntax of Primary key constraint:
+		#create table emp6(empid int primary key, empname varchar(10), empsal float);
+
+4. Default Constraint:-- set a default value for a column when no value is specified-----------------with Autoincrement field
+	>Syntax of Default constraint:
+		alter table tablename(person modify) col type default default_value;
+		#alter table emp modify empsal float default 20000;-----ye humne default constraint laga diya hai.
+		#insert into emp(empname,empdept) values('arjun','hr');- is me hume empsal ke jagah hume autometic 20000 mil gye hai.
+
+5. Check Constraint:-- different-2 situation ke liye check contraint laga skte hai.
+	check constraint se hum kisi amount,salary, ye koi other thing, jise hum fixed kr ke us amount se jyada to ho jaye but kam na ho.
+	>Syntax of Check constraint:
+		alter table table_name add check(empsal>=10000);
+		#alter table emp add check(empsal>=10000);
+		NOTE----------ydi humare table me 10000 se value kam hai humara check contraint fail ho jayega.
+		
+		#alter table emp add check(empsal>=10000);---------yha pe check constraint se 10000 ya 10000 se jyada rhne per.
+		
+	>agar check constraint laga hai table per, aur hum dubara se koi record insert krte hai to wo nhi hoga.
+		#insert into emp values(1004,'chintu',5000,'hr');----------kyoki check constraint ki wajah se ye record insert nhi hoga check(empsal>=10000.
+
+	>check constraint ko hum remove(hatana) chahte hai to,-----sbse phle----shwo create table emp; krna padega, aur check constraint ka name dekhna padega then delete kr skte hai.
+		shwo create table emp;(is se phle name dekhege constraint ka)
+		#alter table emp drop check emp_chk_1;
+
+
+
+
+6. Composite key=====Primary key on multiple column-----jb multiple column pe multiple primary key lagate hai to use composite key kahte hai.
+	>Syntax of composite key:
+	>sbse phle ek table create karege;
+		#create table clg_event(roll int,name varchar(10),activity varchar(10),primary key(roll,activity));------koi specific composite key nhi lagai jati.
+
+	>indviual and collectvily
+		#insert into clg_event values(1,'Amit','Dance');----collectvily----composite key
+		#insert into clg_event values(1,'Amit','Mimcry');---collectvily----composite key
+		#insert into clg_event values(2,'Ben','Mimcry');----collectvily----composite key
+		#insert into clg_event values(1,'chintu','Dance');--------error(indviual) kyoki yha allready rollno=1 dance le liya hai wo dubara nhi le skta.
+
+	>Some EXAMPLE for clearefication
+		#create table t1(c1 int primary key,c2 int);---------Primary key-----indviual
+		#create table t2(c1 int primary key,c2 int primary key);-----------error(ek table me ek hi primary key lagai ja skti hai.)
+		#create table t2(c1 int,c2 int,primary key(c1));-----Primary key-----indviual
+		#create table t3(c1 int,c2 int,primary key(c1,c2));-----This is composite key jo ki collectvily dono pe work krta hai.-------collectvily
+
+
+7. REFERENTIAL INTEGRITY(foreign key constraint): ----------------important question.
+	>Foreign key lagane ke liye kuch important sarte/rules hai.
+		1. Koi dusri table honi chaiye.
+		2. jo dusri table hai usme koi Primary key constraint column hona chaiye.
+		3. Aur foreign key humesha dusri table ke primary key column pe lagaya jata hai.
+	>ye kabhi bhi row/record pe nhi lagay jate.
+	>Parent table-------------->jis table pe primary key lagi hui wo parent table/column hai. for foreign key ke liye.
+	>Child table--------------->jis pe foreign key lagi hai wo child table/column hai.
+
+	>Parent row----------------koi bhi row jo parent table me hai. use parent row kahte hai.
+	>Child row-----------------koi bhi row jo child table me jayegi use child row kahte hai.
+
+	NOTE:---foreign key ek se jyada column pe lagai ja skti hai. [0-N] foreign key lagai ja skti hai.
+	
+	>Syntax of Foreign key Constraint
+	>Phle foreign key create krege;
+		# create table address(email varchar(20),mob varchar(10),adr varchar(20),empid int,foreign key(empid) references emp(eid));
+		#insert into address values("abc@gmail.com",'123','O-86,Badarpur',200);-------Parent table and Child table, 200(eid) hai to ye foreign key work krega.
+
+		#insert into address values("pqr@gamil.com",'223','O-86,Badarpur',201);-------ye work nhi krega kyoki 201(eid) parent table me nhi hai.
+
+		#insert into address values("pqr@gamil.com",'223','O-86,Badarpur',300);-------ye ho jayega kyoki 300(eid) parent table me hai.
+			
+	>Ydi foreign key lagi hui hai, aur hume koi record/row delete krna ho to;
+		#delete from emp where eid=200;---------error--------aur hum ise delete nhi kr payege. kyoki ye wala record alredy foreign key me ja chuka hai. ise delete krne ke liye
+								     phle hume foreign key se delete krna padega then hum parent table se delete kr payege.
+
+	
+
+
+
+
+
+

@@ -1,0 +1,246 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 11to1230;
+Database changed
+mysql> select from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from emp' at line 1
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16500 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| eid     | int         | NO   | PRI | NULL    | auto_increment |
+| empname | varchar(10) | YES  |     | NULL    |                |
+| empsal  | float       | YES  |     | 20000   |                |
+| empdept | varchar(10) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table emp modify eid int;
+Query OK, 17 rows affected (0.03 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| empsal  | float       | YES  |     | 20000   |       |
+| empdept | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table emp drop primary key;
+Query OK, 17 rows affected (0.03 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   |     | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| empsal  | float       | YES  |     | 20000   |       |
+| empdept | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table emp add eid int primary key;
+ERROR 1060 (42S21): Duplicate column name 'eid'
+mysql> alter table emp add primary key(eid);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| empsal  | float       | YES  |     | 20000   |       |
+| empdept | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> shwo create table emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'shwo create table emp' at line 1
+mysql> show create table emp;
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table
+
+      |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| emp   | CREATE TABLE `emp` (
+  `eid` int NOT NULL,
+  `empname` varchar(10) DEFAULT NULL,
+  `empsal` float DEFAULT '20000',
+  `empdept` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`eid`),
+  CONSTRAINT `emp_chk_1` CHECK ((`empsal` >= 10000))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> alter table emp drop check emp_chk_1;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16500 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> create table address(email varchar(20),mob varchar(10),adr varchar(20),empid int,foreign key(empid) references emp(eid));
+Query OK, 0 rows affected (2.24 sec)
+
+mysql> insert into address values("abc@gmail.com",'123','O-86,Badarpur',200);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into address values("pqr@gamil.com",'223','O-86,Badarpur',201);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`11to1230`.`address`, CONSTRAINT `address_ibfk_1` FOREIGN KEY (`empid`) REFERENCES `emp` (`eid`))
+mysql> insert into address values("pqr@gamil.com",'223','O-86,Badarpur',300);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from address;
++---------------+------+---------------+-------+
+| email         | mob  | adr           | empid |
++---------------+------+---------------+-------+
+| abc@gmail.com | 123  | O-86,Badarpur |   200 |
+| pqr@gamil.com | 223  | O-86,Badarpur |   300 |
++---------------+------+---------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> delete from emp where eid=200;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`11to1230`.`address`, CONSTRAINT `address_ibfk_1` FOREIGN KEY (`empid`) REFERENCES `emp` (`eid`))
+mysql> update emp set empsal=empsal+1 where empid=200;
+ERROR 1054 (42S22): Unknown column 'empid' in 'where clause'
+mysql> update emp set empsal=empsal+1 where eid=200;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> select * from address;
++---------------+------+---------------+-------+
+| email         | mob  | adr           | empid |
++---------------+------+---------------+-------+
+| abc@gmail.com | 123  | O-86,Badarpur |   200 |
+| pqr@gamil.com | 223  | O-86,Badarpur |   300 |
++---------------+------+---------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table t5(c1 varchar(68798464468656));
+ERROR 1439 (42000): Display width out of range for column 'c1' (max = 4294967295)
+mysql> create table t5(c1 varchar(100000),c2 varchar(100000));
+ERROR 1074 (42000): Column length too big for column 'c1' (max = 16383); use BLOB or TEXT instead
+mysql> create table t5(c1 varchar(16383),c2 varchar(16383),c3 varchar(16383));
+ERROR 1118 (42000): Row size too large. The maximum row size for the used table type, not counting BLOBs, is 65535. This includes storage overhead, check the manual. You have to change some columns to TEXT or BLOBs
+mysql> create table t5(c1 int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into t5 values(9999999999);
+ERROR 1264 (22003): Out of range value for column 'c1' at row 1
+mysql> insert into t5 values(999999999);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into t5 values(-999999999);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> create table t6(c1 tinyint);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert table t6 values(-128),(127),(130);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table t6 values(-128),(127),(130)' at line 1
+mysql> insert into table t6 values(-128),(127),(130);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table t6 values(-128),(127),(130)' at line 1
+mysql> insert into table t6 values(-128),(127),(130);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table t6 values(-128),(127),(130)' at line 1
+mysql> insert into table t6 values(-128),(127);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table t6 values(-128),(127)' at line 1
+mysql> insert into t6 values(-128),(127);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> create table t7(c1 tinyint unsigned);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into t7 values(140);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>

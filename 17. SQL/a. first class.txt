@@ -1,0 +1,104 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database 11to1230;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> creae database 10to30;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creae database 10to30' at line 1
+mysql> create database 11to1230;
+ERROR 1007 (HY000): Can't create database '11to1230'; database exists
+mysql> create database 11to12;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use 11to1230;
+Database changed
+mysql> create table emp(empid int,empname varchar(10),empsal float);
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> create table emp2
+    -> (empid empname int, empname varchar(10)
+    -> ,empsal float);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'empname int, empname varchar(10)
+,empsal float)' at line 2
+mysql> create table emp2
+    -> (empid int, empname varchar(10)
+    -> ,empsal float);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table emp3(empid int unique key,empname varchar(10)
+    -> ,empsal float);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table emp4(empid int, empname varchar(10)
+    -> ,empsal float,unique key(empid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> create table emp4(empid int, empname varchar(10)
+    -> ,empsal float,unique key(empid));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table emp5
+    -> (empid int primary key, empname varchar(10), empsal float);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show tables;
++--------------------+
+| Tables_in_11to1230 |
++--------------------+
+| emp                |
+| emp2               |
+| emp3               |
+| emp4               |
+| emp5               |
++--------------------+
+5 rows in set (0.05 sec)
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> desc emp5;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| empid   | int         | NO   | PRI | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| empsal  | float       | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc emp3;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| empid   | int         | YES  | UNI | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| empsal  | float       | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table emp add primary key(empid);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| empid   | int         | NO   | PRI | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| empsal  | float       | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql>

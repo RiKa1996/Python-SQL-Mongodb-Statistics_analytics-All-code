@@ -1,0 +1,105 @@
+ARRAY:--------->Ye kind of list hoti hia--------- but this is not python list---------this is array(data structure/container /collection)
+======--------->there is 3rd party package named numpy and numpy provides implementation of array.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+numpy---2005
+numpy package also provides functions/methods related to descriptive(summary,relationship,visualization) statistics, matrx and other linear alzebra.
+numpy package was first introduced in 2005 by Travis Oliphant.
+numpy me array ko create krna:------>array banane ke kai tarike hote hai------->we are going to study minimum 10 way.
+
+1st tarika numpy me array banane ke liye:
+==========================================
+a=np.array([1,2,3,4])
+
+dtype= data tpye-----jo ki hume array me batana padta hai taki jis tpye ki value hum chahte hai array se , wo hume la ke de dega.
+formula= -(2) ki power n-1 to (2) ki power n-1 minus 1 ------->ye formula sirf integer ke sath chalta hai.
+np.int8----------- np.float8
+np.int16---------- np.float16
+np.int32---------- np.float32
+np.int64---------- np.float64
+np.uint8-----------unsinged me negetive value allowed nhi hoti-----0 se 255------------------->jaise [-1,-2] 127+128=255, -2 hone pe 154
+np.uint16
+np.uint32
+np.uint64
+
+a=np.array([1,2,3,4,5.5,-1,-2,130,131],dtype='int8')
+a=np.array([1,2,3,6,5,4,5.5],dtype="float16")
+	
+
+2. array banane ka 2nd tarika
+=============================
+a=np.arange(1,20,2)       #start,end,step-----------default start is 0 ------default step is 1
+
+=======================DIFFERENCE BETWEEN RANGE FUNCTION AND ARANGE FUNCITON=================================================
+RANGE FUNCTION
+1. Part of standard python
+2. It returns a sequence
+3. Works with int only
+
+ARANGE FUNCTION
+1. Part of numpy(3rd party) library
+2. It returns an array
+3. Works with both integer & float
+
+=======================DIFFERENCE BETWEEN LIST  AND ARRAY =================================================
+LIST
+1. Can stores multiple types of values
+2. memory consumption is high
+3. ye jitna hum value chahte hai wo puri ki puri values dikhata hai.
+3. less efficient
+4. does not support brodcasting
+5. limited support of lib function
+6. support int indexing
+
+ARRAY
+1. Can stores single type of value
+2. memory consumption is low than list to store same values.
+3. ye puri values na dikha kr short me values ko dikhata hai.
+3. more efficient
+4. supports broadcasting
+5. huge support of lib function
+6. support int & boolean(indexing wali baat ho rhi hai) indexing 
+
+3. array banane ka 3rd tarika
+=============================
+array banane ka 3rd tarika------with zeros function
+
+
+
+4. array banane ka 4th tarika
+=============================
+array banane ka 4th tarika------with ones function
+
+
+
+5. array banane ka 5th tarika---------with full function
+=============================
+np.full(5,50000.555)       #(size, intial_value)
+
+
+
+6. array banane ka 6th tarika------with linspace function
+==================================
+l=np.linspace(1,10,6)       #low(first),high(last-inclusive),size------------------default size ki value 50 hoti hai.
+print(l)
+
+
+7. array banane ka 7th tarika------with sub module random.randint
+=============================
+a=np.random.randint(1,15,7)        #low,high,size(jitni value hume chaiye)
+print(a)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

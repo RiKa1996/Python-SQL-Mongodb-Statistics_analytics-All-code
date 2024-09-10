@@ -1,0 +1,27 @@
+MONGODB CONNECTIVITY;
+=====================
+1st step:
+---------
+	pip install pymongo--------------------------pymongo is mongodb library
+
+2nd step:-import mongodb module
+---------
+	import pymongo
+
+3rd step:-create connection with mongodb
+---------
+	con=pymongo.MongoClient('localhost',27017)
+	print(con)
+
+4rt step:-get database from con (created if does not exist)
+---------
+	db=con['11to1230']
+
+5th step:-get collection from db---------------Select(Insert Document)
+---------
+	col=db['Students']
+
+	docs=col.find()         #will get all documents
+	for doc in docs:
+    		print(doc)
+          

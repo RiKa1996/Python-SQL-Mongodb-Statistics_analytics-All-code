@@ -1,0 +1,193 @@
+How to show database:
+---------------------
+MongoDB use DATABASE_NAME is used to create database. The command will create a new database if it doesn't exist, otherwise it will return the existing database.
+>use test
+	- use test(11to1230) se hum, ydi database nhi bana hai to ban jayega/    ydi ye phle se bana hua hai to hum is database me enter(ander) ho jayege.
+
+
+How to show database:
+---------------------
+show database
+or 
+show dbs
+
+
+db command:-----------ye ek object hota hai.
+-----------
+it represents currently used database
+
+
+The dropDatabase() Method
+-------------------------
+MongoDB db.dropDatabase() command is used to drop a existing database.
+	- db-------ye ek object hota hai./  Database-----ye method hota hai.
+	- ydi hum kisi database ko drop krte hai to-----jis database me hum hota hai -------use drop kr skta hai bina database ko likhe-----ye current db ko represent krta hai.
+
+
+How to create collection(table):
+--------------------------------
+db.createCollection(name,options)--------------------------------------createCollection is a method
+db.createCollection("mycol",{capped:true,autoIndexID:true,size :  6142800, max : 10000})
+
+
+capped---->Boolean(Optional) If true, enables a capped collection.
+Capped collection is a fixed size collection that automatically overwrites its oldest entries when it reaches its maxium size. If you specify true, you need to specify size parameter also.
+
+
+autoIndexId----->Boolean (Optional) If true, automatically create index on _id field's Default value is false.
+
+
+Size------->number (Optional) specifies a maximum size in bytes for a capped collection. If capped is true, then you need to specify this field also.
+
+
+max-------->number (Optional) Specifies the maxium number of documents allowed in the capped collection.
+
+
+db.collection_name.drop()
+-------------------------
+	is used to drop a collection from the database.
+	return true, if the selected collection is dropped
+successfully, otherwise it will return false.
+
+
+Insert a single Document
+------------------------
+db.collection_name.insertOne({})
+
+If the document does not specify an _id field, MongoDB adds the _id field with an ObjectId Value to the new document.
+
+
+Insert Multiple Documents
+-------------------------
+db.collection.insertMany({},{},..) can insert multiple documents into a collection. Pass an array of documents to the method.
+
+
+Key Points:
+-----------
+If the collection does not currently exist, insert operations will create the collection.
+
+
+>In MongoDB, each document stored in a collection requires a unique _id field that acts as a primary key. If an inserted document omits the _id field, the MongoDB driver autometically generates an ObjectId for the _id field.
+
+>All write operations in MongoDB are atomic on level of a singel document.
+
+
+The find (query,projection,options) Method
+------------------------------------------
+>db.COLLECTION_NAME.find()
+
+find() method will display all the documents in a non-structured way.
+
+
+The findOne(query,projection,option) Method
+--------------------------------------------
+>db.COLLECTION_NAME.findOne()
+
+
+The pretty() Method
+-------------------
+To display the results in a formatted way, you can use pretty() method.
+
+Syntax
+>db.COLLECTION_NAME.find().pretty()
+
+The limit() Method
+------------------
+	db.collection_name.find().limit(num)
+
+The skip() Method
+-----------------
+	db.collection_name.find().limit(num).skip(num)
+	db.collection_name.find().skip(num)
+
+The sort() method
+-----------------
+	db.collection_name.find().sort({'field:1'})    #asc-accending
+	db.collection_name.find().sort({'field:-1'})   #desc-decending
+
+db.collection_name.find({field:value,...}),[select_field_1,f_2,...]
+
+
+MongoDB Operators:
+------------------
+$eq -->db.mycol.find({"field":{$eq:"value"}})    field=value
+$ne -->db.mycol.find({"field":{$ne:"value"}})    field!=value
+$lt -->db.mycol.find({"field":{$lt:"value"}})    field<value
+$lte -->db.mycol.find({"field":{$lte:"value"}})    field<=value
+$gt -->db.mycol.find({"field":{$gt:"value"}})    field>value
+$gte -->db.mycol.find({"field":{$gte:"value"}})    field>=value
+$in -->db.mycol.find({"field":{$in:["v1,v2"]}})    field in (v1,v2)
+$nin -->db.mycol.find({"field":{$nin:["v1,v2"]}})    field not in(v1,v2)
+
+$and -->db.mycol.find({$and: [{<field1>:<value1>},{<field2>:<value2>} ] } )
+
+
+$or -->db.mycol.find({$or: [{<field1>:<value1>},{<field2>:<value2>} ] } )
+
+
+updateOne() Method
+------------------
+The updateOne() Method updates the value in the values in the existing document.
+
+Syntax
+>db.COLLECTION_NAME.updateOne(SELECTION_CRITERIA, UPDATED_DATA)
+	db.emp.updateOne({'empdept':'hr'},{$set:{'empdept':'HR'}})
+
+>db.COLLECTION_NAME.updateMany(SELECTION_CRITERIA, UPDATED_DATA)
+	db.emp.updateMany({'empdept':'hr'},{$set:{'empdept':'HR'}})
+
+
+replaceOne() Method
+-------------------
+db.collection_name.replaceOne({field:value},{new document})
+NOTE:---------here _id will remain same
+
+
+Deleting Document:
+------------------
+db.collection.deleteMany()
+	db.collection_name.deleteMany({})                       deleting all record/documents
+	db.collection_name.deleteMany({'field':value})          deleting all records/documents that matches condition
+
+db.collection_name.deleteOne()
+	db.collection_name.deleteOne({'field':value})           deleting first record/document that matches condition
+
+
+collection rename:
+------------------
+	db.student.renameCollection("Students")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+#Variable
+10
+12
+25
+"hi"
+print(10)
+print("25551544")
+""""
+shdoifj
+safdo
+djfoi
+"""

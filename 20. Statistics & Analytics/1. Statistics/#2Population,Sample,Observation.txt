@@ -1,0 +1,28 @@
+Population,Sample,Observation
+=============================
+1. Population- like 80 lakh voter/ total population of voters/ ek class me 100 students
+	>Whole dataset of a problem
+
+2. Sample----- Total data ka sub data sample khlata hai.----like ek class me 100 students hai------40 students hi presents hai to ------sample hua 40 students.
+	>A subset obtained from Population
+
+		RANDOM SAMPLING
+		===============
+			>1. With Replacment=======>same sample can be selected more than once random.choices(p,k)
+				x=[1,2,3,4]
+				y=[1,1,1,2]
+
+			>2. Without Replacment====>Unique sample are selected random.sample(p,k)
+
+				x=[1,2,3,4]
+				y=[1,2,3]
+
+3. Observation-each point in sample or population is know as observation. like 1 voter, 1 student, 1 person.
+	>Each data point(value) in Population or sample
+
+	FOR EXAMPLE
+	===========
+	X=[1,2,3,4,5,6,7]------>POPULATION
+	Y=[3,5,7]-------------->SAMPLE
+	Z=[3]------------------>OBSERVATION
+	A=[5]------------------>OBSERVATION

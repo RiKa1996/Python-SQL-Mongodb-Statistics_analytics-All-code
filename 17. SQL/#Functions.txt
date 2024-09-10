@@ -1,0 +1,6 @@
+function:
+
+1. curdate()---insert into datedemo values(curdate(),curtime(),now());
+2. curtime()
+3. curdatetime-----both------now()
+4. round()----round(empsal,2)

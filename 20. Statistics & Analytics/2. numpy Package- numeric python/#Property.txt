@@ -1,0 +1,15 @@
+PROPERTY
+========
+1. ndim Property
+print(a.ndim)-------------->ndim property batata hai ki ye kon se diametial hai
+
+2. shape property hume row aur columns batati hai.
+print(b.shape)
+
+3. size property hume total elements batati hai ek D
+print(a.size)
+
+4. dtype property element ke type batati hai.
+print(a.dtype)
+
+5. 

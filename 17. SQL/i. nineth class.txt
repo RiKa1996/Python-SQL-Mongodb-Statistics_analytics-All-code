@@ -1,0 +1,290 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 11to1230;
+Database changed
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> create view myview as
+    -> select * from pnb left join sbi on pnb.adhar=sbi.adhar
+    -> union
+    -> select * from pnb right join sbi on pnb.adhar= sbi.adhar;
+ERROR 1060 (42S21): Duplicate column name 'adhar'
+mysql> alter table sbi change adhar sbi_adhar;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table sbi change adhar sbi_adhar int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> create view myview as
+    -> select * from pnb left join sbi on pnb.adhar=sbi.sbi_adhar
+    -> union
+    -> select * from pnb right join sbi on pnb.adhar=sbi.sbi_adhar;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from myview;
++---------+---------+----------+-------+---------+---------+----------+-----------+
+| pnb_acn | pnb_bal | pnb_name | adhar | sbi_acn | sbi_bal | sbi_name | sbi_adhar |
++---------+---------+----------+-------+---------+---------+----------+-----------+
+|       1 |    5000 | a        |   123 |    NULL |    NULL | NULL     |      NULL |
+|       2 |    4000 | b        |   124 |     102 |    4000 | b        |       124 |
+|       3 |    6000 | c        |   125 |     103 |    6000 | c        |       125 |
+|    NULL |    NULL | NULL     |  NULL |     101 |    5000 | a        |       226 |
++---------+---------+----------+-------+---------+---------+----------+-----------+
+4 rows in set (0.01 sec)
+
+mysql> select pnb_bal,sbi_bal,adhar from myview;
++---------+---------+-------+
+| pnb_bal | sbi_bal | adhar |
++---------+---------+-------+
+|    5000 |    NULL |   123 |
+|    4000 |    4000 |   124 |
+|    6000 |    6000 |   125 |
+|    NULL |    5000 |  NULL |
++---------+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create view myview2 as select * from emp where empsal>=30000;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from myview2;
++------+---------+--------+----------+
+| eid  | empname | empsal | empdept  |
++------+---------+--------+----------+
+|  151 | dhoni   |  82500 | coding   |
+|  152 | pant    |  38500 | coding   |
+|  300 | ajay    |  50000 | coding   |
+|  301 | virat   |  44000 | accounts |
+|  302 | karan   |  50000 | accounts |
+|  501 | arjun   |  50000 | coding   |
+|  502 | karan   |  30000 | hr       |
+|  503 | vijay   |  30000 | hr       |
+| 1000 | vijay   |  30000 | accounts |
+| 1003 | arjun   |  45000 | hr       |
++------+---------+--------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select * from myview2 where empdept='hr';
++------+---------+--------+---------+
+| eid  | empname | empsal | empdept |
++------+---------+--------+---------+
+|  502 | karan   |  30000 | hr      |
+|  503 | vijay   |  30000 | hr      |
+| 1003 | arjun   |  45000 | hr      |
++------+---------+--------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from myview2 where empdept='accounts';
++------+---------+--------+----------+
+| eid  | empname | empsal | empdept  |
++------+---------+--------+----------+
+|  301 | virat   |  44000 | accounts |
+|  302 | karan   |  50000 | accounts |
+| 1000 | vijay   |  30000 | accounts |
++------+---------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> create view myview2 as
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> delete from myview2 where eid=501;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from myview;
++---------+---------+----------+-------+---------+---------+----------+-----------+
+| pnb_acn | pnb_bal | pnb_name | adhar | sbi_acn | sbi_bal | sbi_name | sbi_adhar |
++---------+---------+----------+-------+---------+---------+----------+-----------+
+|       1 |    5000 | a        |   123 |    NULL |    NULL | NULL     |      NULL |
+|       2 |    4000 | b        |   124 |     102 |    4000 | b        |       124 |
+|       3 |    6000 | c        |   125 |     103 |    6000 | c        |       125 |
+|    NULL |    NULL | NULL     |  NULL |     101 |    5000 | a        |       226 |
++---------+---------+----------+-------+---------+---------+----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from myview2;
++------+---------+--------+----------+
+| eid  | empname | empsal | empdept  |
++------+---------+--------+----------+
+|  502 | karan   |  30000 | hr       |
+|  503 | vijay   |  30000 | hr       |
+| 1000 | vijay   |  30000 | accounts |
+|  152 | pant    |  38500 | coding   |
+|  301 | virat   |  44000 | accounts |
+| 1003 | arjun   |  45000 | hr       |
+|  300 | ajay    |  50000 | coding   |
+|  302 | karan   |  50000 | accounts |
+|  151 | dhoni   |  82500 | coding   |
++------+---------+--------+----------+
+9 rows in set (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+16 rows in set (0.00 sec)
+
+mysql> inser into emp valuew(1004,'rohit',60000,'hr');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inser into emp valuew(1004,'rohit',60000,'hr')' at line 1
+mysql> inser into emp values(1004,'rohit',60000,'hr');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inser into emp values(1004,'rohit',60000,'hr')' at line 1
+mysql> insert into emp values(1004,'rohit',60000,'hr');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from myview2;
++------+---------+--------+----------+
+| eid  | empname | empsal | empdept  |
++------+---------+--------+----------+
+|  151 | dhoni   |  82500 | coding   |
+|  152 | pant    |  38500 | coding   |
+|  300 | ajay    |  50000 | coding   |
+|  301 | virat   |  44000 | accounts |
+|  302 | karan   |  50000 | accounts |
+|  502 | karan   |  30000 | hr       |
+|  503 | vijay   |  30000 | hr       |
+| 1000 | vijay   |  30000 | accounts |
+| 1003 | arjun   |  45000 | hr       |
+| 1004 | rohit   |  60000 | hr       |
++------+---------+--------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select empdept,count(eid) as count,sum(empsal),max(empsal),min(empsal) from emp group by empdept having count(eid)>=5;
++----------+-------+-------------+-------------+-------------+
+| empdept  | count | sum(empsal) | max(empsal) | min(empsal) |
++----------+-------+-------------+-------------+-------------+
+| hr       |     9 |      276000 |       60000 |       16500 |
+| accounts |     5 |      165501 |       50000 |       16501 |
++----------+-------+-------------+-------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
+| 1004 | rohit    |  60000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> select * from emp into outfile 'E:/New folder (2)/17. SQL/empdata.txt'
+    -> fields seperated by ',' and lines terminated by '\n';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seperated by ',' and lines terminated by '\n'' at line 2
+mysql> select * from emp into outfile 'E:/New folder (2)/17. SQL/empdata.txt'
+    -> fields seperated by ',' lines terminated by '\n';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seperated by ',' lines terminated by '\n'' at line 2
+mysql> select * from emp into outfile 'E:/New folder (2)/17. SQL/empdata.txt'
+    -> fields terminated by ',' and lines terminated by '\n';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and lines terminated by '\n'' at line 2
+mysql> select * from emp into outfile 'E:/New folder (2)/17. SQL/empdata.txt'
+    -> fields terminated by ',' lines terminated by '\n';
+ERROR 1290 (HY000): The MySQL server is running with the --secure-file-priv option so it cannot execute this statement
+
+
+
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 11to1230;
+Database changed
+mysql> select * from emp into outfile 'E:/New folder (2)/17. SQL/empdata.txt'
+    -> fields terminated by ',' lines terminated by '\n';
+Query OK, 17 rows affected (0.01 sec)
+
+mysql>

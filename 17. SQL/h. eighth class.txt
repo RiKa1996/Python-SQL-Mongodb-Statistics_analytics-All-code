@@ -1,0 +1,210 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 11to1230;
+Database changed
+mysql> select * from pnb;
++---------+---------+----------+-----------+
+| pnb_acn | pnb_bal | pnb_name | pnb_adhar |
++---------+---------+----------+-----------+
+|       1 |    5000 | a        |       123 |
+|       2 |    4000 | b        |       124 |
+|       3 |    6000 | c        |       125 |
++---------+---------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from sbi;
++---------+---------+----------+-----------+
+| sbi_acn | sbi_bal | sbi_name | sbi_adhar |
++---------+---------+----------+-----------+
+|     101 |    5000 | a        |       226 |
+|     102 |    4000 | b        |       124 |
+|     103 |    6000 | c        |       125 |
++---------+---------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> create table hdfc(acn int,bal float, name varchar(10),adhar int)
+    ->
+    -> ;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc pnb;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| pnb_acn   | int         | YES  |     | NULL    |       |
+| pnb_bal   | float       | YES  |     | NULL    |       |
+| pnb_name  | varchar(10) | YES  |     | NULL    |       |
+| pnb_adhar | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> create table hdfc(acn int,bal float, name varchar(10),adhar int);
+ERROR 1050 (42S01): Table 'hdfc' already exists
+mysql> select * from hdfc;
+Empty set (0.00 sec)
+
+mysql> insert into hdfc values(1001,4000,'a',124),(1002,4000,'b',321),(1003,5000,'a',221),(1001,4000,'a',221);
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from hdfc;
++------+------+------+-------+
+| acn  | bal  | name | adhar |
++------+------+------+-------+
+| 1001 | 4000 | a    |   124 |
+| 1002 | 4000 | b    |   321 |
+| 1003 | 5000 | a    |   221 |
+| 1001 | 4000 | a    |   221 |
++------+------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from pnb inner join sbi on pnb.pnb_adhar=sbi.sbi_adhar inner join hdfc on hdfc.adhar=pnb.pnb_adhar;
++---------+---------+----------+-----------+---------+---------+----------+-----------+------+------+------+-------+
+| pnb_acn | pnb_bal | pnb_name | pnb_adhar | sbi_acn | sbi_bal | sbi_name | sbi_adhar | acn  | bal  | name | adhar |
++---------+---------+----------+-----------+---------+---------+----------+-----------+------+------+------+-------+
+|       2 |    4000 | b        |       124 |     102 |    4000 | b        |       124 | 1001 | 4000 | a    |   124 |
++---------+---------+----------+-----------+---------+---------+----------+-----------+------+------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from pnb inner join sbi on pnb.pnb_adhar=sbi.sbi_adhar inner join hdfc on hdfc.adhar=sbi.sbi_adhar;
++---------+---------+----------+-----------+---------+---------+----------+-----------+------+------+------+-------+
+| pnb_acn | pnb_bal | pnb_name | pnb_adhar | sbi_acn | sbi_bal | sbi_name | sbi_adhar | acn  | bal  | name | adhar |
++---------+---------+----------+-----------+---------+---------+----------+-----------+------+------+------+-------+
+|       2 |    4000 | b        |       124 |     102 |    4000 | b        |       124 | 1001 | 4000 | a    |   124 |
++---------+---------+----------+-----------+---------+---------+----------+-----------+------+------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from pnb left join sbi on pnb.pnb_adhar=sbi.sbi_adhar;
++---------+---------+----------+-----------+---------+---------+----------+-----------+
+| pnb_acn | pnb_bal | pnb_name | pnb_adhar | sbi_acn | sbi_bal | sbi_name | sbi_adhar |
++---------+---------+----------+-----------+---------+---------+----------+-----------+
+|       1 |    5000 | a        |       123 |    NULL |    NULL | NULL     |      NULL |
+|       2 |    4000 | b        |       124 |     102 |    4000 | b        |       124 |
+|       3 |    6000 | c        |       125 |     103 |    6000 | c        |       125 |
++---------+---------+----------+-----------+---------+---------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from pnb right join sbi on pnb.pnb_adhar=sbi.sbi_adhar;
++---------+---------+----------+-----------+---------+---------+----------+-----------+
+| pnb_acn | pnb_bal | pnb_name | pnb_adhar | sbi_acn | sbi_bal | sbi_name | sbi_adhar |
++---------+---------+----------+-----------+---------+---------+----------+-----------+
+|    NULL |    NULL | NULL     |      NULL |     101 |    5000 | a        |       226 |
+|       2 |    4000 | b        |       124 |     102 |    4000 | b        |       124 |
+|       3 |    6000 | c        |       125 |     103 |    6000 | c        |       125 |
++---------+---------+----------+-----------+---------+---------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from pnb left join sbi on pnb.pnb_adhar=sbi.sbi_adhar union
+    -> select * from pnb right join sbi on pnb.pnb_adhar=sbi.sbi_adhar;
++---------+---------+----------+-----------+---------+---------+----------+-----------+
+| pnb_acn | pnb_bal | pnb_name | pnb_adhar | sbi_acn | sbi_bal | sbi_name | sbi_adhar |
++---------+---------+----------+-----------+---------+---------+----------+-----------+
+|       1 |    5000 | a        |       123 |    NULL |    NULL | NULL     |      NULL |
+|       2 |    4000 | b        |       124 |     102 |    4000 | b        |       124 |
+|       3 |    6000 | c        |       125 |     103 |    6000 | c        |       125 |
+|    NULL |    NULL | NULL     |      NULL |     101 |    5000 | a        |       226 |
++---------+---------+----------+-----------+---------+---------+----------+-----------+
+4 rows in set (0.01 sec)
+
+mysql> alter table pnb change pnb_adhar adhar int;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table sbi chage sbi_adhar adhar int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'chage sbi_adhar adhar int' at line 1
+mysql> alter table sbi change sbi_adhar adhar int;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from pnb;
++---------+---------+----------+-------+
+| pnb_acn | pnb_bal | pnb_name | adhar |
++---------+---------+----------+-------+
+|       1 |    5000 | a        |   123 |
+|       2 |    4000 | b        |   124 |
+|       3 |    6000 | c        |   125 |
++---------+---------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from sbi;
++---------+---------+----------+-------+
+| sbi_acn | sbi_bal | sbi_name | adhar |
++---------+---------+----------+-------+
+|     101 |    5000 | a        |   226 |
+|     102 |    4000 | b        |   124 |
+|     103 |    6000 | c        |   125 |
++---------+---------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from pnb inner join sbi on pnb.adhar=sbi.adhar;
++---------+---------+----------+-------+---------+---------+----------+-------+
+| pnb_acn | pnb_bal | pnb_name | adhar | sbi_acn | sbi_bal | sbi_name | adhar |
++---------+---------+----------+-------+---------+---------+----------+-------+
+|       2 |    4000 | b        |   124 |     102 |    4000 | b        |   124 |
+|       3 |    6000 | c        |   125 |     103 |    6000 | c        |   125 |
++---------+---------+----------+-------+---------+---------+----------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from pnb natural join sbi;
++-------+---------+---------+----------+---------+---------+----------+
+| adhar | pnb_acn | pnb_bal | pnb_name | sbi_acn | sbi_bal | sbi_name |
++-------+---------+---------+----------+---------+---------+----------+
+|   124 |       2 |    4000 | b        |     102 |    4000 | b        |
+|   125 |       3 |    6000 | c        |     103 |    6000 | c        |
++-------+---------+---------+----------+---------+---------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from pnb cross join sbi;
++---------+---------+----------+-------+---------+---------+----------+-------+
+| pnb_acn | pnb_bal | pnb_name | adhar | sbi_acn | sbi_bal | sbi_name | adhar |
++---------+---------+----------+-------+---------+---------+----------+-------+
+|       3 |    6000 | c        |   125 |     101 |    5000 | a        |   226 |
+|       2 |    4000 | b        |   124 |     101 |    5000 | a        |   226 |
+|       1 |    5000 | a        |   123 |     101 |    5000 | a        |   226 |
+|       3 |    6000 | c        |   125 |     102 |    4000 | b        |   124 |
+|       2 |    4000 | b        |   124 |     102 |    4000 | b        |   124 |
+|       1 |    5000 | a        |   123 |     102 |    4000 | b        |   124 |
+|       3 |    6000 | c        |   125 |     103 |    6000 | c        |   125 |
+|       2 |    4000 | b        |   124 |     103 |    6000 | c        |   125 |
+|       1 |    5000 | a        |   123 |     103 |    6000 | c        |   125 |
++---------+---------+----------+-------+---------+---------+----------+-------+
+9 rows in set (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> select * from emp as e1 self join emp as e2 on e1.empsal=e2.empsal;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'self join emp as e2 on e1.empsal=e2.empsal' at line 1
+mysql>

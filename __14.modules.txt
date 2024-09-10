@@ -1,0 +1,18 @@
+Commonly Used modules/packages in python standard(jo readymade mil jaye) library
+--------------------------------------------------------------------------------
+
+>math
+>random
+>interloos
+>time
+>calender
+>datetime
+>bultins
+>io
+>os
+>shutil
+>sys
+>gc
+>threading
+>tkinter
+etc.

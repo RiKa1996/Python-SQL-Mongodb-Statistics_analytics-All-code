@@ -1,0 +1,20 @@
+1. edgecolor='k'
+2. color=["r",'g','m','k']
+3. bins=range(0,90,10)
+4. bins=18
+5. autopct="%f"--------autopct="%.2f"----------autopct="%.2i"
+6. wedgeprops={'edgecolor':'k'}----------wedgeprops=None
+7. startangle=90 degree
+8. explode=(0,.1,0)------ye khache ko alag alag kr skta hai.
+9. hue=df.gender--------seaborn me scatter chart me
+10. style=df.gender-------seaborn me marker wise bana deta hai.
+11. order=['Thur','Fri','Sat','Sun']
+12.
+13.
+14.
+15.
+16.
+17.
+18.
+19.
+20.

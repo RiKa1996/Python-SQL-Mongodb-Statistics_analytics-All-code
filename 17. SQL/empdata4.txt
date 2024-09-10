@@ -1,0 +1,4 @@
+Dept.	total_emp	sum_sal	avg_sal
+hr		9	276000	30666.67
+coding		3	171000	57000
+accounts	5	165501	33100.2

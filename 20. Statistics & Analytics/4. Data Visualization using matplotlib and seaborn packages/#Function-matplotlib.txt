@@ -1,0 +1,95 @@
+MATPLOTLIB LIB
+--------------
+Funciton;----plot function--line chart
+==========
+1. plt.plot(over,runs)-------plot funciton ka kam hota hai line chart banana---------2 list , 2 numpy array , 2 series , 2 1d array jaisa --------hum plot function me likhna padta hai.
+2. plt.xticks(range(0,22,2))------xticks function se x axis pe hum khud se marking kr skte hai.
+3. plt.yticks(range(5,50,5))------yticks function se y axis pe hum khud se marking kr skte hai.
+4. plt.show()-----ye graph ko show krta hai.---------#seaborn me show krne ka function nhi chalta hai.---ise chalane ke hume matplotlib ka hi function use krna padta hai.
+5. plt.xlabel funciton-----ye x axis per label lagane ke liye ye function hota hai. jaise-----Over
+6. plt.ylabel function-----ye y axis per label lagane ke liye ye function hota hai. jaise-----runs
+7. for y,s in zip(years,sales):
+    	plt.text(y,s,s)              ##plt.text(where(x-axix,y-axis),what)--------------text function se marker point pe value ko show kr skte hai.
+
+8. plt.title("B/S over time",size=15,c="g")-------------ye line chart ka header likhne ke liye hota hai.-------jaise--(B/s over time)
+9. plt.legend([]) function-------legend fucntion line chart me jo line bani hui hai uski identitiy batati hai.--------#plt.legend([company name_1,company name_2])
+10. plt.grid() fucntion ---------background ko plan se hata kr grid line me convert kr deta hai.
+11. plt.savefig() function-----abhi tak jo bhi humne matplotlib se krwaya hai use hum ek figuar me save kr skte hai.----------PENDING HAI KRNE KO.
+	("E:/New folder (2)/20. Statistics & Analytics/4. Data Visualization using matplotlib and seaborn packages/B.S_over_time.png")
+12. plt.figure(figsize=(10,7))      #(width,height)-----line chart ki width and height ko control krna ho to
+
+
+Function;-----bar chart
+==========
+1. plt.bar(res_df.index,res_df["total_bill"]["count"].values,edgecolor='k',color=["r",'g','m','y'],)
+
+
+Function;-----histogram chart
+==========
+1. plt.hist(x=df.Age,edgecolor='k',bins=range(0,90,10))---------yha pe hum apne bins deside bhi kr skte hai.
+
+Function;-----pie chart
+==========
+1. plt.pie(x=val_ct.values,labels=val_ct.values,autopct="%.2f",wedgeprops={'edgecolor':'k'},startangle=90,explode=(0,.1,0))
+
+Function;-----scatter chart
+==========
+1. plt.scatter(x=df.total_bill,y=df.tip)
+
+SEABORN LIB- function--(scatterplot,countplot,lineplot,histplot,joinplot,pairplot,boxplot,heatmap,subplot)
+-----------
+1. sb.scatterplot(x=df.total_bill,y=df.tip,c='m',hue=df.day,style=df.gender)-----scatter chart
+2. sb.countplot(x=df.day,order=['Thur','Fri','Sat','Sun'])--------------bar chart
+3. sb.lineplot(x=df.day,y=df.gender)
+4. sb.histplot(x=df.total_bill)
+5. sb.jointplot(x=df.total_bill,y=df.tip)-------isme 2 graph banta hai.
+6. sb.pairplot(df)           #like orientel
+7. sb.boxplot(x)-------x=np.random.randint(1,50,100)-------high outlier,low outlier,25%,50%,75%----------5.0 and 7.0 analysis	
+8. sb.heatmap(matrix)--------matrix=np.random.randint(1,10,(10,10))---------sb.heatmap(df.corr())
+9. 	plt.subplot(2,2,1)
+	sb.countplot(x=df.day)
+
+	plt.subplot(2,2,2)
+	sb.scatterplot(x=df.total_bill,y=df.tip)
+
+	plt.subplot(2,2,4)
+	x=np.random.randint(1,50,100)
+	x[10]=150          #high outlier
+	x[12]=100         #low outlier
+	x[30]=-50          #hig outlier
+	sb.boxplot([x,y])
+
+	plt.subplot(2,2,3)
+	sb.heatmap(df.corr())
+	plt.show()
+
+Function---Web Scraping-with lib
+=======================
+1. con=requests.get("https://www.mygov.in/corona-data/covid19-statewise-status/")-----get is funciton,,,----------requests is module,,,,
+2. 
+
+
+
+============================================================================================================================================================================================
+METHOD====>
+===========
+1. 
+
+
+
+
+============================================================================================================================================================================================
+
+
+
+
+Properties;
+=============
+1. df.index---------jitne bhi dataframe me index hai wo la ke hume de deti hai.----aur kisi column ko index banana ho to, wo bhi bana skte hai.
+2. con.text------after "requests.get("URL")"-----krne ke bad jo data get kiya gya hai use text properties se confirm kr lete hai.
+
+
+
+
+
+

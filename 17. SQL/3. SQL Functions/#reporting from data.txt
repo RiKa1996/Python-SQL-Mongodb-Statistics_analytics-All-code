@@ -1,0 +1,151 @@
+Reporting from data
+===================
+--->Aggregate(group) function----Aggregate function humesha select command ke sath hi likha jata hai. query ke just befor ho chaiye.
+--->Date & time function
+--->String function
+
+#1. Aggregate function:----(chijo ko summrise kr ke dikhana----------chijo ko summary me dikhana----------chijo ko short kr ke dikhana)
+
+(Numeric-integer/float)-(Aggregate function humesha select command ke sath hi likha jata hai.)
+------------------------
+EXAMPLE--->10th class ke marks-------76% aaye---------humne yha apne marks ko aggregate marks kr ke bataya hai.
+
+	>Aggregate function
+		1. Count() function
+		2. Sum()   function
+		3. Min()   function
+		4. Max()   fucntion
+		5. Avrage()fucntion
+		6. Standard deviation
+		   etc.
+		7. Concat()function
+		8. Upper() function
+		9. Lower() function
+		10.char_lenght function
+		11.Distinct function-----ye unique value lata hai. jaise empdept----hr,accounts,coding.---------with group by clause.
+
+	
+	>Synatax of aggregate fucntion:
+		#select count(eid) from emp;--------for count() ke liye
+		#select count(empsal) from emp;-----for count() ke liye----aur ye NULL value ko count nhi krta hai.
+		#select count(empsal) as count from emp;------alias laga ke count(empsal) ko short kiya ja skta hai.
+		#select count(empsal),sum(empsal),avg(empsal) from emp;-----for count()----for sum()-----for avg() ke liye.
+		#select count(empsal),sum(empsal),avg(empsal),max(empsal),min(empsal) from emp;--for max()---for min() ke liye.
+		# select concat(empname,empdept) from emp;---------concat fucntion
+		#select concat(empname,'_',empdept) as empname_empdept from emp;-----concat function-----alias-----seprate '_' laga skte hai.
+		#select upper(empname) from emp;------upper function
+		#select lower(empname) from emp;------lower function
+		#select char_length(empname) from emp;------char_length function
+		# select * from emp where eid like '____';--char_length function
+		#select * from emp where char_length(eid)=4; --char_length function
+		# select distinct(empdept) from emp;--------distinct function
+		#select count(eid) as eid,empdept,sum(empsal) from emp group by empdept;-------count,sum, group by(clause)
+		#select empdept,count(eid),sum(empsal),max(empsal),min(empsal) from emp group by empdept;
+		# select empdept,count(eid),sum(empsal),max(empsal),min(empsal) from emp group by empdept having count(eid)>=5;
+
+	>Nested Query ko select me chalaya ja skta hai.
+		#select * from emp where empsal=(select max(empsal) from emp);------ye nested query hai.----jo sbse jyada salry lele wala hoga use ab hum nikal skte hai.
+
+#2. Date & Time:
+	>Three types of datatype for Date & Time:
+		1. Date
+		2. Time
+		3. Datetime
+	
+	>Date format-----------in mysql-----(yyyy-mm-dd)
+	>Time format-----------in mysql-----(hh:mm:ss)
+	>Syntax of Date & Time;
+	>Phla tarika:---
+		#create table datedemo(mydate date,mytime time,mydatetime datetime);--------------create table
+		#insert into datedemo values('2020-10-20','10:11:12','2020-10-20 10:11:12');------insert ------------------------------------- 2020-10-20 | 10:11:12 | 2020-10-20 10:11:12
+		
+		#insert into datedemo values('2020/10/20','10:11:12','2020/10/20 10:11:12');--slace(/) lagane per bhi result aise hi aayega--- 2020-10-20 | 10:11:12 | 2020-10-20 10:11:12
+
+	>Dusra tarika:---ydi hume year ko 2 digits me likhne per-----('20-11-25','10:11:12','2020/10/20 10:11:12');
+		#insert into datedemo values('20-11-25','10:11:12','2020/10/20 10:11:12');------is me year ka prefix wo apne aap plus kr deta hai.------ 2020-11-25 | 10:11:12
+
+		#insert into datedemo values('75/10/20','10:11:12','2020/10/20 10:11:12');------1975-10-20 | 10:11:12 | 2020-10-20 10:11:12---is bari 1975 bana diya.
+			##RULES-----if (00 to 69)-----tak hai to iske prefix me 20 lag jata hai.
+				    if (70 to 99)-----tak hai to iske prefix me 19 lag jata hai.
+
+	>Tisra tarika:----integer me date and time ko likhna
+		#insert into datedemo values(20240113,010222,20240113010222);------ 2024-01-13 | 01:02:22 | 2024-01-13 01:02:22
+
+	>forth tarika:----System ki date and time lene ka tarika
+		> with function-----for date(curdate())-----for time(curtime())-----for datetime(now())
+
+		#insert into datedemo values(curdate(),curtime(),now());--------- 2024-01-13 | 13:07:22 | 2024-01-13 13:07:22
+
+
+	#>date and time ko formate me likhna;
+		#select date_format(mydate,"%y") from datedemo;---------20,21,22,23,24
+		#select date_format(mydate,"%yy") from datedemo;--------20y,21y,23y,24y
+		#select date_format(mydate,"%Y") from datedemo;---------2020,2021,2022,2023,2024
+		#select date_format(mydate,"%m") from datedemo;---------05,06,07,10,11,12
+		#select date_format(mydate,"%M") from datedemo;---------may,june,july,october,november,descember
+		#select date_format(mydate,"%d") from datedemo;---------23,24,08,06,17
+		#select date_format(mydate,"%D") from datedemo;---------23rd,24th,08th,06th,17th
+
+	DATE_FORMAT(date, format)
+---------------------------------------
+Format	Description
+%a	Abbreviated weekday name (Sun to Sat)
+%b	Abbreviated month name (Jan to Dec)
+%c	Numeric month name (0 to 12)
+%D	Day of the month as a numeric value, followed by suffix (1st, 2nd, 3rd, ...)
+%d	Day of the month as a numeric value (01 to 31)
+%e	Day of the month as a numeric value (0 to 31)
+%f	Microseconds (000000 to 999999)
+%H	Hour (00 to 23)
+%h	Hour (00 to 12)
+%I	Hour (00 to 12)
+%i	Minutes (00 to 59)
+%j	Day of the year (001 to 366)
+%k	Hour (0 to 23)
+%l	Hour (1 to 12)
+%M	Month name in full (January to December)
+%m	Month name as a numeric value (00 to 12)
+%p	AM or PM
+%r	Time in 12 hour AM or PM format (hh:mm:ss AM/PM)
+%S	Seconds (00 to 59)
+%s	Seconds (00 to 59)
+%T	Time in 24 hour format (hh:mm:ss)
+%U	Week where Sunday is the first day of the week (00 to 53)
+%u	Week where Monday is the first day of the week (00 to 53)
+%V	Week where Sunday is the first day of the week (01 to 53). Used with %X
+%v	Week where Monday is the first day of the week (01 to 53). Used with %x
+%W	Weekday name in full (Sunday to Saturday)
+%w	Day of the week where Sunday=0 and Saturday=6
+%X	Year for the week where Sunday is the first day of the week. Used with %V
+%x	Year for the week where Monday is the first day of the week. Used with %v
+%Y	Year as a numeric, 4-digit value
+%y	Year as a numeric, 2-digit value
+
+SELECT DATE_FORMAT(BirthDate, "%W %M %e %Y") FROM Emp;
+select * from emp where BirthDate between '2019-02-01' and '2019-12-01';
+Builtin_Functions.txt
+Displaying Select.txt.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

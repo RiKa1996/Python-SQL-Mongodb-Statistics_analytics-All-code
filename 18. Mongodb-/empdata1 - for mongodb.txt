@@ -1,0 +1,11 @@
+_id,Name,marks,dranch
+151,dhoni,82,cs
+152,pant,38,civil
+300,ajay,50,ca
+301,virat,44,account
+302,karan,50,b.com
+502,karan,30,ba
+503,vijay,30,ec
+1000,vijay,30,b.tech
+1003,arjun,45,ca
+1004,rohit,60,cs

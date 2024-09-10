@@ -1,0 +1,69 @@
+Example of Data analatics:
+-baraq obama ne phli bar DA ka use kiya tha
+-bcci apne player ka data DA ke use se hote hai.-last world cup ke liye
+-banking sector
+-election department
+
+Dashboard---------Project
+
+STATISTICS;---(Stats)----------ye hume sankhyao ka gyan deta hai.
+=====================
+Defination:
+-----------
+	>it is a field of maths that provide understanding of different aspects of data.------
+	(different aspects)-------like (summary,conclusion,relationship,visualization,etx.)
+
+Tpye of statistics:
+------------------------------------------------------
+>Descriptive----->summary,relationship,visualization
+>Inferential----->conclusion
+------------------------------------------------------
+	
+	Summary means------>employee ki summary
+			   >count of employee
+			   >maximum salary of employee
+			   >minimum salary of employee
+			   >20% of salary wala employee----------------ye sabhi data ki summary hoti hai.
+
+	Conclusion--------->after election axist poll (1 lakh logo se pucha gaya, jo result 1 lakh logo se bana whi humne/ pure 1 coror pe conclude ke diya)
+			   >kisi ek chote data ka conclusion kisi bde data ke liye use krna.
+
+	Relationship------->humpe 5 columns hai jaise-----Sr,Sal,Exp,Name,Age------inme se ek column ka dusre column se relate kr ke result lana.
+
+	Visualization------>jo summary,conclusion,relationship nikala hai use hum ek achhe tarike se ek pura data ready kr ke dena visualization khlata hai.
+			   >jise hum bar chart, histogram chart, pie chart, jaise inhe hum ek badiya sa pura data ready kr ke denge.
+			   >presentation kr ke dena,
+		insight (jo aakho se dekne per nhi dikhta/jo data me hai aur hume use solve kr ke dena padta hai.)
+---------------------------------------------------------------------------------------------------------------------
+
+Libs for stats in python;
+=========================
+>statistics
+>numpy---------numeric python
+>pandas
+>scipy
+>matplotlib
+>seaborn
+>beautifulsoup
+etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

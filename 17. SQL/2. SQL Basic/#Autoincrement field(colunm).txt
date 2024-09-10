@@ -1,0 +1,29 @@
+Autoincrement field(colunm):---int aur contraints laga hona jaruri hai./ autometic kisi colunm ki id ko increment krna autoincrement kahlata hai.
+============================
+
+Change in table-------------> 1. alter            2. Update
+				(schema)            (record)
+			      - colunm me +,-     - record
+			      - constraints +,-   
+			      - autoincreament
+
+To add auto increment in existing table:
+----------------------------------------
+
+Syntax of autoincrement;
+------------------------
+autoincrement lagane per;
+	ALTER TABLE tablename modify col type AUTO_INCREMENT;
+	#alter table emp modify eid int auto_increment;
+
+autoincrement me new recode insert krne per;
+	#insert into emp(empname,empsal,empdept) values('karan',50000,'accounts');
+
+autoincrement ko reset kiya ja skta hai.
+	ALTER TABLE tablename AUTO_INCREMENT=1000(jitni value se start krna ho, kr skte hai.)
+	# alter table emp auto_increment=1000;
+
+autoincrement me default value ko add krna------------------with Default constraint
+	
+	#alter table emp modify empsal float default 20000;---ye humne default constraint laga diya hai.
+	#insert into emp(empname,empdept) values('arjun','hr');- is me hume empsal ke jagah hume autometic 20000 mil gye hai.

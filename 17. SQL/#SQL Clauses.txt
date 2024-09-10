@@ -1,0 +1,98 @@
+SQL Clauses:-
+=============
+
+NOTE:-YE SELECT COMMAND DWARA KIYA JATA HAI.
+--------------------------------------------
+1. Order by:
+	>Syntax of order by:
+		#select * from emp order by empid desending(desc)/assending(asc);
+
+2. Limit: (only mysql me chalta hai.)
+	>Syntax of Limit:
+		#select * from emp limit 3; - ye table ke upper ke record la ke de deta hai- jitne hum likhte hai.
+
+	>limit me skip krne ko offset kahte hai.
+	>agar hum table me kuch record skip krke aage ke kuch aur record dekhna chahte hai to.
+		#select * from emp limit 2(aage ke 2(offset) skip kiye humne), 3(then skip ke bad ke record dekhna chahte hai.);
+
+3. Where: (ye condition based hota hai) with operator. (aur ye [0-N] condition pe kam krta hai)
+	>Syntax of where;
+	>ydi hume empsal 30000 se jyada walo ka dekhna ho to.
+		#select * from emp where empsal>30000;
+
+		#select * from emp where empid=101;
+		#select * from emp where empsal>=20000;
+		#select * from emp where empid=6565;------empty set dikhayega, if empid is wrong.
+		# select * from emp where empsal<=30000; 
+	>empsal NULL hone per
+		#select * from emp where empsal=NULL;-----empty set dikhayega, but yha to NULL value hai. ye wrong hai. yha pe (=) operator kam nhi krta hai.
+		#select * from emp where empsal is NULL; -----yha pe (= operator) nhi, bulki (is operator) kam karta hai.
+		#select * from emp where empsal<>"NULL";	
+		#select * from emp where empsal!="NULL";
+		#select * from emp where empsal is not null;
+
+	>empname me find krna ho to with operator =,!=(not equal to), <>(ise bhi not equal to kahte hai.),  !=explanation, <>=angle braket.
+		#selet * from emp where empname='rishav'; ----------is me hume sirf jitne bhi rishav name ke honge wo milege.
+		#selet * from emp where empname!='rishav'; ---------is me hume rishav ke name ko chord kr wo sare name mil jayege.
+		#selet * from emp where empname<>'rishav'; ---------is me hume rishav ke name ko chord kr wo sare name mil jayege.
+	
+	>wo sare name jinke last ke charactor se find kiya jaye---- hum pe ek aur operator hai. jise---- like %_   kahte hai.
+
+		#select * from emp where empname like '%u'; ----ye hume u se phle ke sare charactor wale name de dega. 
+		#select * from emp where empname like 'r%'; ----ye hume r ke bad ke sare charactor wale name de dega.
+		#select * from emp where empname like '%i%';----ye hume i ke wo sare name de dega jisme i charactor aata ho.
+		#select * from emp where empname like '____'; ---yha 1 under score 1 charactor ko represent karta hai. 2 do ko, 3 teen ko, aur 4 underscor 4 charactor ko.
+		#select * from emp where empname like '___'; ----ydi 3 under score hai aur ydi 3 charactor wala name nhi hai to empty set aa jata hai.
+		#select * from emp where empname not like '___'; 
+		#select * from emp where empname ! like '___'; -------error
+		# select * from emp where empname <> like '___'; -----error
+
+	>where clause me 2 condition lagane per. --- is me hum "logical and, logical or" operator ka use karte hai.
+		#select * from emp where empname like '%i%' or empsal is not null;
+		#select * from emp where empname like '%i%' and empsal is not null;
+		#select * from emp where empsal>=15000 or empsal<=35000;
+		#select * from emp where empsal>=15000 and empsal<=35000;
+		#select * from emp where empid=101 or empid=102 or empid=103;
+
+ 	>2 operator ko combind krke ek me likhna ho to humpe ek aur operator hai "between"--- between kewal ek colunm ke sath hi chalta hai.
+		#select * from emp where empsal between 1500 and 35000; ------is me hume 15000 hajar se 35000 hajar tak ke sare employee mil jayege.
+
+	> "in" operator se
+		#select * from emp where empid=101 or empid=102 or empid=103;
+		#select * from emp where empid in(101,102,103);
+		#select * from emp where empid in(101,102,108); ---ydi koi id table me mention nhi aur humne likh di hai to error nhi aati bulki use chord diya jata hai.
+								   aur jo bach gaye hai unke result aa jate hai.
+
+	>Update command me bhi where clause kam krta hai. (where condition based hai ye sb pe chalaya ja skta hai.)
+		#update emp set empdept='coding' where eid in(151,152);----where constraint lagane per jis jis per hum condition lagana chahte hai us per lag skta hai.
+
+4. Group by: (ye data ko group---group me badal deta hai, jaise empdept------hr,coding,accounts)-------with distinct fucntion.
+	
+	>Syntax of Group by;
+		# select sum(empsal) from emp group by empdept;-------is me hr,coding,account dept ko alag alag kr diya gya hai unke empsal ke hisab se.
+		#select empdept,sum(empsal) from emp group by empdept;
+		#select count(eid) as eid,empdept,sum(empsal) from emp group by empdept;
+		#select empdept,count(eid),sum(empsal),max(empsal),min(empsal) from emp group by empdept;
+	
+	>Group by clause me result ko ydi filter krna ho to kr skte hai, but hume ek aur clause -----having clause-----ka use krna hota hai.
+		# select empdept,count(eid) as count,sum(empsal),max(empsal),min(empsal) from emp group by empdept having count(eid)>=5;
+
+	>Group by with round function
+		#select empdept,count(empdept) as count,sum(empsal) as sum,round(avg(empsal),2) as avg from emp group by empdept;
+
+
+
+
+
+5. Having clause: (Having clause ka use hum, group by clause me result ko filter krne ke liye use krte hai.)
+	>Syntax of having clause;
+		# select empdept,count(eid) as count,sum(empsal),max(empsal),min(empsal) from emp group by empdept having count(eid)>=5;
+
+
+
+
+
+
+
+
+

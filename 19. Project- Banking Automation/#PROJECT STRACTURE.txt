@@ -1,0 +1,16 @@
+PROJECT STRATURE;
+=================
+1. Problem statment & requirement Analysis
+
+2. Design
+	>Presentation--------Validation
+	>Database Design
+	>Business Logic Design
+
+3. Coding/Implementation
+
+4. Testing
+
+5. Deployment
+
+6. Maint.

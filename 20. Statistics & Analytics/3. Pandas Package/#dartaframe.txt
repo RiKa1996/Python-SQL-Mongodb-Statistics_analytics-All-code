@@ -1,0 +1,8 @@
+DATA FRAME:-
+============
+1. List of Lists------[[],[],[],[]]
+2. Array of Arrays
+3. Tuple of Tuples
+4. List of Tuples
+5. Tuple of Lists
+6. List of Dict.-----[{a:b},{a:b},{a:b},{a:b}]

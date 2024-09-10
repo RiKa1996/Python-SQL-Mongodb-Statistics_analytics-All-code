@@ -1,0 +1,1 @@
+ANSI(ISO)- ye syntax provide karta hai, ye sabhi ke liye kam karti jaise (oracle,mysql,__)

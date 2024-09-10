@@ -1,0 +1,6 @@
+CRUD Operations;
+================
+C------>Create row--------->Insert Document
+R------>Retrite row-------->Select Document
+U------>Update Document
+D------>Delete Document

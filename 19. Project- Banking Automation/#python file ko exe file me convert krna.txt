@@ -1,0 +1,9 @@
+PYTHON FILE KO EXE FILE ME CONVERT KRNA;
+=======================================>
+
+WE HAVE TWO WAY OF CONVERT'S EXE FILE---------cmd pe hume likhna hoga
+
+1.pip install----------------> Pyinstaller
+2.pip install----------------> Auto-py-to-exe
+
+	NOTE; both are third party library

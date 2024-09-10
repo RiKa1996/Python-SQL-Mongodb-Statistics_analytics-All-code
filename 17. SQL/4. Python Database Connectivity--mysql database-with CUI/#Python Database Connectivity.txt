@@ -1,0 +1,282 @@
+Python Database Connectivity;
+=============================
+
+DRIVER:
+-------
+pymysql
+mysql-connector------------------ both pure python driver
+
+mysqlclient
+mysqldb-------------------------- both wrapper driver
+
+IP Configuration;
+=================
+IPv4 Address---------------we can know
+===========================================================================================================================================
+pip install pymysql:----------sbse phle pip install krege
+
+#Step-1: import db specific driver module
+import pymysql
+
+#Step-2: create connection with database
+conobj=pymysql.connect(host="localhost",port=3306,user="root",password="root",database="11to1230")
+print(con)
+
+#Step-3: create cursor to execute query
+curobj=conobj.cursor()
+
+#Step-4: execute query with curobj
+res1=curobj.execute("insert into pnb values(5,6000,'arun',554)")
+res2=curobj.execute("update pnb set pnb_bal=pnb_bal+1000")
+res3=curobj.execute("delete from pnb where pnb_acn=1")
+
+#Step-5: commit the connection
+conobj.commit()
+print(res1,"record inserted")
+print(res2,"record updated")
+print(res3,"record deleted")
+
+#Step-6: close the connection
+conobj.close()
+============================================================================================================================================
+
+Select command ko  Python Database Connectivity; me chalane per;
+
+#Step-1: import db specific driver module
+import pymysql
+
+#Step-2: create connection with database
+conobj=pymysql.connect(host="localhost",port=3306,user="root",password="root",database="11to1230")
+print(con)
+
+#Step-3: create cursor to execute query---------and cursor is itrable
+curobj=conobj.cursor()
+
+#Step-4: execute query with curobj
+res=curobj.execute("select * from pnb")
+
+print(res,"record selected")
+#Step-5: close the connection
+conobj.close()
+
+-----------------------------------------------:with curobj.fetchone--------------------------------------------------------
+import pymysql
+
+conobj=pymysql.connect(host="localhost",port=3306,user="root",password="root",database="11to1230")
+print(con)
+
+curobj=conobj.cursor()
+
+res=curobj.execute("select pnb_acn,pnb_bal from pnb")
+
+print(res,"record selected")
+
+row=curobj.fetchone()
+print(row)
+
+row2=curobj.fetchone()
+print(row2)
+
+row3=curobj.fetchone()
+print(row3)
+
+row4=curobj.fetchone()
+print(row4)
+
+conobj.close()
+==================================================================================================================================
+---------------------------------;with curobj.fetchmany----------------------------------------------
+import pymysql
+conobj=pymysql.connect(host="localhost",port=3306,user="root",password="root",database="11to1230")
+curobj=conobj.cursor()
+res=curobj.execute("select pnb_acn,pnb_bal from pnb")
+print(res,"record selected")
+row=curobj.fetchmany(3)
+print(row)
+conobj.close()
+
+3 record selected
+((2, 5000.0), (3, 7000.0), (5, 7000.0))
+==================================================================================================================================
+------------------------------;with curobj.fetchall------------------------------------
+import pymysql
+conobj=pymysql.connect(host="localhost",port=3306,user="root",password="root",database="11to1230")
+curobj=conobj.cursor()
+res=curobj.execute("select pnb_acn,pnb_bal from pnb")
+print(res,"record selected")
+row=curobj.fetchall()
+print(row)
+conobj.close()
+
+3 record selected
+((2, 5000.0), (3, 7000.0), (5, 7000.0))
+
+====================================================================================================================================
+-------------------curobj.fetchall()--------krne ke bad yhi ab cursor se dubara call krne per wo none values hume deta hai.
+
+import pymysql
+conobj=pymysql.connect(host="localhost",port=3306,user="root",password="root",database="11to1230")
+curobj=conobj.cursor()
+res=curobj.execute("select pnb_acn,pnb_bal from pnb")
+print(res,"record selected")
+row=curobj.fetchall()
+print(row)
+
+row=curobj.fetchone()-----------------dubara call krne per NONE value hume milti hai.-----------ye logical cursor ab yha aa ke samapt ho jata hai.
+print(row)
+conobj.close()
+
+3 record selected
+((2, 5000.0), (3, 7000.0), (5, 7000.0))
+None
+===================================================================================================================================
+-----------ydi hume jo logical cursor jo sbse niche ja ke khatam ho gya hai use hum dubara se upper lana jahte hai.----------------
+
+By scroll function------ye 2 mode me kam krta hai
+ 1. absolute--------------cur.scroll(1,mode="absolute")-----is me 1 likhne per is ka cursor top 1 cursor pe chala jata hai.
+ 2. relative--------------cur.scroll(1,mode="relative")-----yha 1 likhne per cursor me 1 value plus ho jayegi--------(aur -1 likhne per ek value us cursor se minus ho jayegi)
+
+import pymysql
+conobj=pymysql.connect(host="localhost",port=3306,user="root",password="root",database="11to1230")
+curobj=conobj.cursor()
+res=curobj.execute("select pnb_acn,pnb_bal from pnb")
+print(res,"record selected")
+row=curobj.fetchall()-------------fetchall krne per hume sari value mil jati hai.------aur iske bad fetch krne per hume none value milti hai.
+print(row)
+
+
+row=curobj.scroll(1,mode='absolute')-----------ye scroll kiya aur value first cursor pe chali gai.
+print(row)
+
+row=curobj.fetchone()--------------------------cursor ko scroll krne per yha value 1st row ki hume mil jati hai.
+print(row)
+conobj.close()
+
+result:
+3 record selected
+((2, 5000.0), (3, 7000.0), (5, 7000.0))
+None
+(3, 7000.0)
+===================================================================================================================================
+
+import pymysql
+conobj=pymysql.connect(host="localhost",port=3306,user="root",password="root",database="11to1230")
+curobj=conobj.cursor()
+res=curobj.execute("select pnb_acn,pnb_bal from pnb")
+print(res,"record selected")
+row=curobj.fetchall()
+print(row)
+
+
+row=curobj.scroll(0,mode='absolute')
+print(row)
+
+row=curobj.fetchone()
+print(row)
+print(curobj.fetchmany(2))
+print(curobj.scroll(1,mode="absolute"))     #just before first row
+print(curobj.scroll(-1,mode="relative"))    #move cursor to backward by 1------------------------relative scroll
+print(curobj.fetchone())
+conobj.close()
+===================================================================================================================================
+-----------------cursor se sare record ko one by one fetch krna hai---------------------------
+
+import pymysql
+conobj=pymysql.connect(host="localhost",port=3306,user="root",password="root",database="11to1230")
+curobj=conobj.cursor()
+res=curobj.execute("select pnb_acn,pnb_bal from pnb")
+for row in curobj:
+    print(row)
+conobj.close()
+
+result:
+(2, 5000.0)
+(3, 7000.0)
+(5, 7000.0)
+===================================================================================================================================
+import pymysql
+conobj=pymysql.connect(host="localhost",port=3306,user="root",password="root",database="11to1230")
+curobj=conobj.cursor()
+res=curobj.execute("select * from pnb where pnb_bal>=5000")
+#cursor is iterable
+print("ACN",'BAL','NAME','ADHAR',sep='\t')
+for row in curobj:
+    print(row[0],row[1],row[2],row[3],sep='\t')
+    
+print(res,'record selected')
+conobj.close()
+
+result:
+ACN	BAL	NAME	ADHAR
+2	5000.0	b	124
+3	7000.0	c	125
+5	7000.0	arun	554
+3 record selected
+====================================================================================================================================
+Query ko short kr ke likhne per:
+--------------------------------
+import pymysql
+conobj=pymysql.connect(user="root",password="root",database="11to1230")---------------ydi hum localhost aur port nhi batate fer bhi ye work krega.
+curobj=conobj.cursor()
+res=curobj.execute("select * from pnb where pnb_bal>=5000")
+#cursor is iterable
+print("ACN",'BAL','NAME','ADHAR',sep='\t')
+for row in curobj:
+    print(row[0],row[1],row[2],row[3],sep='\t')
+    
+print(res,'record selected')
+conobj.close()
+=========================================================================================================================
+
+#user se acn no input mangne per
+import pymysql
+conobj=pymysql.connect(user="root",password="root",database="11to1230")
+curobj=conobj.cursor()
+acn=int(input("enter acn:"))
+rescount=curobj.execute(f"select pnb_name,pnb_bal from pnb where pnb_acn={acn}")
+if (rescount==0):
+    print("record does not exist")
+else:
+    row=curobj.fetchone()
+    print("Name:",row[0])
+    print("Bal:",row[1])
+conobj.close()
+
+enter acn: 8
+record does not exist
+
+enter acn: 2
+Name: b
+Bal: 5000.0
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

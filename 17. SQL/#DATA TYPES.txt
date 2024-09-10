@@ -1,0 +1,16 @@
+DATA TYPES:
+===========
+1. int/integer
+2. float
+3. varchar(10)
+4. date
+5. time
+6. datetime
+7. family------1. BLOB-file ko store krne wala(Binery Large Object)---------Binery-byte format----64kb
+		2. tinyblob-----255 bytes
+		 3. mediumblob-----15 mb
+		  4. largeblob-----4gb
+
+Parameter types------->in, out, inout------------------like(in a int)-----yha in ek parameter types hai/ aur int ek parameter data types hai.
+Parameter data types-->int,float varchar,....
+

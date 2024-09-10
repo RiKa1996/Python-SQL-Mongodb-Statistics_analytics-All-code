@@ -1,0 +1,293 @@
+Please enter a MongoDB connection string (Default: mongodb://localhost/):
+
+Current Mongosh Log ID: 65b50513ed4827e8b80510eb
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.9.1
+Using MongoDB:          6.0.6
+Using Mongosh:          1.9.1
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-01-18T16:35:16.446+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+11to1230  72.00 KiB
+admin     40.00 KiB
+config    60.00 KiB
+local     80.00 KiB
+test> show collection
+MongoshInvalidInputError: [COMMON-10001] 'collection' is not a valid argument for "show".
+test> show collections
+
+test> use collections
+switched to db collections
+collections> show dbs
+11to1230  72.00 KiB
+admin     40.00 KiB
+config    72.00 KiB
+local     80.00 KiB
+collections> use test
+switched to db test
+test> use 11to1230
+switched to db 11to1230
+11to1230> show tables
+emp
+11to1230> show collection
+MongoshInvalidInputError: [COMMON-10001] 'collection' is not a valid argument for "show".
+11to1230> show collections
+emp
+11to1230> db.emp.insertOne({'_id':501,'empname':'anil','esal':500000})
+{ acknowledged: true, insertedId: 501 }
+11to1230> db.emp.find({"_id":501})
+[ { _id: 501, empname: 'anil', esal: 500000 } ]
+11to1230> db.emp.insertOne({'_id':501,'empname':'ranvir','esal':500000})
+MongoServerError: E11000 duplicate key error collection: 11to1230.emp index: _id_ dup key: { _id: 501 }
+11to1230> db.student.insertOne({'_id':1,'Name':"rehan",'Roll NO.':32})
+{ acknowledged: true, insertedId: 1 }
+11to1230> db.student.find()
+[ { _id: 1, Name: 'rehan', 'Roll NO.': 32 } ]
+11to1230> show collections
+emp
+student
+11to1230> db.student.updateOne({'_id':1},{$set:{'_id':2}})
+MongoServerError: Performing an update on the path '_id' would modify the immutable field '_id'
+11to1230> db.student.updateOne({'_id':1},{$set:{'Name':'Reena'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+11to1230> db.student.find()
+[ { _id: 1, Name: 'Reena', 'Roll NO.': 32 } ]
+11to1230> db.student.replaceOne({'_id':1},{'Name':'reena','marks':76.7,'Branch':'Badarpur'})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Please enter a MongoDB connection string (Default: mongodb://localhost/):
+
+Current Mongosh Log ID: 65b5eb07bbbbf18852548f67
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.9.1
+Using MongoDB:          6.0.6
+Using Mongosh:          1.9.1
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-01-18T16:35:16.446+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use 11to1230
+switched to db 11to1230
+11to1230> show collections
+emp
+student
+11to1230> db.student.find()
+[ { _id: 1, Name: 'reena', marks: 76.7, Branch: 'Badarpur' } ]
+11to1230> db.emp.deleteOne()
+MongoshInvalidInputError: [COMMON-10001] Missing required argument at position 0 (Collection.deleteOne)
+11to1230> db.emp.deleteOne({'empname':'rehan'})
+{ acknowledged: true, deletedCount: 0 }
+11to1230> db.emp.find()
+[
+  {
+    _id: ObjectId("65b34c3e4bda3f407d7b5aba"),
+    eid: 101,
+    ename: 'rishav'
+  },
+  {
+    _id: ObjectId("65b34ce74bda3f407d7b5abb"),
+    empid: 102,
+    ename: 'arun'
+  },
+  {
+    _id: ObjectId("65b34d6b4bda3f407d7b5abc"),
+    empid: 105,
+    ename: 'raman',
+    esal: 20000
+  },
+  {
+    _id: ObjectId("65b3506b4bda3f407d7b5abd"),
+    empid: 103,
+    ename: 'monu',
+    esal: 30000,
+    mob: 7210673579
+  },
+  {
+    _id: ObjectId("65b350e54bda3f407d7b5abe"),
+    empid: 104,
+    ename: 'rehan',
+    esal: 50000,
+    mob: [ 7210673579, 8130616530 ]
+  },
+  {
+    _id: ObjectId("65b354374bda3f407d7b5abf"),
+    empid: 201,
+    empname: 'ritu',
+    empsal: 25000
+  },
+  {
+    _id: ObjectId("65b354374bda3f407d7b5ac0"),
+    empid: 202,
+    empname: 'neha',
+    empsal: 30000,
+    mob: 9999955551
+  },
+  {
+    _id: ObjectId("65b354374bda3f407d7b5ac1"),
+    empid: 203,
+    empname: 'rinku',
+    empsal: 40000,
+    mob: [ 9999111122, 9595121236, 7210673579 ]
+  },
+  { _id: 501, empname: 'anil', esal: 500000 }
+]
+11to1230> db.emp.findOne({'ename':'rehan'})
+{
+  _id: ObjectId("65b350e54bda3f407d7b5abe"),
+  empid: 104,
+  ename: 'rehan',
+  esal: 50000,
+  mob: [ 7210673579, 8130616530 ]
+}
+11to1230> db.emp.find({'esal':50000})
+[
+  {
+    _id: ObjectId("65b350e54bda3f407d7b5abe"),
+    empid: 104,
+    ename: 'rehan',
+    esal: 50000,
+    mob: [ 7210673579, 8130616530 ]
+  }
+]
+11to1230> db.emp.find({'empsal':50000})
+
+11to1230> db.emp.deleteOne('esal':50000)
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:23)
+
+> 1 | db.emp.deleteOne('esal':50000)
+    |                        ^
+  2 |
+
+11to1230> db.emp.deleteOne({'esal':50000})
+{ acknowledged: true, deletedCount: 1 }
+11to1230> db.emp.deleteOne('esal':50000)
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:23)
+
+> 1 | db.emp.deleteOne('esal':50000)
+    |                        ^
+  2 |
+
+11to1230> db.emp.find({'esal':50000})
+
+11to1230> db.emp.deleteMany({'esal':{$gte:50000}})
+{ acknowledged: true, deletedCount: 1 }
+11to1230> db.emp.find({'esal':{$gte:50000}})
+
+11to1230> db.emp.find({'esal':{$lte:50000}})
+[
+  {
+    _id: ObjectId("65b34d6b4bda3f407d7b5abc"),
+    empid: 105,
+    ename: 'raman',
+    esal: 20000
+  },
+  {
+    _id: ObjectId("65b3506b4bda3f407d7b5abd"),
+    empid: 103,
+    ename: 'monu',
+    esal: 30000,
+    mob: 7210673579
+  }
+]
+11to1230> db.student.find()
+[
+  { _id: 1, Name: 'reena', marks: 76.7, Branch: 'cs' },
+  { _id: 151, Name: 'dhoni', marks: 82, dranch: 'cs' },
+  { _id: 152, Name: 'pant', marks: 38, dranch: 'civil' },
+  { _id: 300, Name: 'ajay', marks: 50, dranch: 'ca' },
+  { _id: 301, Name: 'virat', marks: 44, dranch: 'account' },
+  { _id: 302, Name: 'karan', marks: 50, dranch: 'b.com' },
+  { _id: 502, Name: 'karan', marks: 30, dranch: 'ba' },
+  { _id: 503, Name: 'vijay', marks: 30, dranch: 'ec' },
+  { _id: 1000, Name: 'vijay', marks: 30, dranch: 'b.tech' },
+  { _id: 1003, Name: 'arjun', marks: 45, dranch: 'ca' },
+  { _id: 1004, Name: 'rohit', marks: 60, dranch: 'cs' }
+]
+11to1230> db.emp.find()
+[
+  {
+    _id: ObjectId("65b34c3e4bda3f407d7b5aba"),
+    eid: 101,
+    ename: 'rishav'
+  },
+  {
+    _id: ObjectId("65b34ce74bda3f407d7b5abb"),
+    empid: 102,
+    ename: 'arun'
+  },
+  {
+    _id: ObjectId("65b34d6b4bda3f407d7b5abc"),
+    empid: 105,
+    ename: 'raman',
+    esal: 20000
+  },
+  {
+    _id: ObjectId("65b354374bda3f407d7b5abf"),
+    empid: 201,
+    empname: 'ritu',
+    empsal: 250000
+  },
+  {
+    _id: ObjectId("65b354374bda3f407d7b5ac0"),
+    empid: 202,
+    empname: 'neha',
+    empsal: 30000,
+    mob: 9999955551
+  },
+  {
+    _id: ObjectId("65b354374bda3f407d7b5ac1"),
+    empid: 203,
+    empname: 'rinku',
+    empsal: 40000,
+    mob: [ 9999111122, 9595121236, 7210673579 ]
+  },
+  { _id: ObjectId("65b5f430a2686e2c3264310b") },
+  {
+    _id: ObjectId("65b5f565a2686e2c3264310c"),
+    ename: 'dhoni',
+    esal: 300000
+  }
+]
+11to1230> db.student.renameCollection("Students")
+{ ok: 1 }
+11to1230> db.Students.renameField('Branch')
+TypeError: db.Students.renameField is not a function
+11to1230> db.students.find()
+
+11to1230> db.Students.find()
+[
+  { _id: 1, Name: 'reena', marks: 76.7, Branch: 'cs' },
+  { _id: 151, Name: 'dhoni', marks: 82, Branch: 'cs' },
+  { _id: 152, Name: 'pant', marks: 38, Branch: 'civil' },
+  { _id: 300, Name: 'ajay', marks: 50, Branch: 'ca' },
+  { _id: 301, Name: 'virat', marks: 44, Branch: 'account' },
+  { _id: 302, Name: 'karan', marks: 50, Branch: 'b.com' },
+  { _id: 502, Name: 'karan', marks: 30, Branch: 'ba' },
+  { _id: 503, Name: 'vijay', marks: 30, Branch: 'ec' },
+  { _id: 1000, Name: 'vijay', marks: 30, Branch: 'b.tech' },
+  { _id: 1003, Name: 'arjun', marks: 45, Branch: 'ca' },
+  { _id: 1004, Name: 'rohit', marks: 60, Branch: 'cs' },
+  { _id: 2, Name: 'veer', marks: 67.2, Branch: 'civil' }
+]
+11to1230>

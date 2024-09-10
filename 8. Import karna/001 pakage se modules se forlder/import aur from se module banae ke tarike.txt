@@ -1,0 +1,12 @@
+#import module
+#import module as alias
+#from module import fun1,fun2
+#from module import *
+
+#import package.module as alias
+#from package import module as alias
+#from package.module import fun1,fun2
+#from package.module import *
+
+#from module import fun
+#from package import module

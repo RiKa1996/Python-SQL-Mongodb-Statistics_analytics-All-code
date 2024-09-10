@@ -1,0 +1,79 @@
+Pandas
+PANDAS-(Panel Data)
+
+- individual(like-sachin tendulkar,narendra modi,virat khohli-----in sabhi ke individual data)
+- orgraniation(like- amazon,flifkart,google,facebook,whatapps---------in sabhi ke org. wale data)
+- domain(like- covid,cansor,road parivahan accident--------in sabhi ke domain data)
+
+NOTE:-ye sabhi tarah ke data generated overtime hote hai . ye koi 1 din me nhi bane huye hote hai.ye kafi time se generate ho rhe hai.
+DATA STRUCTURE-(DATA TYPES)
+
+LIST
+TUPLE
+SET
+DICT
+NUMPY ARRAY
+SERIES
+DATA FRAM------>SERIES AND DATA FRAME ARE PANDAS OF DATA TYPES.
+----------------------------------------------------------------------------------------------------------------------->
+
+SIR KI DI GAI HUI DEFINIATION
+-----------------------------
+PANDAS
+- it is a python library(3rd party) used in data analysis, data cleaning, data manipulation and other data related operation.
+
+- this library was first introduced in 2008.
+
+- this library provides following 2 data structures to manage data
+
+	- Series
+	- DataFrame
+
+DataFrame
+---------
+it stores structured and labeled data.
+we may create DataFrame from various data sources like (excel,csv,dict,database table,html etc).
+===================================================================================================================================================================================
+in 2D array:-
+	-Numpy------>Matrix
+	-Pandas----->DataFrame
+
+in 1D array:-
+	-Numpy------>Vector
+	-Panda------>Series
+===================================================================================================================================================================================
+dataframe banana;
+=================
+df=pd.DataFrame({'roll':[1,2,3,],'age':[20,23,22],'name':['ram','shyam','ravan']})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

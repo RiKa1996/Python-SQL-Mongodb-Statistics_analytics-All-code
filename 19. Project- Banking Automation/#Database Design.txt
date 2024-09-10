@@ -1,0 +1,22 @@
+DATABASE DESIGN;
+================
+1. TABLE--------->ACCOUNTS
+	Fields/Columns
+	> acn int primary key autoincrement
+	> name text
+	> password text
+	> email text
+	> mob text
+	> bal float
+	> type text
+	> opendate text
+
+2. TABLE--------->txn_history
+	fields/Columns
+	> acn int FK
+	> txn_amt float
+	> txn_type text
+	> txn_date text
+	> update_bal float
+
+3. ?

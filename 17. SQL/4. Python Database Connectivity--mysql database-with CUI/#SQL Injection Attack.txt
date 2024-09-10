@@ -1,0 +1,25 @@
+2 saal ke experiacne:
+=====================
+
+SQL Injection Attack:-  kisi query ke ander ydi user name shi hai aur password galat hai. to use inject kr ke uska password le ke aa jana.
+=====================
+
+DEFINIATION:
+============
+inserting special characters in query with runtime values and these characters may modify meaning of query.
+in python, we can avoid it using parameterized query rather than using f-string approach for inserting runtime values.
+
+PARAMETERIZED QUERY:
+====================
+Parameterized query is a query that user database parameters(represented by special symbols).
+in case of mysql+python, bd parameters are represented by %s
+
+rowcount=curobj.execute(f"select * from login where username=%s and pwd=%s",(user,pwd))--------------%s likhne se ye hume dublicate hone se bachata hai.
+
+SQL Injection Attack ko rokne ke liye parameterized query ka use krte hai.----------runtime values ke ke liye parameterized query ka use kiya jata hai.
+
+=======================================================================================================================================================
+
+Procedure ke sare table ko kaise dekhe:
+---------------------------------------
+SHOW PROCEDURE STATUS WHERE db="your_database_name"

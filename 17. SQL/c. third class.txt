@@ -1,0 +1,597 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 11to1230;
+Database changed
+mysql> use emp;
+ERROR 1049 (42000): Unknown database 'emp'
+mysql> show tables;
++--------------------+
+| Tables_in_11to1230 |
++--------------------+
+| emp                |
+| emp2               |
+| emp3               |
+| emp4               |
+| emp5               |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> use databases emp;
+ERROR 1049 (42000): Unknown database 'databases'
+mysql> use emp;
+ERROR 1049 (42000): Unknown database 'emp'
+mysql> use database emp;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> show emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'emp' at line 1
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| empid   | int         | NO   | PRI | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| empsal  | float       | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-------+----------+--------+
+| empid | empname  | empsal |
++-------+----------+--------+
+|   101 | rishav   |  15000 |
+|   102 | rahul    |  25000 |
+|   103 | abhishek |  20000 |
+|   151 | dhoni    |  75000 |
+|   152 | pant     |  35000 |
+|   200 | riya     |  15000 |
+|   205 | rahul    |   NULL |
+|   301 | rohit    |  20000 |
++-------+----------+--------+
+8 rows in set (0.00 sec)
+
+mysql> alter table emp add empdept varchar(10);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++-------+----------+--------+---------+
+| empid | empname  | empsal | empdept |
++-------+----------+--------+---------+
+|   101 | rishav   |  15000 | NULL    |
+|   102 | rahul    |  25000 | NULL    |
+|   103 | abhishek |  20000 | NULL    |
+|   151 | dhoni    |  75000 | NULL    |
+|   152 | pant     |  35000 | NULL    |
+|   200 | riya     |  15000 | NULL    |
+|   205 | rahul    |   NULL | NULL    |
+|   301 | rohit    |  20000 | NULL    |
++-------+----------+--------+---------+
+8 rows in set (0.00 sec)
+
+mysql> alter table emp rename empp;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from emp;
+ERROR 1146 (42S02): Table '11to1230.emp' doesn't exist
+mysql> select * from empp;
++-------+----------+--------+---------+
+| empid | empname  | empsal | empdept |
++-------+----------+--------+---------+
+|   101 | rishav   |  15000 | NULL    |
+|   102 | rahul    |  25000 | NULL    |
+|   103 | abhishek |  20000 | NULL    |
+|   151 | dhoni    |  75000 | NULL    |
+|   152 | pant     |  35000 | NULL    |
+|   200 | riya     |  15000 | NULL    |
+|   205 | rahul    |   NULL | NULL    |
+|   301 | rohit    |  20000 | NULL    |
++-------+----------+--------+---------+
+8 rows in set (0.01 sec)
+
+mysql> alter table empp rename emp;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> alter table emp change empid eid int;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++-----+----------+--------+---------+
+| eid | empname  | empsal | empdept |
++-----+----------+--------+---------+
+| 101 | rishav   |  15000 | NULL    |
+| 102 | rahul    |  25000 | NULL    |
+| 103 | abhishek |  20000 | NULL    |
+| 151 | dhoni    |  75000 | NULL    |
+| 152 | pant     |  35000 | NULL    |
+| 200 | riya     |  15000 | NULL    |
+| 205 | rahul    |   NULL | NULL    |
+| 301 | rohit    |  20000 | NULL    |
++-----+----------+--------+---------+
+8 rows in set (0.00 sec)
+
+mysql> update emp set empdept='hr';
+Query OK, 8 rows affected (0.01 sec)
+Rows matched: 8  Changed: 8  Warnings: 0
+
+mysql> select * from emp;
++-----+----------+--------+---------+
+| eid | empname  | empsal | empdept |
++-----+----------+--------+---------+
+| 101 | rishav   |  15000 | hr      |
+| 102 | rahul    |  25000 | hr      |
+| 103 | abhishek |  20000 | hr      |
+| 151 | dhoni    |  75000 | hr      |
+| 152 | pant     |  35000 | hr      |
+| 200 | riya     |  15000 | hr      |
+| 205 | rahul    |   NULL | hr      |
+| 301 | rohit    |  20000 | hr      |
++-----+----------+--------+---------+
+8 rows in set (0.00 sec)
+
+mysql> update emp set empdept='coding' where eid in(151,152);
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from emp;
++-----+----------+--------+---------+
+| eid | empname  | empsal | empdept |
++-----+----------+--------+---------+
+| 101 | rishav   |  15000 | hr      |
+| 102 | rahul    |  25000 | hr      |
+| 103 | abhishek |  20000 | hr      |
+| 151 | dhoni    |  75000 | coding  |
+| 152 | pant     |  35000 | coding  |
+| 200 | riya     |  15000 | hr      |
+| 205 | rahul    |   NULL | hr      |
+| 301 | rohit    |  20000 | hr      |
++-----+----------+--------+---------+
+8 rows in set (0.00 sec)
+
+mysql> update emp set empdept='accounts' where eid in(200,205,301);
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from emp;
++-----+----------+--------+----------+
+| eid | empname  | empsal | empdept  |
++-----+----------+--------+----------+
+| 101 | rishav   |  15000 | hr       |
+| 102 | rahul    |  25000 | hr       |
+| 103 | abhishek |  20000 | hr       |
+| 151 | dhoni    |  75000 | coding   |
+| 152 | pant     |  35000 | coding   |
+| 200 | riya     |  15000 | accounts |
+| 205 | rahul    |   NULL | accounts |
+| 301 | rohit    |  20000 | accounts |
++-----+----------+--------+----------+
+8 rows in set (0.00 sec)
+
+mysql> update emp set empsal=5000000 where eid=111;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update emp set empname='virat',empsal=40000 where eid=301;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp;
++-----+----------+--------+----------+
+| eid | empname  | empsal | empdept  |
++-----+----------+--------+----------+
+| 101 | rishav   |  15000 | hr       |
+| 102 | rahul    |  25000 | hr       |
+| 103 | abhishek |  20000 | hr       |
+| 151 | dhoni    |  75000 | coding   |
+| 152 | pant     |  35000 | coding   |
+| 200 | riya     |  15000 | accounts |
+| 205 | rahul    |   NULL | accounts |
+| 301 | virat    |  40000 | accounts |
++-----+----------+--------+----------+
+8 rows in set (0.00 sec)
+
+mysql> update emp set empsal=(empsal*10/100)+empsal;
+Query OK, 7 rows affected (0.00 sec)
+Rows matched: 8  Changed: 7  Warnings: 0
+
+mysql> select * from emp;
++-----+----------+--------+----------+
+| eid | empname  | empsal | empdept  |
++-----+----------+--------+----------+
+| 101 | rishav   |  16500 | hr       |
+| 102 | rahul    |  27500 | hr       |
+| 103 | abhishek |  22000 | hr       |
+| 151 | dhoni    |  82500 | coding   |
+| 152 | pant     |  38500 | coding   |
+| 200 | riya     |  16500 | accounts |
+| 205 | rahul    |   NULL | accounts |
+| 301 | virat    |  44000 | accounts |
++-----+----------+--------+----------+
+8 rows in set (0.00 sec)
+
+mysql> alter table emp modify eid int auto_increment;
+Query OK, 8 rows affected (0.03 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| eid     | int         | NO   | PRI | NULL    | auto_increment |
+| empname | varchar(10) | YES  |     | NULL    |                |
+| empsal  | float       | YES  |     | NULL    |                |
+| empdept | varchar(10) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into emp values('karan',50000,'accounts');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into emp(empname,empsal,empdept) values('karan',50000,'accounts');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++-----+----------+--------+----------+
+| eid | empname  | empsal | empdept  |
++-----+----------+--------+----------+
+| 101 | rishav   |  16500 | hr       |
+| 102 | rahul    |  27500 | hr       |
+| 103 | abhishek |  22000 | hr       |
+| 151 | dhoni    |  82500 | coding   |
+| 152 | pant     |  38500 | coding   |
+| 200 | riya     |  16500 | accounts |
+| 205 | rahul    |   NULL | accounts |
+| 301 | virat    |  44000 | accounts |
+| 302 | karan    |  50000 | accounts |
++-----+----------+--------+----------+
+9 rows in set (0.00 sec)
+
+mysql> insert into emp values(501,'arjun',50000,'coding');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++-----+----------+--------+----------+
+| eid | empname  | empsal | empdept  |
++-----+----------+--------+----------+
+| 101 | rishav   |  16500 | hr       |
+| 102 | rahul    |  27500 | hr       |
+| 103 | abhishek |  22000 | hr       |
+| 151 | dhoni    |  82500 | coding   |
+| 152 | pant     |  38500 | coding   |
+| 200 | riya     |  16500 | accounts |
+| 205 | rahul    |   NULL | accounts |
+| 301 | virat    |  44000 | accounts |
+| 302 | karan    |  50000 | accounts |
+| 501 | arjun    |  50000 | coding   |
++-----+----------+--------+----------+
+10 rows in set (0.00 sec)
+
+mysql> insert into emp(empname,empsal,empdept) values('karan',30000,'hr');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++-----+----------+--------+----------+
+| eid | empname  | empsal | empdept  |
++-----+----------+--------+----------+
+| 101 | rishav   |  16500 | hr       |
+| 102 | rahul    |  27500 | hr       |
+| 103 | abhishek |  22000 | hr       |
+| 151 | dhoni    |  82500 | coding   |
+| 152 | pant     |  38500 | coding   |
+| 200 | riya     |  16500 | accounts |
+| 205 | rahul    |   NULL | accounts |
+| 301 | virat    |  44000 | accounts |
+| 302 | karan    |  50000 | accounts |
+| 501 | arjun    |  50000 | coding   |
+| 502 | karan    |  30000 | hr       |
++-----+----------+--------+----------+
+11 rows in set (0.00 sec)
+
+mysql> insert intp emp values(300,'ajay',50000,'coding');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'emp values(300,'ajay',50000,'coding')' at line 1
+mysql> insert into emp values(300,'ajay',50000,'coding');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp(empname,empsal,empdept) values('vijay',30000,'hr');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp;
++-----+----------+--------+----------+
+| eid | empname  | empsal | empdept  |
++-----+----------+--------+----------+
+| 101 | rishav   |  16500 | hr       |
+| 102 | rahul    |  27500 | hr       |
+| 103 | abhishek |  22000 | hr       |
+| 151 | dhoni    |  82500 | coding   |
+| 152 | pant     |  38500 | coding   |
+| 200 | riya     |  16500 | accounts |
+| 205 | rahul    |   NULL | accounts |
+| 300 | ajay     |  50000 | coding   |
+| 301 | virat    |  44000 | accounts |
+| 302 | karan    |  50000 | accounts |
+| 501 | arjun    |  50000 | coding   |
+| 502 | karan    |  30000 | hr       |
+| 503 | vijay    |  30000 | hr       |
++-----+----------+--------+----------+
+13 rows in set (0.00 sec)
+
+mysql> alter table emp auto_increment=1000;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into emp(empname,empsal,empdept) values('vijay',30000,'accounts');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16500 | accounts |
+|  205 | rahul    |   NULL | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
++------+----------+--------+----------+
+14 rows in set (0.00 sec)
+
+mysql> alter table emp modify empsal float default 20000;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| eid     | int         | NO   | PRI | NULL    | auto_increment |
+| empname | varchar(10) | YES  |     | NULL    |                |
+| empsal  | float       | YES  |     | 20000   |                |
+| empdept | varchar(10) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into emp(empname,empdept) values('arjun','hr');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16500 | accounts |
+|  205 | rahul    |   NULL | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
++------+----------+--------+----------+
+15 rows in set (0.00 sec)
+
+mysql> alter table emp drop default(empsal);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default(empsal)' at line 1
+mysql> alter table emp drop default;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default' at line 1
+mysql> insert into emp(eid,empname,empsal,empdept) values(1001,'surya',null,'hr');
+ERROR 1062 (23000): Duplicate entry '1001' for key 'emp.PRIMARY'
+mysql> insert into emp(eid,empname,empsal,empdept) values(1002,'surya',null,'hr');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16500 | accounts |
+|  205 | rahul    |   NULL | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |   NULL | hr       |
++------+----------+--------+----------+
+16 rows in set (0.00 sec)
+
+mysql> insert into emp(empname,empdept,empsal) values('arjun','hr',45000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16500 | accounts |
+|  205 | rahul    |   NULL | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |   NULL | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| eid     | int         | NO   | PRI | NULL    | auto_increment |
+| empname | varchar(10) | YES  |     | NULL    |                |
+| empsal  | float       | YES  |     | 20000   |                |
+| empdept | varchar(10) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select empsal from emp;
++--------+
+| empsal |
++--------+
+|  16500 |
+|  27500 |
+|  22000 |
+|  82500 |
+|  38500 |
+|  16500 |
+|   NULL |
+|  50000 |
+|  44000 |
+|  50000 |
+|  50000 |
+|  30000 |
+|  30000 |
+|  30000 |
+|  20000 |
+|   NULL |
+|  45000 |
++--------+
+17 rows in set (0.00 sec)
+
+mysql> select empsal as esal from emp;
++-------+
+| esal  |
++-------+
+| 16500 |
+| 27500 |
+| 22000 |
+| 82500 |
+| 38500 |
+| 16500 |
+|  NULL |
+| 50000 |
+| 44000 |
+| 50000 |
+| 50000 |
+| 30000 |
+| 30000 |
+| 30000 |
+| 20000 |
+|  NULL |
+| 45000 |
++-------+
+17 rows in set (0.00 sec)
+
+mysql> select count(eid) from emp;
++------------+
+| count(eid) |
++------------+
+|         17 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select count(empsal) from emp;
++---------------+
+| count(empsal) |
++---------------+
+|            15 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select count(empsal) as count from emp;
++-------+
+| count |
++-------+
+|    15 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select count(empsal),sum(empsal) from emp;
++---------------+-------------+
+| count(empsal) | sum(empsal) |
++---------------+-------------+
+|            15 |      552500 |
++---------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(empsal),sum(empsal),avg(empsal) from emp;
++---------------+-------------+--------------------+
+| count(empsal) | sum(empsal) | avg(empsal)        |
++---------------+-------------+--------------------+
+|            15 |      552500 | 36833.333333333336 |
++---------------+-------------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(empsal),sum(empsal),avg(empsal),max(empsal),min(empsal) from emp;
++---------------+-------------+--------------------+-------------+-------------+
+| count(empsal) | sum(empsal) | avg(empsal)        | max(empsal) | min(empsal) |
++---------------+-------------+--------------------+-------------+-------------+
+|            15 |      552500 | 36833.333333333336 |       82500 |       16500 |
++---------------+-------------+--------------------+-------------+-------------+
+1 row in set (0.01 sec)
+
+mysql> select * from emp where empsal=82500;
++-----+---------+--------+---------+
+| eid | empname | empsal | empdept |
++-----+---------+--------+---------+
+| 151 | dhoni   |  82500 | coding  |
++-----+---------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where empsal=16500;
++-----+---------+--------+----------+
+| eid | empname | empsal | empdept  |
++-----+---------+--------+----------+
+| 101 | rishav  |  16500 | hr       |
+| 200 | riya    |  16500 | accounts |
++-----+---------+--------+----------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from emp where empsal=(select max(empsal) from emp);
++-----+---------+--------+---------+
+| eid | empname | empsal | empdept |
++-----+---------+--------+---------+
+| 151 | dhoni   |  82500 | coding  |
++-----+---------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where empsal=(select min(empsal) from emp);
++-----+---------+--------+----------+
+| eid | empname | empsal | empdept  |
++-----+---------+--------+----------+
+| 101 | rishav  |  16500 | hr       |
+| 200 | riya    |  16500 | accounts |
++-----+---------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql>

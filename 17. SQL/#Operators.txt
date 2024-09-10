@@ -1,0 +1,3 @@
+operator
+
+1. '=' (mysql me equal same work krta hai, ye set keyword= assign wala kam krta hai.) aur (where clause me = compaire wala kam krta hai.)

@@ -1,0 +1,148 @@
+
+
+
+FILE----------------->MYSQL
+FILE<-----------------MYSQL
+					EXCE--------XXXXX------>MYSQL
+					(MYSQL me direct excel ki file upload nhi ho skti)
+					(is se upload krne ke liye phle excel file ko CSV file me convert krna pdta hai.)
+
+FILE(csv)----------------->EXCEL
+FILE(csv)<-----------------EXCEL	CSV-csv jo comma se saparated ho, aise saparate ke text file ko csv file kahte hai.
+					CSV--Comma Separated Values----value is a column----(text file):-csv ek file ka format hai.---------a.txt
+					-->Text file
+					-->comma separated values
+
+					a.txt(ye ek format file hoti na ki extension)-aur ye comma se seprated hota hai.
+					--------------------------------------------------------------------------------
+					5001,arun,60000,coding
+					5002,rishav,50000,hr
+					5003,karan,50000,account
+
+MySQL-----8 version---------C:/ProgramData/MySQL/MySQL Server 8.0/Uploads
+SAVE DATA:
+----------
+SELECT col_name1,col_name2,.......N from yourTableName
+INTO OUTFILE "Path of file";       #bydefault fields are seperated
+by \t and lines terminated by \n
+
+or
+
+SELECT col_name1,col_name2,.......N from yourTableName
+INTO OUTFILE "Path of file"   FIELDS TERMINATED BY  '..' lines terminated by '....';
+
+	>Syntax
+	#select * from emp into outfile 'E:/New folder (2)/17. SQL/empdata.txt'
+         fields terminated by ',' lines terminated by '\n';
+	-------(ERROR 1290 (HY000): The MySQL server is running with the --secure-file-priv option so it cannot execute this statement)-------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 1: Phle file me ja ke iski permission leni padti hai.
+	C:\ProgramData\MySQL\MySQL Server 8.0\my------my file ke properties me jake permission leni padti hai.
+	file me ek place hai. ja pe us file ko empty "" krna padta hai.
+
+	>ye step krne ke bad humara file mysql se export ho jata hai.
+
+	#select * from emp into outfile 'E:/New folder (2)/17. SQL/empdata.txt'
+         fields terminated by ',' lines terminated by '\n';
+
+101,rishav,16500,hr
+102,rahul,27500,hr
+103,abhishek,22000,hr
+151,dhoni,82500,coding
+152,pant,38500,coding
+200,riya,16501,accounts
+205,rahul,25000,accounts
+300,ajay,50000,coding
+301,virat,44000,accounts
+302,karan,50000,accounts
+502,karan,30000,hr
+503,vijay,30000,hr
+1000,vijay,30000,accounts
+1001,arjun,20000,hr
+1002,surya,25000,hr
+1003,arjun,45000,hr
+1004,rohit,60000,hr
+
+	>With condition;
+	#select * from emp where empsal>=30000
+    	 into outfile "E:/New folder (2)/17. SQL/empdata1.txt"
+    	 fields terminated by ','
+         lines terminated by '\n';
+
+	>ydi humpe column head nhi hai to, hum use query dwara likha skte hai. with Union kr ke;
+	----------------------------------------------------------------------------------------
+#select * from pnb left join sbi on pnb.pnb_adhar=sbi.sbi_adhar
+ union
+ select * from pnb right join sbi on pnb.pnb_adhar=sbi.sbi_adhar;
+	----------------------------------------------------------------------------------------
+	#select 'empid','empname','empsal','empdept'
+    -> union
+    -> select * from emp where empsal>=30000
+    -> into outfile 'E:/New folder (2)/17. SQL/empdata1.txt'
+    -> fields terminated by ','
+    -> lines terminated by '\n';
+
+>mysql me fields ka sapretion TABE space se hota hai. autometic ho jata hai.
+	#select * from emp into outfile 'E:/New folder (2)/17. SQL/empdata2.txt';
+
+	#select 'empid','empname','empsal','empdept'
+    -> union
+    -> select * from emp into outfile 'E:/New folder (2)/17. SQL/empdata2.txt';
+
+>hume aise code ko avoid krna chaiye, is se humari readability kharab hoti hai.
+	#select * from emp
+    -> into outfile 'E:/New folder (2)/17. SQL/empdata3.txt'
+    -> fields terminated by '\t'
+    -> lines terminated by ',';
+
+>is query se ek file me dena hai.----------#select empdept,count(empdept) as count,sum(empsal) as sum,round(avg(empsal),2) as avg from emp group by empdept;-----with round function
+	
+	#select 'Dept.','total_emp','sum_sal','avg_sal'
+    -> union
+    -> select empdept,count(empdept) as count,sum(empsal) as sum,round(avg(empsal),2) as avg from emp group by empdept
+    -> into outfile 'E:/New folder (2)/17. SQL/empdata4.txt'
+
+>CSV me convert krne per;
+	
+	#select 'Dept.','total_emp','sum_sal','avg_sal'
+    -> union
+    -> select empdept,count(empdept) as count,sum(empsal) as sum,round(avg(empsal),2) as avg from emp group by empdept
+    -> into outfile 'E:/New folder (2)/17. SQL/empdata.csv'
+    -> fields terminated by ',';
+
+============================================================================================================================================================================================
+
+LOAD DATA:---->load data command ka kam hota hai kisi csv file ke data ko mysql ke table me insert krna.
+==========
+
+load data infile "Data Directory Path/data.csv" into table employee
+
+or										======file me data load krna======
+
+load data infile "Data Directory Path/data.csv" into table employee
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n' Note,in windows-->LINES TERMINATED '\r\n'
+
+	#load data infile 'E:/New folder (2)/17. SQL/empdata11.txt' into table emp
+    -> fields terminated by ','
+    -> lines terminated by '\r\n';----------------'\r\n'(doute)----this is plate form dependent
+
+>kisi table ke kuch record(rows) ko IGNORE kr ke aage ke record ko hum likhna chahte hai.
+
+	#load data infile 'E:/New folder (2)/17. SQL/empdata11.txt' into table emp
+    -> fields terminated by ','
+    -> lines terminated by '\n'
+    -> ignore 4 lines;----------------------------ignore krege jitni lines krna chahte hai.
+
+>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+1. pymysql -module
+	- ye python ke program me database connectivity krwata hai.
+	- pymysql phle se anaconda me nhi aata hai se pip install kr lena padta hai.
+
+2. sqlalchemy -module
+	- pandas ke troow database connectivity krwata hai.
+	- salalchemy internally pymysql ka use krta hai.
+	- sqlalchemy phle se hi anaconda me aata hai.
+
+sqlalchemy module ka use kr ke database connection create krege.
+sqlalchemy.creat_engine() engine create krna
+
+form of URL="dialect[+driver]://user:password@host/dbname[?key=value..]"
+	dialect=database ka name------like: mysql
+	driver=pymysql module
+===============================================================================================
+connection create krna.
+	- sqlalchemy.create_engine("mysql+pymysql://root:root@localhost/11to1230")
+	- df=pd.read_sql("select * from emp",eng)
+ 	- df 
+===============================================================================================
+3. import matplotlib.pyplot as plt
+
+matplotlib ek package hai----aur is package me pyplot(module) rakha hua hai.

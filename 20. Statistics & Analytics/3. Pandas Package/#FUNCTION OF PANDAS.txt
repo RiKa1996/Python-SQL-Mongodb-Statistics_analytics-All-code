@@ -1,0 +1,121 @@
+FUNCTION OF PANDAS:----third party lib. pandas
+===================
+1. pd.read_excel("E:/dataset/analysis/movies_sheets.xls",nrows=10)
+2. pd.read_csv("e:/dataset/analysis/empdata_read_csv().txt",names=['empid','empsal','empname']")
+3. pd.read_sql("select * from emp",eng)----------read_sql function jo database(mysql) humne pandas me connect kiya hai use read krna.
+4. pd.read_html("")
+5. pd.read_json("")
+6. pd.Series(a)-----------Ydi array se series banana ho to
+7. df.pivot_table(index=["day","time"],values="total_bill",aggfunc="sum")  ----------------  #return a dataframe------aggrigate function
+8. pd.concat([df_cs,df_ec],axis=0)----concat function-----ye 2 ya 2 se jyada data ko combined krne ka kam krti hai-------but data ke columns same hone chaiye.
+9. pd.DataFrame({'roll':[1,2,3,],'age':[20,23,22],'name':['ram','shyam','ravan']})----------new dataframe banana
+10. df[date_time]=pd.to_datetime(df.Time)----------kisi ek data type se us data type ko kisi dusre data type me convert krna ho to.
+11. df["month"]=df.date_time.dt.month_name()--------ye dt properties ke wajah se jo date_time column hai usme se month k name hume la ke deta hai.-------month_name function
+12. df["day"]=df.date_time.dt.day_name()----ye day ke name ka ke dega.---------day_name function
+13. 
+
+
+
+METHOD
+======
+
+6. df.to_excel("E:/New folder (2)/20. Statistics & Analytics/3. Pandas/Student.xlsx",sheet_name='cs department',index=False)
+7. df.to_sql(name="movies",if_exists='fail',con=eng)
+8. df.csv("E:/New folder (2)/20. Statistics & Analytics/3. Pandas/Studentcsv.csv",index=False)
+9. df.head()      #head first 5 rows count kr ke hume de deta hai.    #return new df of 5 rows
+10. df.head(6)      #head first 6 rows count kr ke hume de deta hai.    #return new df of 6 rows
+11. df.tail()        #return new df last 5 rows.
+12. df.tail(7)        #return new df last 7 rows.
+13. df.sample(5)                   #return na new df of randomly selected 5 rows
+14. df.sample()                   #return na new df of randomly selected 1 rows
+15. df[(df.day=='Sun') | (df.day=='Sat')]       #method
+16. df.sort_values(by="total_bill")------ye total_bill ke behalf pe data ko accending order me kr dega------#by='IndexLabel'-----#by default ye accending order me la deta hai.
+17. df.sort_values(by="total_bill",ascending=False)-----------sort_values --------se accending & decending order me convert kr skte hai.
+18. df.rename({'total_bill':'Bill','tip':'Tip'},axis=1)---rename method se row ke index aur columns ke lables ko change kr skte hai.-----axis=1 hone per columns ke lables change krti hai.
+19. df.rename({1:500,2:'india',3:'rishav'},axis=0)--------------axis=0 hone per row ke index ko chage krti hai.
+20. df.describe()----is method se data ki puri summary nikal jati hai. like----->count,mean,std,min,max,25%,50%(median),75%
+21. df.describe(include='all')-----------describe method me ydi hume string value pe work krna hai to.
+22. df.describe(include="object")---ye data ki insight batati hai.
+23. df.pivot_table(index=["day","time"],values="total_bill",aggfunc="sum")  ----------------  #return a dataframe------aggrigate function
+
+METHOD---DATA WRANGLING-data cleaning
+=======================
+1. df.fillna({'temperature':30,'windspeed':10,'event':"unknow"})-------ye method toda galat ho jata hai kyoki ye har NaN wali jagaha pe same value putt ho jata hai. jiske ki pura data 								       galat ho jata hai.
+
+2. df.ffill()----------Ye samne wali value ko aage forward kr deta hai.
+3. df.temperature.ffill()--------ffill--forward filling
+4. df.windspeed.bfill()----------bfill--back filling
+
+5. df.dropna(axis=0)     #drop rows-------dropna=drop not available-------isme row / columns puri ki puri drop ho jayega
+6. df.dropna(axis=1,thresh=3)      #drop columns------thresh=3 krne per jis row me 3 se kam values hai wo delete ho jayegi.
+7. df.dropna(axis=0,subset=["temperature"])--------subset=[" "]-------specific column ko bacha ke alag column delete kr skte hai.---ye tecnique sbse jyada use hota hai. industry me.
+8. df.drop('event',axis=1)--------ye perticular column/row ko delete krta hai.
+9. df.drop_duplicates()------har row ki values same honi chaiye dusri row ki same position ki value se.
+10. df.drop_duplicates(subset=["temperature","event"])             #aise kr ke real time me hum subset=["Mobile NO."] likh skte hai.
+11. df.replace({'temperature':-99999},30,inplace=True)      #value=<no_default>--------this approach is wrong because it will be same in every where , which where values is -9999
+12. df.replace({"temperature":'[^0-9]'},"",regex=True)
+13. df_res.reset_index(drop=True)------ye drop aise bhi work krta hai, exiting index ko hata deta hai.
+
+METHOD---DATA WRANGLING-data manipulation with data transformation
+==================================================================
+13. df['tax']=df.total_bill*.05-----------------isse ek new column add kiya gya hai.
+14. df.total_bill.apply(cal_tax)----------apply method total_bill wale column pe jo function humne banaya hai cal_tax ko apply kiya gya hai.
+15. df_res.reset_index()--------reset_index method ---strarting from 0 se start krta hai.-----default index 0,1,2,3,4,...
+16. dfx.join(dfy)----join method----ye index wise ek data ko dusre data me join kr deta hai index wise.----join method kewal 2 hi data ko join kr skta hai ek bari me.
+17. df1.merge(df2,on='empid',how='inner')    #inner- inter section---left join---right join----outer join-------merge(common--column)------->concat column wise
+18. df[df.actors_list.isin]------isin method kisi data ke column me, column name exist krta hai ya nahi jaise- actors_list, category
+19. df[df.actors_list.str.contains("Robbins")]---contains method----contains method kisi value ko phle string me convert kr ke uspe fer contain method lagayege to, jis name ki value hum 						 search krte hai, wo la ke hume dege.
+20. df[df.actors_list.str.contains("amir Khan",case=False)]----------case=False ----lower/upper case like:A,B,C-----a,b,c
+21. df.corr()-----correlation method
+
+
+
+statistic =====method====with function:---->ye sbahi Data ki summary nikalna
+============================================================================
+20. s.sum()-------sum method
+21. df.total_bill.sum()
+22. df.total_bill.mean()
+23. df.total_bill.count()
+24. df.total_bill.max()
+25. df.total_bill.min()
+26. df.total_bill.median()
+27. df.total_bill.mode()
+28. df.gender.unique()----------array(['Female', 'Male'], dtype=object)
+29. df.time.unique()
+30. df.time.value_counts()----#ye unique value value ke sath sath us unique value ke counts bhi sath me kr ke deta hai.
+
+31. df.day.value_counts()----------ye unique value ke sath sath us unique value ko counts kr ke deta hai.
+
+32. df.describe()----is method se data ki puri summary nikal jati hai. like----->count,mean,std,min,max,25%,50%(median),75%
+33. df.describe(include='all')-----describe method me ydi hume string value pe work krna hai to.-----summary(count,mean,std,min,max,25%,50%(median),75%)-----insight--(unique,top,freq)
+34. df.describe(include="object")---ye data ki insight batati hai.
+35. df.groupby(by=["day","time"])[["total_bill"]].sum()  ------------ #return a dataframe
+36. df.pivot_table(index=["day","time"],values="total_bill",aggfunc="sum")  ----------------  #return a dataframe
+36. agg(["sum","count"])
+37. df.info()--->ye hume meta information deta hai-->meta information (column ke name,column ka memory size,column ke ander kis type ki values kya hai.,column me kitni value missing hai.)
+38. df.Age.isnull()----------True/False
+39. df.Age.isnull().sum()
+40. df.isnull().sum()---------ye True/False ke jariye hume result batata hai.-------False----value hai.------True-----value missing hai.
+41. df.Age.notnull()
+42. ~ df.Age.isnull()-----(~)notnull
+
+NOTE:
+df[~ df.Age.isnull()].shape   -----not operator----(~) bitwise not
+df[df.Age.notnull()].shape    notnull
+
+
+PROPERTIES
+==========
+8. bill.values----------ydi series se array banana hai to --------ye ek series ki sari values 1D array me de deta hai.
+9. df.shape-------------no. of rows and no. of columns ek tuple me hume return krti hai.
+10. df.dtypes---------every column ke kya datatypes hai. wo batati hai hume.
+11. df.size----------count of individual values------LIKE--244 rows × 7 columns====1708
+12. df.loc
+13. df.iloc--------df.iloc[5:51:1,-3:0:-2]          #question sir ne pucha-----------day,gender,tip---------->5 int index se 50 int. index tal
+14. df.at
+15. df.iat
+16. df.index---------jitne bhi dataframe me index hai wo la ke hume de deti hai.----aur kisi column ko index banana ho to, wo bhi bana skte hai.
+17. df.index=df.empid---------------kisi integer column ko index banana ho to bana skte hai.
+18. df.date_time.dt.year---------dt properties-----ye date_time column me date, time, year, day, ki series deta hai.--------ye datetime se related hota hai.
+19. res_df.index.values-----ye index ki values batane ke liye hota hia.
+20. con.text------after "requests.get("URL")"-----krne ke bad jo data get kiya gya hai use text properties se confirm kr lete hai.

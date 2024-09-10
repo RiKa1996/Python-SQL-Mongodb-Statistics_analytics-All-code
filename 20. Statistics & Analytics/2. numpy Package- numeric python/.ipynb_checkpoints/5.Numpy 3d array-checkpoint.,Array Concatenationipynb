@@ -1,0 +1,750 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "1eecccb1-588e-4f56-b1d8-1e1f72b9535d",
+   "metadata": {},
+   "source": [
+    "### **Numpy 3d Array** \n",
+    "    - array of 2d arrays\n",
+    "    - use to represent color images"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "id": "73bcacf4-b343-4407-8469-5144726578dc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "bce83079-f3c6-42b1-877e-f9653a924800",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[9 9 5]\n",
+      " [7 9 3]\n",
+      " [6 5 3]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "a=np.random.randint(1,10,(3,3))\n",
+    "print(a)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "ed07f1b1-12c1-4812-8d83-54d2d1413c2f",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[ 0  1  2  3  4  5  6  7  8  9 10 11]\n"
+     ]
+    }
+   ],
+   "source": [
+    "a=np.arange(12)\n",
+    "print(a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f8038d49-4b9a-410f-bc46-dedb14622c40",
+   "metadata": {},
+   "source": [
+    "- **(2,4,4)** 2 is len of 3d array , 4 and 4 is row and column"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "46d160de-47ae-40a3-8683-c53f69ff48d0",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[[39 46 25 28]\n",
+      "  [49 16 36  6]\n",
+      "  [10 41 15 29]\n",
+      "  [29 14 40 37]]\n",
+      "\n",
+      " [[29 10 35 29]\n",
+      "  [38 16 30 47]\n",
+      "  [18  6 19 13]\n",
+      "  [ 7 28  5 31]]]\n",
+      "3\n"
+     ]
+    }
+   ],
+   "source": [
+    "d=np.random.randint(5,50,(2,4,4))     #(2,4,4) 2 is len of 3d array , 4 and 4 is row and column\n",
+    "print(d)\n",
+    "print(d.ndim)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "4b109f75-859b-4510-bb8b-5b347d3f48bd",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[[[38 36 34 37]\n",
+      "   [22 25 49  8]\n",
+      "   [37 24 40 43]\n",
+      "   [ 6 18  6 43]]\n",
+      "\n",
+      "  [[47  8 33 31]\n",
+      "   [17 17 35 33]\n",
+      "   [42 27 48 49]\n",
+      "   [23 20 22 12]]\n",
+      "\n",
+      "  [[47 24 43 14]\n",
+      "   [ 7  7 36 32]\n",
+      "   [21 30 13 41]\n",
+      "   [ 7 44 36 19]]]\n",
+      "\n",
+      "\n",
+      " [[[17 48 15 27]\n",
+      "   [19 35 49 26]\n",
+      "   [20 43 31 17]\n",
+      "   [23 48 32 16]]\n",
+      "\n",
+      "  [[24 18 25 16]\n",
+      "   [26 13 10 46]\n",
+      "   [33 19 47 17]\n",
+      "   [17 12 42 35]]\n",
+      "\n",
+      "  [[ 7 17 22 21]\n",
+      "   [48 24  6 16]\n",
+      "   [40 16 31 14]\n",
+      "   [10 46 10 35]]]]\n",
+      "4\n"
+     ]
+    }
+   ],
+   "source": [
+    "d=np.random.randint(5,50,(2,3,4,4))     #(2,4,4) 2 is len of 4d array , 4 and 4 is row and column\n",
+    "print(d)\n",
+    "print(d.ndim)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6efaf612-8fdb-43ce-81c0-3c72ffcb743a",
+   "metadata": {},
+   "source": [
+    "### **Array Concatenation**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "id": "8dc40912-4b79-4801-b0b3-c892c90f6d71",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[5 5 7 2 8]\n",
+      "[9 5 6 1 7]\n"
+     ]
+    }
+   ],
+   "source": [
+    "a=np.random.randint(1,10,(5))     #this is one D array\n",
+    "b=np.random.randint(1,10,(5))\n",
+    "print(a)\n",
+    "print(b)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "cbd93d88-be64-4b08-b107-8af31e37ec65",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[14 10 13  3 15]\n"
+     ]
+    }
+   ],
+   "source": [
+    "c=a+b     #broadcasting\n",
+    "print(c)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9aa8e850-e3f7-4be8-8ff0-e19addf8ed42",
+   "metadata": {},
+   "source": [
+    "- 2 array ko mearg kr ke ek 1d array banana(but ye 2d array hi banata hai.)\n",
+    "- **vstack function**--------------verticla stack"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "id": "8003553d-5ed2-49da-8f79-2da658cddb65",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[5 5 7 2 8]\n",
+      " [9 5 6 1 7]]\n",
+      "2\n"
+     ]
+    }
+   ],
+   "source": [
+    "d=np.vstack((a,b))          #abhi ye conbind hoke 2d array ban gya hai.\n",
+    "print(d)\n",
+    "print(d.ndim)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e3de7de4-b596-4f34-aba0-1a0b4caf8367",
+   "metadata": {},
+   "source": [
+    "- but hume concatenation krne ke , variable a and b ko **1d array** banana hai.\n",
+    "- **hstack function**--------horizental stack"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "id": "a22424cd-7b00-42a3-9764-8d41ef9b6e03",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[5 5 7 2 8 9 5 6 1 7]\n",
+      "1\n"
+     ]
+    }
+   ],
+   "source": [
+    "e=np.hstack((a,b))\n",
+    "print(e)\n",
+    "print(e.ndim)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1cd537c5-2647-4f0e-92b5-f26acfd1e00f",
+   "metadata": {},
+   "source": [
+    "- 2 array ko concatenation krne ke liye \n",
+    "- **concatenate function**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "id": "f3810440-d6e4-42e4-b5fc-2303eb7caa56",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[5 5 7 2 8]\n",
+      "[9 5 6 1 7]\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(a)\n",
+    "print(b)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "id": "f07474bf-14d5-474e-9153-603370012823",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[5 5 7 2 8 9 5 6 1 7]\n",
+      "1\n"
+     ]
+    }
+   ],
+   "source": [
+    "f=np.concatenate((a,b))\n",
+    "print(f)\n",
+    "print(f.ndim)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b03b774e-6d3a-4ce0-a4e3-93d47d547ec8",
+   "metadata": {},
+   "source": [
+    "### - two matrix ko combind kr ke ,ek tisri matrix banani hai.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "id": "8b139a27-0dc1-44a6-875b-5619a8e41ff4",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[5 3 4]\n",
+      " [3 4 5]\n",
+      " [6 1 5]]\n",
+      "[[7 1 5]\n",
+      " [2 1 7]\n",
+      " [3 5 5]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "a=np.random.randint(1,9,(3,3))\n",
+    "b=np.random.randint(1,9,(3,3))\n",
+    "print(a)\n",
+    "print(b)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "id": "3db388f3-8f62-494d-ac9c-170626e54ad5",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[5, 3, 4],\n",
+       "       [3, 4, 5],\n",
+       "       [6, 1, 5],\n",
+       "       [7, 1, 5],\n",
+       "       [2, 1, 7],\n",
+       "       [3, 5, 5]])"
+      ]
+     },
+     "execution_count": 46,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "np.vstack((a,b))    #verticle stack me humari rows increase ho gai"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "id": "35ec7ac0-f647-41bf-b015-ab9181a97060",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[5, 3, 4, 7, 1, 5],\n",
+       "       [3, 4, 5, 2, 1, 7],\n",
+       "       [6, 1, 5, 3, 5, 5]])"
+      ]
+     },
+     "execution_count": 47,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "np.hstack((a,b))    #horizontal stack me humari columns increase ho gaye"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 49,
+   "id": "61efc3ac-f0a9-41d1-bccb-9eb5fa551783",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[5, 3, 4],\n",
+       "       [3, 4, 5],\n",
+       "       [6, 1, 5],\n",
+       "       [7, 1, 5],\n",
+       "       [2, 1, 7],\n",
+       "       [3, 5, 5]])"
+      ]
+     },
+     "execution_count": 49,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#axis=0 krne per as like vstack jaisa bana deta hai.---------default axis 0 hota hai.\n",
+    "np.concatenate((a,b),axis=0)    #concatenate me rows increase krta hai.   "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 50,
+   "id": "598a264a-fd47-4112-bcd9-86f788beee26",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[5, 3, 4, 7, 1, 5],\n",
+       "       [3, 4, 5, 2, 1, 7],\n",
+       "       [6, 1, 5, 3, 5, 5]])"
+      ]
+     },
+     "execution_count": 50,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#axis=1 krne per as like hstack jaisa bana deta hai.\n",
+    "np.concatenate((a,b),axis=1)   #concatenate me ab ye column increase kr dega."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "id": "c0aff27b-d1de-46c4-9b91-fe9e8f87eb1f",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([5, 3, 4, 3, 4, 5, 6, 1, 5, 7, 1, 5, 2, 1, 7, 3, 5, 5])"
+      ]
+     },
+     "execution_count": 51,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#axis=None krne per , ye hume dono matrix ko 1d array me convert kr ke de deta hai.\n",
+    "np.concatenate((a,b),axis=None)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 52,
+   "id": "101edc4e-aa0e-45bf-8351-74f480cbbf8f",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[5 3 4]\n",
+      " [3 4 5]\n",
+      " [6 1 5]]\n",
+      "[[7 1 5]\n",
+      " [2 1 7]\n",
+      " [3 5 5]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(a)\n",
+    "print(b)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 54,
+   "id": "848ee249-7060-44a4-95d1-22a77643087d",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[5 3 4 3 4 5 6 1 5]\n"
+     ]
+    }
+   ],
+   "source": [
+    "a=a.flatten()\n",
+    "print(a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a88d06dd-cfbe-4224-8144-02fbf1247026",
+   "metadata": {},
+   "source": [
+    "- **append function**\n",
+    "    - append fucntion do alag alag array ko convert krne ke liye hota hai.\n",
+    "    - append function se ek new array create hota hai."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 63,
+   "id": "8045421a-022e-4570-bfa3-3fbb0637222a",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[5 3 4 3 4 5 6 1 5 5]\n",
+      "int32\n"
+     ]
+    }
+   ],
+   "source": [
+    "g=np.append(a,5)\n",
+    "print(g)\n",
+    "print(g.dtype)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 64,
+   "id": "106a8d45-2964-4b87-af0d-b03e280e593b",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[  5   3   4   3   4   5   6   1   5 500]\n",
+      "int32\n"
+     ]
+    }
+   ],
+   "source": [
+    "g=np.append(a,500)\n",
+    "print(g)\n",
+    "print(g.dtype)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "dd6a5cc0-eadd-4fdb-bfcf-2eb06aa8b838",
+   "metadata": {},
+   "source": [
+    "- **insert function**\n",
+    "    - kisi bhi exiting array ke ander , kisi bhi perticular index pe apni value ko **insert** kr skte hai.\n",
+    "    - ye new array banata hai."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 66,
+   "id": "44fc8f3b-5524-452b-9523-d9c342fe7542",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[  5   3   4   3   4   5   6   1   5 500]\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(g)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 68,
+   "id": "5e36242f-ae4f-4e01-a9de-87be39b6e874",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[   5    3 1000    4    3    4    5    6    1    5  500]\n"
+     ]
+    }
+   ],
+   "source": [
+    "a=np.insert(g,2,1000)\n",
+    "print(a)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 69,
+   "id": "f61ba6e6-5ef2-4262-80ac-012387b6b60e",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([   5,    3, 1000,    4,    3,    4,    5,    6,    1,    5,  500])"
+      ]
+     },
+     "execution_count": 69,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "a"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 79,
+   "id": "5f3389f4-408d-433b-b96b-d9b23fc879d2",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[   5    3 1000    4   30   40   50   60   70   80   90    3    4    5\n",
+      "    6    1    5  500]\n"
+     ]
+    }
+   ],
+   "source": [
+    "#ek sath multiple values ko bhi insert kr skte hai.\n",
+    "b=np.insert(a,4,[30,40,50,60,70,80,90])\n",
+    "print(b)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "06ea2422-dafc-4250-83b2-c29de362be5d",
+   "metadata": {},
+   "source": [
+    "- **delete function**\n",
+    "    - delete function se kisi bhi exiting array me, kisi bhi perticular indexd ki value ko **delete** kr skte hai."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 80,
+   "id": "5070a44c-9255-4af9-9a86-38736291fb81",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[   5    3 1000    4   30   40   50   60   70   80   90    3    4    5\n",
+      "    6    1    5  500]\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(b)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 81,
+   "id": "4fca6abb-8cb4-4534-ac51-51916ff08d78",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[  5   3   4  30  40  50  60  70  80  90   3   4   5   6   1   5 500]\n"
+     ]
+    }
+   ],
+   "source": [
+    "d=np.delete(b,2)\n",
+    "print(d)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 85,
+   "id": "b787315f-4a73-4ed9-a4c5-a1a96569f645",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[  5   3   4  30  40  50  60  70  80  90   3   4   5   6   1   5 500]\n",
+      "[  5   3   4  60  80  90   3   4   5   6   1   5 500]\n"
+     ]
+    }
+   ],
+   "source": [
+    "#ek sath multiple values ko bhi delete kr skte hai.\n",
+    "print(d)\n",
+    "e=np.delete(d,[3,4,5,7])\n",
+    "print(e)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0c0587a4-2bea-41b7-bdb1-776099cf798c",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.9"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

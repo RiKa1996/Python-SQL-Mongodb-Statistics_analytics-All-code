@@ -1,0 +1,298 @@
+Command: with keyword
+---------------------
+
+1. Create-koi bhi "database" object create krna(user,table,view,proscesor,function)
+	>Syntax of create command:
+		#create database 11to1230; (aur ise hum query/statement ke name se jante hai.)
+		
+	>ek value ka size
+		#create table t5(c1 varchar(88614654644641));-----------error-------Display width out of range for column 'c1' (max = 4294967295)
+	
+	>Column length too big for column 'c1' (max = 16383); use BLOB or TEXT instead
+		#create table t5(c1 varchar(100000),c2 varchar(100000));------------error
+
+	>Row size too large. The maximum row size for the used table type, not counting BLOBs, is 65535. This includes storage overhead, check the manual. You have to change some columns 	 to TEXT or BLOBs
+		# create table t5(c1 varchar(16383),c2 varchar(16383),c3 varchar(16383));---------error
+
+	>65535---ek pure row size.
+	>integer family---------
+		1.tinyint-------1byte/per value---------(-128 se 127 tak) 2 digit---------------------ydi hum -128 nhi chahte to------(127+128=255)------0-255(unsigned)
+		2.mediumint-----2bytes/per value--------(-32678 se 32767) 4 digit
+		3.int/integer---4bytes/per value--------(9 digit ki badi se badi value tak aa skta hai.)
+		4.bigint--------8bytes/per value--------(20 digits ka no. hai.)
+	>formula
+		=>    -(2) ki power n-1 + (2) ki power n-1 -1 (n=no. of bits)
+
+	>example
+		#create table t6(c1 tinyint);
+		# insert into t6 values(-128),(127);-----tinyint
+		#create table t7(c1 tinyint unsigned);---tinyint unsigned-----------(unsigned-jisme sirf positive value allowed hai.)
+		#insert into t7 values(140);------------tinyint unsigned krne per record insert ho jata hai.
+
+		((EXITING TABLE KA BACKUP BANANA---USE STORE KRNA EK DUSRE TABLE ME))-----CREATE KE SATH SELECT(New table)/ INSERT KE SATH SELECT(phle se jo bani talbe hai.)
+	
+	1.COPY>kisi ek table se uski dusri copy table banana-----------emp table se ----------emp11 table banana;
+		#create table emp11 select * from emp;---------emp11 table me wo sb kuch milega jo emp table me hai. jaise----empid---empname----empsal----empdept.
+
+	2.>AGAR HUM TABLE KE NAME BADALNA CHAHTE HAI TO.
+		#create table emp12 select eid as id,empname as en,empsal as es,empdept as ed from emp;
+
+		#create table emp13 select eid,empsal from emp;----------aur jitne column hume chaiye utne hum le skte hai. jaise is me eid, empsal humne liya.
+		
+	3.>condition apply krne per.
+		#create table emp14 select * from emp where empsal<50000;
+		#select * from emp14;
+	4.>ydi koi table jo phle se khali ho, usme hum chahte hai koi existing table aa ke copy ho jaye.----------emp15 me emp table ke record aa jaye.
+		#create table emp15(id int,en varchar(10),es float,ed varchar(10));
+		#insert into emp15 select * from emp;------but, is me in dono ki competivility honi chaiye data tpye ki(int,varchar,float,varchar----ye dono me same line se ho chaiye.)
+
+	5.>is bari data type ke humne order change kr diye hai.----uske baad emp16 me koi table copy krne per.
+		# create table emp16(en varchar(10),es float,ed varchar(10),id int);
+		# insert into emp16 select * from emp;-----error----Data truncated for column 'es' at row 1
+	------->is error ka solution hai ki--------jis order me emp16 ke data tpye likhe gye hai vaise hi emp table ke data type ko bhi sath hi sath likh dena chaiye.
+		
+		#insert into emp16 select empname,empsal,empdept,eid from emp;
+		#create table emp17(en varchar(10),es float,ed varchar(10),id int);
+		#insert into emp17(id,en,es,ed) select * from emp;---------------ya to fer emp17 me hi emp table ke jaise order ko mentain kr dena chaiye.
+
+	6.>ydi humne column extra bana diye to (emp17(en varchar(10),es float,ed varchar(10),id int,doj varchar(20))
+		#create table emp18(en varchar(10),es float,ed varchar(10),id int,doj varchar(20));-----------------ye emp18 table create ho gya jisme 5 column hai.
+		#insert into emp18 select * from emp;-----error-----Column count doesn't match value count at row 1
+
+		#insert into emp18(id,en,es,ed) select * from emp;-------------jo 5 wa column hai(doj ka) usme NULL value hai.
+
+	7.>ydi humne column kam banaye to (es float,id int)-----do hi column banane per.
+		#create table emp19(es float,id int);------do hi column banaye hai.
+		#insert into emp19 select empsal,eid from emp;-------ab yha hume emp table me bhi wo dono hi column select krne padege jo emp19 table me likhe gye hai.
+
+
+
+1.1 table(keyword)- table banane ke liye create command ka hi use kiya jata hai.
+	>fields-columns
+	>record-row
+	>Syntax of create of table:
+		create table then table ka name(like-emp(field-empid int(datatype),empname varchar(10)(datatype),empsal(datatype)))
+		#create table emp(empid int,empname varchar(10),empsal float);
+
+		Note; DATA TYPES:
+		      -----------
+		      tinyint(-128 se 127 tak tinyint me 2 value aati hai.-1 byte)
+		      mediumint(-32768 se 32767- 2 bytes each value- isme lamsam 4 value aati hai)
+		      int (4 bytes each value- isme lamsam 8 value aati hai)
+		      bigint(8 bytes each value- isme lamsam 20 value aati hai)
+
+		      varchar(10)
+		      float
+		      
+
+2. Use - kisi database folder ko select karna
+	>Syntax of use command:
+		#use database ka name(11to1230);
+
+3. Show - kisi bhi chij ki list(user, database, tables)
+	>Syntax of Show command:
+		#show table;
+		#show database;
+		#show tables;
+	
+	>is se table ka schema pata chal jata hai.
+	>show create table emp;(internally we can get to know, ander kya hai)--------is me hume constraint ke name mil jate hai. kis column pe kon sa constraint laga hai.
+		#shwo create table emp;
+
+	>Procedure ko dekhne ka tarika
+		>SHOW PROCEDURE STATUS WHERE db="your_database_name"
+		# show procedure status where db='11to1230';
+		#show create procedure p1;---------------is se procedure ka schema dekh skte hai.
+
+
+4. desc (colunm ke name, colunm ke datatype, colunm ke constraint)kisi bhi Existing table me uska schema(structure) dekhne ke liye
+	>Syntax of desc command;
+		#desc emp;
+		#desc emp2;
+		#desc emp5;
+
+5. alter - alter command kisi bhi schema(structure) ko, kuch change ya add karne ke liye krte hai.
+	>Syntax of alter command; with keyword (add,drop,rename,change)
+
+		alter table 'table ka name-emp' add 'kya add krna hai' primary key(empid);
+		alter table 'table ka name-emp' add 'kya add krna hai' unique key(empid);
+
+		#alter table emp add primary key(empid);
+		#alter table emp add unique key(empid);
+
+	>kisi table me kuch drop(hatane ke liye);
+		#alter table emp drop primary key(empid);
+
+	>kisi exiting table me field(colunm) ko add krne ke liye.
+		alter table emp add empdept datatype any constraint;
+		#alter table emp add empdept varchar(10) primary key; 
+	
+	>kisi table ko rename karna wo to;
+		alter table table_name rename new_table name;
+		#alter table emp rename empp;
+
+	>kisi table ke field(colunm) ko rename rarna wo to;
+		alter table table_name change old_col_name new_col_name datatype
+		#alter table emp change empid eid int;
+		#alter table pnb change pnb_adhar adhar int;
+		#alter table sbi change sbi_adhar adhar int;
+		
+	>syntax to change password of root;
+		#alter user 'root'@'localhost' identified by 'new_password'
+
+	>auto_increment hatane ke liye;
+		#alter table emp modify eid int;-----is se auto_increment hat jayega.
+
+	>check constraint ko hum remove(hatana) chahte hai to,-----sbse phle----shwo create table emp; krna padega, aur check constraint ka name dekhna padega then delete kr skte hai.
+		shwo create table emp;(is se phle name dekhege constraint ka)
+		#alter table emp drop check emp_chk_1;
+
+
+6. Insert - kisi tables me koi data ko add karna ho to insert command ka use krte hai. (insert ke baare me hum jb sochte hai jb koi new record add karna chahte ho)
+	1.>Syntax of Insert command;
+		insert into table ka name(emp,emp4) then value(empid=101,empname="rishav",empsal="60000")
+		
+		#insert into table emp values(101,'rishav',60000);
+
+	2.>ek bar me ek se jyada record insert krna ho to
+		#insert into table emp(101,'rishav',60000),(102,'rahul',500000),(103,"abhishek",36555),(-----),(-----),_____
+
+	3.>is se hum apna order bana skte hai.
+		#insert into emp(empsal,empid,empname) values(20000,301,'rohit');
+
+	4.>kisi value ko hum ydi miss krna chahte hai. to hume phle table me specifi krna pdta hai jaise-emp(empid,empname)
+		#insert into emp(empid,empname) values(206,'rishav');
+
+	5.>agar check constraint laga hai table per, aur hum dubara se koi record insert krte hai to wo nhi hoga.
+		#insert into emp values(1004,'chintu',5000,'hr');----------kyoki check constraint ki wajah se ye record insert nhi hoga check(empsal>=10000.
+
+	6.>bytes ke upper based hai.
+		#insert into t5 values(999999999);
+		#insert into t5 values(-999999999);
+
+	7.>integer family---------
+		1.tinyint-------1byte/per value---------(-128 se 127 tak) 2 digit---------------------ydi hum -128 nhi chahte to------(127+128=255)------0-255(unsigned)
+		2.mediumint-----2bytes/per value--------(-32678 se 32767) 4 digit
+		3.int/integer---4bytes/per value--------(9 digit ki badi se badi value tak aa skta hai.)
+		4.bigint--------8bytes/per value--------(20 digits ka no. hai.)
+	>formula
+		=>    -(2) ki power n-1 + (2) ki power n-1 -1 (n=no. of bits)
+
+	>example
+		#create table t6(c1 tinyint);
+		# insert into t6 values(-128),(127);-----tinyint
+		#create table t7(c1 tinyint unsigned);---tinyint unsigned---------(unsigned-jisme sirf positive value allowed hai.)
+		#insert into t7 values(140);------------tinyint unsigned krne per record insert ho jata hai.
+
+
+7. Update - exiting recode me kuch badlaw krna ho to update command ko use krte hai.(table ke exiting recode me)
+	>Syntax of update command;
+		update table_name set field_name="kya dept ka name rakhna chahte ho"
+		#update emp set empdept="hr";------------is me empdept ki sari value me hr aa jayega.
+
+	>dubara se usi exiting record empdept set krne ke liye.
+		#update emp set empdept='coding' where eid in(151,152);----where constraint lagane per jis jis per hum condition lagana chahte hai us per lag skta hai. 
+
+	>ek baar me 2 ya 2 se jyada colunm ko update krne pe= kisi ek record ke liye.
+		#update emp set empname='virat',empsal=40000 where eid=301;
+		
+	>update command se kisi table me empsal ko increment(badane) ke liye. sare record ke liye.
+		# update emp set empsal=(empsal*10/100)+empsal;---------NUll pe koi operation nhi hota.
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8. Select - record(row) ko dekhne ke liye-----also clause (order by, limit, where)
+	    NOTE----Aggregate(group) function ko humesha select command ke sath hi likha jata hai. query ke just befor ho chaiye
+
+	>Syntax of select command;
+		#select empname from emp;
+		#select * from emp; -ye record ke sare record ko le aata hai.
+
+	>Syntax of Aggregate function wale:
+		
+		#select count(eid) from emp;--------for count() ke liye
+		#select count(empsal) from emp;-----for count() ke liye----aur ye NULL value ko count nhi krta hai.
+		#select count(empsal) as count from emp;------alias laga ke count(empsal) ko short kiya ja skta hai.
+		#select count(empsal),sum(empsal),avg(empsal) from emp;-----for count()----for sum()-----for avg() ke liye.
+		#select count(empsal),sum(empsal),avg(empsal),max(empsal),min(empsal) from emp;--for max()---for min() ke liye.
+	
+	>Nested Query ko select me chalaya ja skta hai.
+		#select * from emp where empsal=(select max(empsal) from emp);------ye nested query hai.----jo sbse jyada salry lele wala hoga use ab hum nikal skte hai.
+
+	>* ke sath further koi aur expression likh skte hai.
+		#select *,char_length(empname) from emp;-----------*,char_length----aise kr ke further koi aur likh skte hai.
+
+	>##CREATE KE SATH SELECT(New table)/ INSERT KE SATH SELECT(phle se jo bani talbe hai.)
+	>Explain Select command ke sath chalta hai, Table ko explain karne ke liye.
+		#explain select * from emp where empsal=50000;
+--------------------------------------------------------------------------------------------------------------------
+id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra 
+ 1 | SIMPLE      | emp   | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   14 |    10.00 | Using where
+--------------------------------------------------------------------------------------------------------------------
+
+8.1 Order by(sql clause):
+	>Syntax of order by:
+		#select * from emp order by empid desending(desc)/assending(asc);
+
+8.2 Limit (sql clause)(only mysql me chalta hai):
+	>Syntax of Limit:
+		#select * from emp limit 3; - ye table ke upper ke record la ke de deta hai- jitne hum likhte hai.
+
+	>limit me skip krne ko offset kahte hai.
+	>agar hum table me kuch record skip krke aage ke kuch aur record dekhna chahte hai to.
+		#select * from emp limit 2(aage ke 2(offset) skip kiye humne), 3(then skip ke bad ke record dekhna chahte hai.);
+
+9. Delete command:-------is ke three type hote hai.
+	1. Delete--------[0-N]-----is me humpe choice hoti hai, kya hume delete krna hai.
+	2. Truncate------kisi bhi table ke sare record(row) ko delete krna-----truncate me humpe koi choice nhi hoti.
+	4. Drop----------kisi bhi table,database object(table,user)
+
+	>Syntax of Delete command;
+		# delete from emp;--------------is point pe humare sare record delete ho skta hai. as like truncate command ki tarah.
+		
+	>Ydi foreign key lagi hui hai, aur hume koi record/row delete krna ho to;
+		#delete from emp where eid=200;---------error--------aur hum ise delete nhi kr payege. kyoki ye wala record alredy foreign key me ja chuka hai. ise delete krne ke liye
+								     phle hume foreign key se delete krna padega then hum parent table se delete kr payege.
+
+10. Start command:-------kisi transaction ko start krna ho.(SAVEPOINT---------ROLLBACK)--------TRANSACTION (ACID)
+	>Syntax of Start command;
+	>phle start krege ya began;(mysql-start ya began dono chalta hai.)
+		#start transaction;-------------for savepoint and rollback
+		#savepoint s1;------------------humne s1 ek savepoint banaya-------------taki savepoint banane se phle ka table save rhe.
+		#delete from emp where eid=503;
+		#delete from emp where eid=1001;------after savepoint s1 banane ke bad humne kuch record ko delete kr diye.
+		#delete from emp where eid=1002;
+
+	>again ek savepoint s2; banaya
+		#savepoint s2;
+		#update emp set empsal=10000;------ye krne ke bad hume pata chala ki humne kuch lagti kr di hai. (ab hum wo table dubara chahte hai to hume savepoint ko rollback krna hai.)
+		
+	>rollback krna hai.
+		# rollback to s2;-------rollback krne ke bad humari table savepoint s2 jb banaya gaya tha usse phle ki table wapas aa jayegi.
+		# select * from emp;----savepoint s2
+	
+	>ye sb savepoint aur rollbach krne ke bad hum apne table ko commit krna chahte hai. aur after commit hume table me kuch bhi changes nhi kr skte.
+COMMIT command--#commit;------------durable ho jayegi.
+
+NOTE:------START se le ke jb tak transaction ko COMMIT nhi krte tab tab table me hum savepoint aur rollback kr skte hai. After commit kuch nhi kiya ja skta hai.
+
+
+
+
+

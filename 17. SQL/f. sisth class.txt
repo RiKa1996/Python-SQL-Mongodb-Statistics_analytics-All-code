@@ -1,0 +1,801 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 11to1230;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_11to1230 |
++--------------------+
+| address            |
+| clg_event          |
+| emp                |
+| emp2               |
+| emp3               |
+| emp4               |
+| emp5               |
+| t1                 |
+| t2                 |
+| t3                 |
+| t5                 |
+| t6                 |
+| t7                 |
++--------------------+
+13 rows in set (2.26 sec)
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| empsal  | float       | YES  |     | 20000   |       |
+| empdept | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> create table emp11 select * from emp;
+Query OK, 17 rows affected (0.03 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp11;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> desc emp11;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   |     | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| empsal  | float       | YES  |     | 20000   |       |
+| empdept | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table emp12 select eid as id,empname as en,empsal as es,empdept as ed from emp;
+Query OK, 17 rows affected (0.02 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp12;
++------+----------+-------+----------+
+| id   | en       | es    | ed       |
++------+----------+-------+----------+
+|  101 | rishav   | 16500 | hr       |
+|  102 | rahul    | 27500 | hr       |
+|  103 | abhishek | 22000 | hr       |
+|  151 | dhoni    | 82500 | coding   |
+|  152 | pant     | 38500 | coding   |
+|  200 | riya     | 16501 | accounts |
+|  205 | rahul    | 25000 | accounts |
+|  300 | ajay     | 50000 | coding   |
+|  301 | virat    | 44000 | accounts |
+|  302 | karan    | 50000 | accounts |
+|  501 | arjun    | 50000 | coding   |
+|  502 | karan    | 30000 | hr       |
+|  503 | vijay    | 30000 | hr       |
+| 1000 | vijay    | 30000 | accounts |
+| 1001 | arjun    | 20000 | hr       |
+| 1002 | surya    | 25000 | hr       |
+| 1003 | arjun    | 45000 | hr       |
++------+----------+-------+----------+
+17 rows in set (0.00 sec)
+
+mysql> create table emp13 select eid,empsal from emp;
+Query OK, 17 rows affected (0.02 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp13;
++------+--------+
+| eid  | empsal |
++------+--------+
+|  101 |  16500 |
+|  102 |  27500 |
+|  103 |  22000 |
+|  151 |  82500 |
+|  152 |  38500 |
+|  200 |  16501 |
+|  205 |  25000 |
+|  300 |  50000 |
+|  301 |  44000 |
+|  302 |  50000 |
+|  501 |  50000 |
+|  502 |  30000 |
+|  503 |  30000 |
+| 1000 |  30000 |
+| 1001 |  20000 |
+| 1002 |  25000 |
+| 1003 |  45000 |
++------+--------+
+17 rows in set (0.00 sec)
+
+mysql> create table emp14 select * from emp where empsal<50000;
+Query OK, 13 rows affected (0.02 sec)
+Records: 13  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp14;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  301 | virat    |  44000 | accounts |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+13 rows in set (0.00 sec)
+
+mysql> create table emp15(id int,en varchar(10),es float,ed varchar(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from emp15;
+Empty set (0.00 sec)
+
+mysql> insert into emp15 select * from emp;
+Query OK, 17 rows affected (0.00 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp15;
++------+----------+-------+----------+
+| id   | en       | es    | ed       |
++------+----------+-------+----------+
+|  101 | rishav   | 16500 | hr       |
+|  102 | rahul    | 27500 | hr       |
+|  103 | abhishek | 22000 | hr       |
+|  151 | dhoni    | 82500 | coding   |
+|  152 | pant     | 38500 | coding   |
+|  200 | riya     | 16501 | accounts |
+|  205 | rahul    | 25000 | accounts |
+|  300 | ajay     | 50000 | coding   |
+|  301 | virat    | 44000 | accounts |
+|  302 | karan    | 50000 | accounts |
+|  501 | arjun    | 50000 | coding   |
+|  502 | karan    | 30000 | hr       |
+|  503 | vijay    | 30000 | hr       |
+| 1000 | vijay    | 30000 | accounts |
+| 1001 | arjun    | 20000 | hr       |
+| 1002 | surya    | 25000 | hr       |
+| 1003 | arjun    | 45000 | hr       |
++------+----------+-------+----------+
+17 rows in set (0.00 sec)
+
+mysql> create table emp16(en varchar(10),es float,ed varchar(10),id int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into emp16 select * from emp;
+ERROR 1265 (01000): Data truncated for column 'es' at row 1
+mysql> insert into emp16 select empname,empsal,empdept,eid from emp;
+Query OK, 17 rows affected (0.00 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp16;
++----------+-------+----------+------+
+| en       | es    | ed       | id   |
++----------+-------+----------+------+
+| rishav   | 16500 | hr       |  101 |
+| rahul    | 27500 | hr       |  102 |
+| abhishek | 22000 | hr       |  103 |
+| dhoni    | 82500 | coding   |  151 |
+| pant     | 38500 | coding   |  152 |
+| riya     | 16501 | accounts |  200 |
+| rahul    | 25000 | accounts |  205 |
+| ajay     | 50000 | coding   |  300 |
+| virat    | 44000 | accounts |  301 |
+| karan    | 50000 | accounts |  302 |
+| arjun    | 50000 | coding   |  501 |
+| karan    | 30000 | hr       |  502 |
+| vijay    | 30000 | hr       |  503 |
+| vijay    | 30000 | accounts | 1000 |
+| arjun    | 20000 | hr       | 1001 |
+| surya    | 25000 | hr       | 1002 |
+| arjun    | 45000 | hr       | 1003 |
++----------+-------+----------+------+
+17 rows in set (0.00 sec)
+
+mysql> insert into emp16(ei,en,es,ed) select * from emp;
+ERROR 1054 (42S22): Unknown column 'ei' in 'field list'
+mysql> insert into emp16(id,en,es,ed) select * from emp;
+Query OK, 17 rows affected (0.00 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp16;
++----------+-------+----------+------+
+| en       | es    | ed       | id   |
++----------+-------+----------+------+
+| rishav   | 16500 | hr       |  101 |
+| rahul    | 27500 | hr       |  102 |
+| abhishek | 22000 | hr       |  103 |
+| dhoni    | 82500 | coding   |  151 |
+| pant     | 38500 | coding   |  152 |
+| riya     | 16501 | accounts |  200 |
+| rahul    | 25000 | accounts |  205 |
+| ajay     | 50000 | coding   |  300 |
+| virat    | 44000 | accounts |  301 |
+| karan    | 50000 | accounts |  302 |
+| arjun    | 50000 | coding   |  501 |
+| karan    | 30000 | hr       |  502 |
+| vijay    | 30000 | hr       |  503 |
+| vijay    | 30000 | accounts | 1000 |
+| arjun    | 20000 | hr       | 1001 |
+| surya    | 25000 | hr       | 1002 |
+| arjun    | 45000 | hr       | 1003 |
+| rishav   | 16500 | hr       |  101 |
+| rahul    | 27500 | hr       |  102 |
+| abhishek | 22000 | hr       |  103 |
+| dhoni    | 82500 | coding   |  151 |
+| pant     | 38500 | coding   |  152 |
+| riya     | 16501 | accounts |  200 |
+| rahul    | 25000 | accounts |  205 |
+| ajay     | 50000 | coding   |  300 |
+| virat    | 44000 | accounts |  301 |
+| karan    | 50000 | accounts |  302 |
+| arjun    | 50000 | coding   |  501 |
+| karan    | 30000 | hr       |  502 |
+| vijay    | 30000 | hr       |  503 |
+| vijay    | 30000 | accounts | 1000 |
+| arjun    | 20000 | hr       | 1001 |
+| surya    | 25000 | hr       | 1002 |
+| arjun    | 45000 | hr       | 1003 |
++----------+-------+----------+------+
+34 rows in set (0.00 sec)
+
+mysql> create table emp17(en varchar(10),es float,ed varchar(10),id int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into emp17(id,en,es,ed) select * from emp;
+Query OK, 17 rows affected (0.01 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp17;
++----------+-------+----------+------+
+| en       | es    | ed       | id   |
++----------+-------+----------+------+
+| rishav   | 16500 | hr       |  101 |
+| rahul    | 27500 | hr       |  102 |
+| abhishek | 22000 | hr       |  103 |
+| dhoni    | 82500 | coding   |  151 |
+| pant     | 38500 | coding   |  152 |
+| riya     | 16501 | accounts |  200 |
+| rahul    | 25000 | accounts |  205 |
+| ajay     | 50000 | coding   |  300 |
+| virat    | 44000 | accounts |  301 |
+| karan    | 50000 | accounts |  302 |
+| arjun    | 50000 | coding   |  501 |
+| karan    | 30000 | hr       |  502 |
+| vijay    | 30000 | hr       |  503 |
+| vijay    | 30000 | accounts | 1000 |
+| arjun    | 20000 | hr       | 1001 |
+| surya    | 25000 | hr       | 1002 |
+| arjun    | 45000 | hr       | 1003 |
++----------+-------+----------+------+
+17 rows in set (0.00 sec)
+
+mysql> create table emp17(en varchar(10),es float,ed varchar(10),id int,doj varchar(20));
+ERROR 1050 (42S01): Table 'emp17' already exists
+mysql> create table emp18(en varchar(10),es float,ed varchar(10),id int,doj varchar(20));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into emp18 select * from emp;
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into emp18(id,en,es,ed) select * from emp;
+Query OK, 17 rows affected (0.01 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp18;
++----------+-------+----------+------+------+
+| en       | es    | ed       | id   | doj  |
++----------+-------+----------+------+------+
+| rishav   | 16500 | hr       |  101 | NULL |
+| rahul    | 27500 | hr       |  102 | NULL |
+| abhishek | 22000 | hr       |  103 | NULL |
+| dhoni    | 82500 | coding   |  151 | NULL |
+| pant     | 38500 | coding   |  152 | NULL |
+| riya     | 16501 | accounts |  200 | NULL |
+| rahul    | 25000 | accounts |  205 | NULL |
+| ajay     | 50000 | coding   |  300 | NULL |
+| virat    | 44000 | accounts |  301 | NULL |
+| karan    | 50000 | accounts |  302 | NULL |
+| arjun    | 50000 | coding   |  501 | NULL |
+| karan    | 30000 | hr       |  502 | NULL |
+| vijay    | 30000 | hr       |  503 | NULL |
+| vijay    | 30000 | accounts | 1000 | NULL |
+| arjun    | 20000 | hr       | 1001 | NULL |
+| surya    | 25000 | hr       | 1002 | NULL |
+| arjun    | 45000 | hr       | 1003 | NULL |
++----------+-------+----------+------+------+
+17 rows in set (0.00 sec)
+
+mysql> create table emp19(es float,id int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into emp19 select empsal,eid from emp;
+Query OK, 17 rows affected (0.01 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp19;
++-------+------+
+| es    | id   |
++-------+------+
+| 16500 |  101 |
+| 27500 |  102 |
+| 22000 |  103 |
+| 82500 |  151 |
+| 38500 |  152 |
+| 16501 |  200 |
+| 25000 |  205 |
+| 50000 |  300 |
+| 44000 |  301 |
+| 50000 |  302 |
+| 50000 |  501 |
+| 30000 |  502 |
+| 30000 |  503 |
+| 30000 | 1000 |
+| 20000 | 1001 |
+| 25000 | 1002 |
+| 45000 | 1003 |
++-------+------+
+17 rows in set (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> savepoint s1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from emp where empsal<50000;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`11to1230`.`address`, CONSTRAINT `address_ibfk_1` FOREIGN KEY (`empid`) REFERENCES `emp` (`eid`))
+mysql> delete from emp where empsal>40000;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`11to1230`.`address`, CONSTRAINT `address_ibfk_1` FOREIGN KEY (`empid`) REFERENCES `emp` (`eid`))
+mysql> delete from emp where eid=1001;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> delete from emp where eid=1002;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+15 rows in set (0.00 sec)
+
+mysql> delete from emp where eid=503;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from emp' at line 1
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+14 rows in set (0.00 sec)
+
+mysql> savepoint s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update emp set where empsal=10000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where empsal=10000' at line 1
+mysql> update emp set empsal=10000;
+Query OK, 14 rows affected (0.00 sec)
+Rows matched: 14  Changed: 14  Warnings: 0
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  10000 | hr       |
+|  102 | rahul    |  10000 | hr       |
+|  103 | abhishek |  10000 | hr       |
+|  151 | dhoni    |  10000 | coding   |
+|  152 | pant     |  10000 | coding   |
+|  200 | riya     |  10000 | accounts |
+|  205 | rahul    |  10000 | accounts |
+|  300 | ajay     |  10000 | coding   |
+|  301 | virat    |  10000 | accounts |
+|  302 | karan    |  10000 | accounts |
+|  501 | arjun    |  10000 | coding   |
+|  502 | karan    |  10000 | hr       |
+| 1000 | vijay    |  10000 | accounts |
+| 1003 | arjun    |  10000 | hr       |
++------+----------+--------+----------+
+14 rows in set (0.00 sec)
+
+mysql> rollback to s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+14 rows in set (0.00 sec)
+
+mysql> rollback to s1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> create table datedemo(mydate date,mytime time,mydatetime datetime);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into datedemo values('2020-10-20','10:11:12','2020-10-20 10:11:12');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from datedemo;
++------------+----------+---------------------+
+| mydate     | mytime   | mydatetime          |
++------------+----------+---------------------+
+| 2020-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
++------------+----------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into datedemo values('2020/10/20','10:11:12','2020/10/20 10:11:12');
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+mysql> select * from datedemo;
++------------+----------+---------------------+
+| mydate     | mytime   | mydatetime          |
++------------+----------+---------------------+
+| 2020-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
+| 2020-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
++------------+----------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into datedemo values('20-11-25','10:11:12','2020/10/20 10:11:12');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select * from datedemo;
++------------+----------+---------------------+
+| mydate     | mytime   | mydatetime          |
++------------+----------+---------------------+
+| 2020-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
+| 2020-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
+| 2020-11-25 | 10:11:12 | 2020-10-20 10:11:12 |
++------------+----------+---------------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into datedemo values('75/10/20','10:11:12','2020/10/20 10:11:12');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> select * from datedemo;
++------------+----------+---------------------+
+| mydate     | mytime   | mydatetime          |
++------------+----------+---------------------+
+| 2020-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
+| 2020-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
+| 2020-11-25 | 10:11:12 | 2020-10-20 10:11:12 |
+| 1975-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
++------------+----------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into datedemo values(20240113,010222,20240113010222);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from datedemo;
++------------+----------+---------------------+
+| mydate     | mytime   | mydatetime          |
++------------+----------+---------------------+
+| 2020-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
+| 2020-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
+| 2020-11-25 | 10:11:12 | 2020-10-20 10:11:12 |
+| 1975-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
+| 2024-01-13 | 01:02:22 | 2024-01-13 01:02:22 |
++------------+----------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into datedemo values(curdate(),curtime,now());
+ERROR 1054 (42S22): Unknown column 'curtime' in 'field list'
+mysql> insert into datedemo values(curdate(),curtime(),now());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from datedemo;
++------------+----------+---------------------+
+| mydate     | mytime   | mydatetime          |
++------------+----------+---------------------+
+| 2020-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
+| 2020-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
+| 2020-11-25 | 10:11:12 | 2020-10-20 10:11:12 |
+| 1975-10-20 | 10:11:12 | 2020-10-20 10:11:12 |
+| 2024-01-13 | 01:02:22 | 2024-01-13 01:02:22 |
+| 2024-01-13 | 13:07:22 | 2024-01-13 13:07:22 |
++------------+----------+---------------------+
+6 rows in set (0.00 sec)
+
+mysql> select date_formate(mydate,"%y") from datedemo;
+ERROR 1305 (42000): FUNCTION 11to1230.date_formate does not exist
+mysql> select date_format(mydate,"%y") from datedemo;
++--------------------------+
+| date_format(mydate,"%y") |
++--------------------------+
+| 20                       |
+| 20                       |
+| 20                       |
+| 75                       |
+| 24                       |
+| 24                       |
++--------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select date_format(mydate,"%yy") from datedemo;
++---------------------------+
+| date_format(mydate,"%yy") |
++---------------------------+
+| 20y                       |
+| 20y                       |
+| 20y                       |
+| 75y                       |
+| 24y                       |
+| 24y                       |
++---------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select date_format(mydate,"%Y") from datedemo;
++--------------------------+
+| date_format(mydate,"%Y") |
++--------------------------+
+| 2020                     |
+| 2020                     |
+| 2020                     |
+| 1975                     |
+| 2024                     |
+| 2024                     |
++--------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select date_format(mydate,"%m") from datedemo;
++--------------------------+
+| date_format(mydate,"%m") |
++--------------------------+
+| 10                       |
+| 10                       |
+| 11                       |
+| 10                       |
+| 01                       |
+| 01                       |
++--------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select date_format(mydate,"%M") from datedemo;
++--------------------------+
+| date_format(mydate,"%M") |
++--------------------------+
+| October                  |
+| October                  |
+| November                 |
+| October                  |
+| January                  |
+| January                  |
++--------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select date_format(mydate,"%d") from datedemo;
++--------------------------+
+| date_format(mydate,"%d") |
++--------------------------+
+| 20                       |
+| 20                       |
+| 25                       |
+| 20                       |
+| 13                       |
+| 13                       |
++--------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select date_format(mydate,"%D") from datedemo;
++--------------------------+
+| date_format(mydate,"%D") |
++--------------------------+
+| 20th                     |
+| 20th                     |
+| 25th                     |
+| 20th                     |
+| 13th                     |
+| 13th                     |
++--------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select date_format(mydate,"%a") from datedemo;
++--------------------------+
+| date_format(mydate,"%a") |
++--------------------------+
+| Tue                      |
+| Tue                      |
+| Wed                      |
+| Mon                      |
+| Sat                      |
+| Sat                      |
++--------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select date_format(mydate,"%b") from datedemo;
++--------------------------+
+| date_format(mydate,"%b") |
++--------------------------+
+| Oct                      |
+| Oct                      |
+| Nov                      |
+| Oct                      |
+| Jan                      |
+| Jan                      |
++--------------------------+
+6 rows in set (0.00 sec)
+

@@ -1,0 +1,365 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 11to1230;
+Database changed
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
+| 1004 | rohit    |  60000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> select * from emp where empasal>=30000
+    -> into outfile "E:/New folder (2)/17. SQL/empdata1.txt"
+    -> field terminated by ','
+    -> lines terminated by '\n';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'field terminated by ','
+lines terminated by '\n'' at line 3
+mysql> select * from emp where empsal>=30000
+    -> into outfile 'E:/New folder (2)/17. SQL/empdata.txt'
+    -> fields terminated by ','
+    -> lines terminated by '\n';
+ERROR 1086 (HY000): File 'E:/New folder (2)/17. SQL/empdata.txt' already exists
+mysql> select * from emp where empsal>=30000
+    -> into outfile "E:/New folder (2)/17. SQL/empdata1.txt"
+    -> fields terminated by ','
+    -> lines terminated by '\n';
+Query OK, 10 rows affected (0.00 sec)
+
+mysql> select 'empid','empname','empsal','empdept'
+    -> union
+    -> select* from emp where empsal>=30000
+    -> into outfile 'E:/New folder (2)/17. SQL/empdata1.txt'
+    -> fields terminated by ","
+    -> lines terminated by "\n";
+ERROR 1086 (HY000): File 'E:/New folder (2)/17. SQL/empdata1.txt' already exists
+mysql> select* from emp where empsal>=30000
+    -> union
+    -> into outfile "E:/New folder (2)/17. SQL/empdata1.txt"
+    -> fields terminated by ','
+    -> lines terminated by '\n';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'into outfile "E:/New folder (2)/17. SQL/empdata1.txt"
+fields terminated by ','
+l' at line 3
+mysql> select 'empid','empname','empsal','empdept'
+    -> union
+    -> select * from emp where empsal>=30000
+    -> into outfile 'E:/New folder (2)/17. SQL/empdata1.txt'
+    -> fields terminated by ','
+    -> lines terminated by '\n';
+Query OK, 11 rows affected (0.00 sec)
+
+mysql> select * from emp into outfile 'E:/New folder (2)/17. SQL/data/empdata.txt';
+ERROR 1 (HY000): Can't create/write to file 'E:\New folder (2)\17. SQL\data\empdata.txt' (OS errno 2 - No such file or directory)
+mysql> select * from emp into outfile 'E:/New folder (2)/17. SQL/empdata2.txt';
+Query OK, 17 rows affected (0.00 sec)
+
+mysql> select 'empid','empname','empsal','empdept'
+    -> union
+    -> select * from emp
+    -> into outfile 'E:/New folder (2)/17. SQL/data/empdata.txt';
+ERROR 1 (HY000): Can't create/write to file 'E:\New folder (2)\17. SQL\data\empdata.txt' (OS errno 2 - No such file or directory)
+mysql> select 'empid','empname','empsal','empdept'
+    -> union
+    -> selct * from emp inot outfile 'E:/New folder (2)/17. SQL/data/empdata2.txt';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct * from emp inot outfile 'E:/New folder (2)/17. SQL/data/empdata2.txt'' at line 3
+mysql> select 'empid','empname','empsal','empdept'
+    -> union
+    -> select * from emp into outfile 'E:/New folder (2)/17. SQL/empdata2.txt';
+Query OK, 18 rows affected (0.00 sec)
+
+mysql> select * from emp
+    -> into outfile 'E:/New folder (2)/17. SQL/empdata3.txt'
+    -> fields terminated by '\t'
+    -> lines terminated by ',';
+Query OK, 17 rows affected (0.00 sec)
+
+mysql> select empdept,count(empdept) as count,sum(empsal) as sum,avg(empsal) as avg from emp group by empdept;
++----------+-------+--------+--------------------+
+| empdept  | count | sum    | avg                |
++----------+-------+--------+--------------------+
+| hr       |     9 | 276000 | 30666.666666666668 |
+| coding   |     3 | 171000 |              57000 |
+| accounts |     5 | 165501 |            33100.2 |
++----------+-------+--------+--------------------+
+3 rows in set (0.01 sec)
+
+mysql> select empdept,count(empdept) as count,sum(empsal) as sum,round(avg(empsal),2) as avg from emp group by empdept;
++----------+-------+--------+----------+
+| empdept  | count | sum    | avg      |
++----------+-------+--------+----------+
+| hr       |     9 | 276000 | 30666.67 |
+| coding   |     3 | 171000 |    57000 |
+| accounts |     5 | 165501 |  33100.2 |
++----------+-------+--------+----------+
+3 rows in set (0.01 sec)
+
+mysql> select sum(empsal) from emp group by empdept;
++-------------+
+| sum(empsal) |
++-------------+
+|      276000 |
+|      171000 |
+|      165501 |
++-------------+
+3 rows in set (0.00 sec)
+
+mysql> select empdept,count(empdept) as count,sum(empsal) as sum,round(avg(empsal),2) as avg from emp group by empdept;
++----------+-------+--------+----------+
+| empdept  | count | sum    | avg      |
++----------+-------+--------+----------+
+| hr       |     9 | 276000 | 30666.67 |
+| coding   |     3 | 171000 |    57000 |
+| accounts |     5 | 165501 |  33100.2 |
++----------+-------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select empdept,count(empdept) as count,sum(empsal) as sum,round(avg(empsal),2) as avg from emp group by empdept
+    -> into outfile 'E:/New folder (2)/17. SQL/empdata4.txt'
+    -> ;
+Query OK, 3 rows affected (0.00 sec)
+
+mysql> select 'Dept.','total_emp','sum_sal','avg_sal'
+    -> union
+    -> select empdept,count(empdept) as count,sum(empsal) as sum,round(avg(empsal),2) as avg from emp group by empdept
+    -> into outfile 'E:/New folder (2)/17. SQL/empdata4.txt'
+    -> ;
+Query OK, 4 rows affected (0.00 sec)
+
+mysql> select 'Dept.','total_emp','sum_sal','avg_sal'
+    -> union
+    -> select empdept,count(empdept) as count,sum(empsal) as sum,round(avg(empsal),2) as avg from emp group by empdept
+    -> into outfile 'E:/New folder (2)/17. SQL/empdata.csv';
+Query OK, 4 rows affected (0.00 sec)
+
+mysql> select 'Dept.','total_emp','sum_sal','avg_sal'
+    -> union
+    -> select empdept,count(empdept) as count,sum(empsal) as sum,round(avg(empsal),2) as avg from emp group by empdept
+    -> into outfile 'E:/New folder (2)/17. SQL/empdata.csv'
+    -> fields terminatate by ','
+    -> lines terminated by '\n';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'terminatate by ','
+lines terminated by '\n'' at line 5
+mysql> select 'Dept.','total_emp','sum_sal','avg_sal'
+    -> union
+    -> select empdept,count(empdept) as count,sum(empsal) as sum,round(avg(empsal),2) as avg from emp group by empdept
+    -> into outfile 'E:/New folder (2)/17. SQL/empdata.csv'
+    -> fields terminated by ','
+    -> ;
+Query OK, 4 rows affected (0.00 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_11to1230 |
++--------------------+
+| address            |
+| clg_event          |
+| datedemo           |
+| emp                |
+| emp11              |
+| emp12              |
+| emp13              |
+| emp14              |
+| emp15              |
+| emp16              |
+| emp17              |
+| emp18              |
+| emp19              |
+| emp2               |
+| emp3               |
+| emp4               |
+| emp5               |
+| hdfc               |
+| myview             |
+| myview2            |
+| pnb                |
+| sbi                |
+| t1                 |
+| t2                 |
+| t3                 |
+| t5                 |
+| t6                 |
+| t7                 |
++--------------------+
+28 rows in set (0.04 sec)
+
+mysql> drop table address;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_11to1230 |
++--------------------+
+| clg_event          |
+| datedemo           |
+| emp                |
+| emp11              |
+| emp12              |
+| emp13              |
+| emp14              |
+| emp15              |
+| emp16              |
+| emp17              |
+| emp18              |
+| emp19              |
+| emp2               |
+| emp3               |
+| emp4               |
+| emp5               |
+| hdfc               |
+| myview             |
+| myview2            |
+| pnb                |
+| sbi                |
+| t1                 |
+| t2                 |
+| t3                 |
+| t5                 |
+| t6                 |
+| t7                 |
++--------------------+
+27 rows in set (0.00 sec)
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| empsal  | float       | YES  | MUL | 20000   |       |
+| empdept | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table emp drop primary key;
+Query OK, 17 rows affected (0.03 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   |     | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| empsal  | float       | YES  | MUL | 20000   |       |
+| empdept | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> load data infile 'E:/New folder (2)/17. SQL/empdata1.txt' into table emp
+    -> fields terminated by ','
+    -> lines terminated by '\r\n';
+ERROR 1366 (HY000): Incorrect integer value: 'empid' for column 'eid' at row 1
+mysql> load data infile 'E:/New folder (2)/17. SQL/empdata11.txt' into table emp
+    -> fields terminated by ','
+    -> lines terminated by '\r\n';
+Query OK, 1 row affected (0.01 sec)
+Records: 1  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> select * from emp;
++------+----------+--------+------------+
+| eid  | empname  | empsal | empdept    |
++------+----------+--------+------------+
+|  101 | rishav   |  16500 | hr         |
+|  102 | rahul    |  27500 | hr         |
+|  103 | abhishek |  22000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  200 | riya     |  16501 | accounts   |
+|  205 | rahul    |  25000 | accounts   |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1001 | arjun    |  20000 | hr         |
+| 1002 | surya    |  25000 | hr         |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding
+152 |
++------+----------+--------+------------+
+18 rows in set (0.00 sec)
+
+mysql> load data infile 'E:/New folder (2)/17. SQL/empdata11.txt' into table emp
+    -> fields terminated by ','
+    -> lines terminated by '\n';
+ERROR 29 (HY000): File 'E:\New folder (2)\17. SQL\empdata11.txt' not found (OS errno 2 - No such file or directory)
+mysql> load data infile 'E:/New folder (2)/17. SQL/empdata11.txt' into table emp
+    -> fields terminated by ','
+    -> lines terminated by '\n';
+ERROR 1366 (HY000): Incorrect integer value: 'empid' for column 'eid' at row 1
+mysql> load data infile 'E:/New folder (2)/17. SQL/empdata11.txt' into table emp
+    -> fields terminated by ','
+    -> lines terminated by '\n';
+Query OK, 10 rows affected (0.00 sec)
+Records: 10  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> select * from emp;
++------+----------+--------+------------+
+| eid  | empname  | empsal | empdept    |
++------+----------+--------+------------+
+|  101 | rishav   |  16500 | hr         |
+|  102 | rahul    |  27500 | hr         |
+|  103 | abhishek |  22000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  200 | riya     |  16501 | accounts   |
+|  205 | rahul    |  25000 | accounts   |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1001 | arjun    |  20000 | hr         |
+| 1002 | surya    |  25000 | hr         |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding
+152 |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
++------+----------+--------+------------+
+28 rows in set (0.00 sec)
+
+mysql> delete table emp where eid=152;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table emp where eid=152' at line 1
+mysql>

@@ -1,0 +1,35 @@
+Method;
+=======
+1. createCollection- ye ek collection(table) banane ke liye hota hai.----------------------------db.createCollection("emp")
+
+2. insertOne- ye collection me 1 document(record/row) ko insert krne ke liye hota hai.-----------db.emp.insertOne({k:v})
+
+3. insertMany-is me ek se jyada document(row) ko insert kiye jate hai.---------------------------db.emp.insertMany([{k:v},{k:v},{k:v[]}])
+
+4. find- ye hume banaye gaye document(record/row) ko dekhne ke liye kiya jata hai.---------------db.emp.find(condition)
+
+5. findOne-  ye ek collection me sbse phla document la ke hume deta hai.-------------------------db.emp.findOne()
+
+6. limit-  ye limit hume jitne record hum likhte hai utne hume la ke de deta hai.----------------db.emp.find().limit(3)
+
+7. sort- sort method me hum by field ke dwara sort kiya ja skta hai-accending/decendig me--------db.emp.find().sort("esal":1)---yha 1-decide krta hai-accending/ -1 decide krta hai decending
+
+8. updateOne- document/record ko update krna ----------------------------------------------------db.student.updateOne({'_id':1},{$set:{'Name':'Reena'}})
+
+9. replaceOne- kisi document/record me kuch aur add krna-----------------------------------------db.student.replaceOne({'_id':1},{'Name':'reena','marks':76.7,'Branch':'Badarpur'})
+
+10. deleteOne- kisi document/record ko delete krna-----------------------------------------------db.emp.deleteOne({'esal':50000})
+
+11. deleteMany- ek se jyada documents ko delete krna, condition laga ke--------------------------db.emp.deleteMany({'esal':{$gte:50000}})
+
+12. renameCollectio- collection ko rename krna---------------------------------------------------db.student.renameCollection("Students")
+
+
+============================================================================================================================================================================================	
+Important Course
+----------------
+MEAN (MONGODB----EXPRESS------ANGULAR-----NOTE(.NET))
+
+MERN (MONGODB----EXPRESS------REACT-------NOTE(.NET))
+
+TOP-3 ME YE DONO COURSE BHI AATE HAI.

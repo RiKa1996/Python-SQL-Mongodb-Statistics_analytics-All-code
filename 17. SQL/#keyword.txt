@@ -1,0 +1,23 @@
+keyword:
+========
+01. table--insert,update
+02. add----alter
+03. drop---alter
+04. rename-alter
+05. change-alter
+06. set----update
+07. modify-alter table emp modify eid int auto_increment;
+08. as-----alias(assumed name)--kisi bde sentence ko short me likhne ko alias khte hai.
+09. declare---procedural language me hai ye concept
+10.set------procedure me milega
+
+
+
+
+
+
+
+
+
+NOTE: rownum---ye hidden column hota hai jo hume dikhai nhi deta.
+NOTE: 

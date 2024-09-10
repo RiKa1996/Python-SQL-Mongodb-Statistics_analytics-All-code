@@ -1,0 +1,176 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 11to1230;
+Database changed
+mysql> select * from emp;
++------+----------+--------+----------+
+| eid  | empname  | empsal | empdept  |
++------+----------+--------+----------+
+|  101 | rishav   |  16500 | hr       |
+|  102 | rahul    |  27500 | hr       |
+|  103 | abhishek |  22000 | hr       |
+|  151 | dhoni    |  82500 | coding   |
+|  152 | pant     |  38500 | coding   |
+|  200 | riya     |  16501 | accounts |
+|  205 | rahul    |  25000 | accounts |
+|  300 | ajay     |  50000 | coding   |
+|  301 | virat    |  44000 | accounts |
+|  302 | karan    |  50000 | accounts |
+|  501 | arjun    |  50000 | coding   |
+|  502 | karan    |  30000 | hr       |
+|  503 | vijay    |  30000 | hr       |
+| 1000 | vijay    |  30000 | accounts |
+| 1001 | arjun    |  20000 | hr       |
+| 1002 | surya    |  25000 | hr       |
+| 1003 | arjun    |  45000 | hr       |
++------+----------+--------+----------+
+17 rows in set (0.00 sec)
+
+mysql> select * from emp where empsal=50000;
++-----+---------+--------+----------+
+| eid | empname | empsal | empdept  |
++-----+---------+--------+----------+
+| 300 | ajay    |  50000 | coding   |
+| 302 | karan   |  50000 | accounts |
+| 501 | arjun   |  50000 | coding   |
++-----+---------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> explain select * from emp where empsal=50000;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+|  1 | SIMPLE      | emp   | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   14 |    10.00 | Using where |+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+1 row in set, 1 warning (0.00 sec)
+
+mysql> explain select * from emp where empsal=35000;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+|  1 | SIMPLE      | emp   | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   14 |    10.00 | Using where |+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+1 row in set, 1 warning (0.00 sec)
+
+mysql> create index sal_index on emp*
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*' at line 1
+mysql> create index sal_index on emp(empsal);
+Query OK, 0 rows affected (0.81 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> explain select * from emp where empsal=50000;
++----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-----------------------+
+| id | select_type | table | partitions | type | possible_keys | key       | key_len | ref   | rows | filtered | Extra                 |
++----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-----------------------+
+|  1 | SIMPLE      | emp   | NULL       | ref  | sal_index     | sal_index | 5       | const |    3 |   100.00 | Using index condition |
++----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> explain select * from emp where empsal=35000;
++----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-----------------------+
+| id | select_type | table | partitions | type | possible_keys | key       | key_len | ref   | rows | filtered | Extra                 |
++----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-----------------------+
+|  1 | SIMPLE      | emp   | NULL       | ref  | sal_index     | sal_index | 5       | const |    1 |   100.00 | Using index condition |
++----+-------------+-------+------------+------+---------------+-----------+---------+-------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> expain select * from emp where eid=103;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'expain select * from emp where eid=103' at line 1
+mysql> create
+
+
+JOIN==================================================
+
+
+mysql> create table pnb(pnb_acn int,pnb_bal float,pnb_name varchar(10),pnb_adhar int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table sbi(sbi_acn int,sbi_bal float,sbi_name varchar(10),sbi_adhar int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into pnb values(1,5000,'a',123),(2,4000,'b',124)(3,6000,'c',125);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(3,6000,'c',125)' at line 1
+mysql> insert into pnb values(1,5000,'a',123),(2,4000,'b',124),(3,6000,'c',125);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into sbi values(101,5000,'a',226),(102,4000,'b',124),(103,'6000','c',125);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from pnb;
++---------+---------+----------+-----------+
+| pnb_acn | pnb_bal | pnb_name | pnb_adhar |
++---------+---------+----------+-----------+
+|       1 |    5000 | a        |       123 |
+|       2 |    4000 | b        |       124 |
+|       3 |    6000 | c        |       125 |
++---------+---------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from sbi;
++---------+---------+----------+-----------+
+| sbi_acn | sbi_bal | sbi_name | sbi_adhar |
++---------+---------+----------+-----------+
+|     101 |    5000 | a        |       226 |
+|     102 |    4000 | b        |       124 |
+|     103 |    6000 | c        |       125 |
++---------+---------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from pnb inner join sbi on pnb.pnb_adhar=sbi.sbi_adhar;
++---------+---------+----------+-----------+---------+---------+----------+-----------+
+| pnb_acn | pnb_bal | pnb_name | pnb_adhar | sbi_acn | sbi_bal | sbi_name | sbi_adhar |
++---------+---------+----------+-----------+---------+---------+----------+-----------+
+|       2 |    4000 | b        |       124 |     102 |    4000 | b        |       124 |
+|       3 |    6000 | c        |       125 |     103 |    6000 | c        |       125 |
++---------+---------+----------+-----------+---------+---------+----------+-----------+
+2 rows in set (0.01 sec)
+
+mysql> select pnb.pnb_adhar as adhar,pnb.pnb_name as name,pnb.pnb_bal,pnb.pnb_acn,sbi.sbi_bal,sbi.sbi_acn from from pnb inner join on pnb.pnb_adhar=sbi.sbi_
+adhar;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from pnb inner join on pnb.pnb_adhar=sbi.sbi_adhar' at line 1
+mysql> select pnb.pnb_adhar as adhar,pnb.pnb_name as name,pnb.pnb_bal,pnb.pnb_acn,sbi.sbi_bal,sbi.sbi_acn from from pnb inner join
+    -> on pnb.pnb_adhar=sbi.sbi_adhar;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from pnb inner join
+on pnb.pnb_adhar=sbi.sbi_adhar' at line 1
+mysql> select pnb.pnb_adhar as adhar,pnb.pnb_name as name,pnb.pnb_bal,pnb.pnb_acn,sbi.sbi_bal,sbi.sbi_acn from pnb inner join
+    -> on pnb.pnb_adhar=sbi.sbi_adhar;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'on pnb.pnb_adhar=sbi.sbi_adhar' at line 2
+mysql> select pnb.pnb_adhar as adhar,pnb.pnb_name as name,pnb.pnb_bal,pnb.pnb_acn,sbi.sbi_bal,sbi.sbi_acn from pnb inner join
+    -> sbi on pnb.pnb_adhar=sbi.sbi_adhar;
++-------+------+---------+---------+---------+---------+
+| adhar | name | pnb_bal | pnb_acn | sbi_bal | sbi_acn |
++-------+------+---------+---------+---------+---------+
+|   124 | b    |    4000 |       2 |    4000 |     102 |
+|   125 | c    |    6000 |       3 |    6000 |     103 |
++-------+------+---------+---------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select pnb.pnb_bal+sbi.sbi_bal as total total_bal,pnb.pnb_adhar from pnb inner join sbi on pnb.pnb_adhar=sbi.sbi_adhar
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'total_bal,pnb.pnb_adhar from pnb inner join sbi on pnb.pnb_adhar=sbi.sbi_adhar' at line 1
+mysql> select pnb.pnb_bal+sbi.sbi_bal as total total_bal,pnb.pnb_adhar from pnb inner join sbi on pnb.pnb_adhar=sbi.sbi_adhar;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'total_bal,pnb.pnb_adhar from pnb inner join sbi on pnb.pnb_adhar=sbi.sbi_adhar' at line 1
+mysql> select pnb.pnb_bal+sbi.sbi_bal as total_bal,pnb.pnb_adhar from pnb inner join sbi on pnb.pnb_adhar=sbi.sbi_adhar;
++-----------+-----------+
+| total_bal | pnb_adhar |
++-----------+-----------+
+|      8000 |       124 |
+|     12000 |       125 |
++-----------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select p.pnb_adhar as adhar,p.pnb_name as name,p.pnb_bal,p.pnb_acn,s.sbi_bal,s.sbi_acn from pnb as p inner join sbi as s on p.pnb_adhar=s.sbi_adhar;
++-------+------+---------+---------+---------+---------+
+| adhar | name | pnb_bal | pnb_acn | sbi_bal | sbi_acn |
++-------+------+---------+---------+---------+---------+
+|   124 | b    |    4000 |       2 |    4000 |     102 |
+|   125 | c    |    6000 |       3 |    6000 |     103 |
++-------+------+---------+---------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql>

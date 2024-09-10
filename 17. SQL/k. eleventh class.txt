@@ -1,0 +1,678 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 11to1230;
+Database changed
+mysql> load data infile 'E:/New folder (2)/17. SQL/empdata11.txt'
+    -> fields terminated by ','
+    -> lines terminated by '\r\n'
+    -> ignore 4 lines;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fields terminated by ','
+lines terminated by '\r\n'
+ignore 4 lines' at line 2
+mysql> load data infile 'E:/New folder (2)/17. SQL/empdata11.txt'
+    -> fields terminated by ','
+    -> lines terminated by '\n'
+    -> ignore 4 lines;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fields terminated by ','
+lines terminated by '\n'
+ignore 4 lines' at line 2
+mysql> load data infile 'E:/New folder (2)/17. SQL/empdata11.txt' into table emp
+    -> fields terminated ','
+    -> lines terminated '\n'
+    -> ignore 4 lines;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '','
+lines terminated '\n'
+ignore 4 lines' at line 2
+mysql> select * from emp;
++------+----------+--------+------------+
+| eid  | empname  | empsal | empdept    |
++------+----------+--------+------------+
+|  101 | rishav   |  16500 | hr         |
+|  102 | rahul    |  27500 | hr         |
+|  103 | abhishek |  22000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  200 | riya     |  16501 | accounts   |
+|  205 | rahul    |  25000 | accounts   |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1001 | arjun    |  20000 | hr         |
+| 1002 | surya    |  25000 | hr         |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding
+152 |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
++------+----------+--------+------------+
+28 rows in set (0.01 sec)
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   |     | NULL    |       |
+| empname | varchar(10) | YES  |     | NULL    |       |
+| empsal  | float       | YES  | MUL | 20000   |       |
+| empdept | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> load data infile 'E:/New folder (2)/17. SQL/empdata11' into table emp
+    -> fields terminated by ','
+    -> lines terminated by '\n'
+    -> ignore 4 lines;
+ERROR 29 (HY000): File 'E:\New folder (2)\17. SQL\empdata11' not found (OS errno 2 - No such file or directory)
+mysql> load data infile 'E:/New folder (2)/17. SQL/empdata11.txt' into table emp
+    -> fields terminated by ','
+    -> lines terminated by '\n'
+    -> ignore 4 lines;
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> select * from emp;
++------+----------+--------+------------+
+| eid  | empname  | empsal | empdept    |
++------+----------+--------+------------+
+|  101 | rishav   |  16500 | hr         |
+|  102 | rahul    |  27500 | hr         |
+|  103 | abhishek |  22000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  200 | riya     |  16501 | accounts   |
+|  205 | rahul    |  25000 | accounts   |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1001 | arjun    |  20000 | hr         |
+| 1002 | surya    |  25000 | hr         |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding
+152 |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
++------+----------+--------+------------+
+34 rows in set (0.00 sec)
+
+mysql> load data infile 'E:/New folder (2)/17. SQL/empdata11.txt' into table emp
+    -> fields terminated by ','
+    -> lines terminated by '\n'
+    -> ;
+Query OK, 10 rows affected (0.00 sec)
+Records: 10  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> select * from emp
+    -> ;
++------+----------+--------+------------+
+| eid  | empname  | empsal | empdept    |
++------+----------+--------+------------+
+|  101 | rishav   |  16500 | hr         |
+|  102 | rahul    |  27500 | hr         |
+|  103 | abhishek |  22000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  200 | riya     |  16501 | accounts   |
+|  205 | rahul    |  25000 | accounts   |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1001 | arjun    |  20000 | hr         |
+| 1002 | surya    |  25000 | hr         |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding
+152 |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
++------+----------+--------+------------+
+44 rows in set (0.00 sec)
+
+mysql> load data infile 'E:/New folder (2)/17. SQL/empdata1.txt' into table emp
+    -> fields terminated by ','
+    -> lines terminated by '\n'
+    -> ignore 1 line;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'line' at line 4
+mysql> load data infile 'E:/New folder (2)/17. SQL/empdata1.txt' into table emp
+    -> fields terminated by ','
+    -> lines terminated by '\n'
+    -> ignore 1 lines;
+Query OK, 10 rows affected (0.00 sec)
+Records: 10  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> select * from emp;
++------+----------+--------+------------+
+| eid  | empname  | empsal | empdept    |
++------+----------+--------+------------+
+|  101 | rishav   |  16500 | hr         |
+|  102 | rahul    |  27500 | hr         |
+|  103 | abhishek |  22000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  200 | riya     |  16501 | accounts   |
+|  205 | rahul    |  25000 | accounts   |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1001 | arjun    |  20000 | hr         |
+| 1002 | surya    |  25000 | hr         |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding
+152 |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
++------+----------+--------+------------+
+54 rows in set (0.00 sec)
+
+mysql> delimiter $
+mysql> select * from emp;
+    -> $
++------+----------+--------+------------+
+| eid  | empname  | empsal | empdept    |
++------+----------+--------+------------+
+|  101 | rishav   |  16500 | hr         |
+|  102 | rahul    |  27500 | hr         |
+|  103 | abhishek |  22000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  200 | riya     |  16501 | accounts   |
+|  205 | rahul    |  25000 | accounts   |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1001 | arjun    |  20000 | hr         |
+| 1002 | surya    |  25000 | hr         |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding
+152 |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
++------+----------+--------+------------+
+54 rows in set (0.00 sec)
+
+mysql> select * from $
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from emp$
++------+----------+--------+------------+
+| eid  | empname  | empsal | empdept    |
++------+----------+--------+------------+
+|  101 | rishav   |  16500 | hr         |
+|  102 | rahul    |  27500 | hr         |
+|  103 | abhishek |  22000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  200 | riya     |  16501 | accounts   |
+|  205 | rahul    |  25000 | accounts   |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1001 | arjun    |  20000 | hr         |
+| 1002 | surya    |  25000 | hr         |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding
+152 |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
++------+----------+--------+------------+
+54 rows in set (0.00 sec)
+
+mysql> select * from emp$ -- here $ is delimiter
++------+----------+--------+------------+
+| eid  | empname  | empsal | empdept    |
++------+----------+--------+------------+
+|  101 | rishav   |  16500 | hr         |
+|  102 | rahul    |  27500 | hr         |
+|  103 | abhishek |  22000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  200 | riya     |  16501 | accounts   |
+|  205 | rahul    |  25000 | accounts   |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1001 | arjun    |  20000 | hr         |
+| 1002 | surya    |  25000 | hr         |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding
+152 |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
++------+----------+--------+------------+
+54 rows in set (0.00 sec)
+
+mysql> select * froabcdm emp$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'froabcdm emp' at line 1
+mysql> select * fro/*abcd*/m emp$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fro m emp' at line 1
+mysql> select * from /* this is comment*/ emp$
++------+----------+--------+------------+
+| eid  | empname  | empsal | empdept    |
++------+----------+--------+------------+
+|  101 | rishav   |  16500 | hr         |
+|  102 | rahul    |  27500 | hr         |
+|  103 | abhishek |  22000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  200 | riya     |  16501 | accounts   |
+|  205 | rahul    |  25000 | accounts   |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1001 | arjun    |  20000 | hr         |
+| 1002 | surya    |  25000 | hr         |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding
+152 |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
+|  151 | dhoni    |  82500 | coding     |
+|  152 | pant     |  38500 | coding     |
+|  300 | ajay     |  50000 | coding     |
+|  301 | virat    |  44000 | accounts   |
+|  302 | karan    |  50000 | accounts   |
+|  502 | karan    |  30000 | hr         |
+|  503 | vijay    |  30000 | hr         |
+| 1000 | vijay    |  30000 | accounts   |
+| 1003 | arjun    |  45000 | hr         |
+| 1004 | rohit    |  60000 | hr         |
++------+----------+--------+------------+
+54 rows in set (0.00 sec)
+
+mysql> create function f1() return int
+    -> DETERMINISTIC
+    -> begin
+    -> return 10;
+    -> end
+    -> $
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'return int
+DETERMINISTIC
+begin
+return 10;
+end' at line 1
+mysql> create function() returns int
+    -> DETERMINISTIC
+    -> begin
+    -> return 10;
+    -> end
+    -> $
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '() returns int
+DETERMINISTIC
+begin
+return 10;
+end' at line 1
+mysql> create function f1() returns int
+    -> DETERMINISTIC
+    -> begin
+    -> return 10;
+    -> end
+    -> $
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> select round(22262.654845)$
++---------------------+
+| round(22262.654845) |
++---------------------+
+|               22263 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select now()$
++---------------------+
+| now()               |
++---------------------+
+| 2024-01-18 15:13:25 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select f1$
+ERROR 1054 (42S22): Unknown column 'f1' in 'field list'
+mysql> select f1();
+    -> Select f1()$
++------+
+| f1() |
++------+
+|   10 |
++------+
+1 row in set (0.01 sec)
+
++------+
+| f1() |
++------+
+|   10 |
++------+
+1 row in set (0.01 sec)
+
+mysql> select f1() as return$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'return' at line 1
+mysql> select f1() as result$
++--------+
+| result |
++--------+
+|     10 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> create function f2(a int,b int) returns int
+    -> DETERMINISTIC
+    -> begin
+    -> return a*b;
+    -> end
+    -> $
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select f2(555*4444) as result$
+ERROR 1318 (42000): Incorrect number of arguments for FUNCTION 11to1230.f2; expected 2, got 1
+mysql> select f2(555,444) as result$
++--------+
+| result |
++--------+
+| 246420 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select f2(2,36)$
++----------+
+| f2(2,36) |
++----------+
+|       72 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where eid=1004$
++------+---------+--------+---------+
+| eid  | empname | empsal | empdept |
++------+---------+--------+---------+
+| 1004 | rohit   |  60000 | hr      |
+| 1004 | rohit   |  60000 | hr      |
+| 1004 | rohit   |  60000 | hr      |
+| 1004 | rohit   |  60000 | hr      |
+| 1004 | rohit   |  60000 | hr      |
++------+---------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select empsal from emp where eid=1001$
++--------+
+| empsal |
++--------+
+|  20000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> create function f3(id int) returns float
+    -> DETERMINISTIC
+    -> begin
+    -> declare sal float;
+    -> select empsal into sal from emp where eid=id;
+    -> return sal;
+    -> end
+    -> $
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select f3(1004)$
+ERROR 1172 (42000): Result consisted of more than one row
+mysql> select f3(101)$
++---------+
+| f3(101) |
++---------+
+|   16500 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select f3(502)$
+ERROR 1172 (42000): Result consisted of more than one row
+mysql> select f3(191)$
++---------+
+| f3(191) |
++---------+
+|    NULL |
++---------+
+1 row in set (0.00 sec)
+
+mysql>
